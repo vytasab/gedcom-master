@@ -1,0 +1,1542 @@
+D925-3/vsh ==============================================================================
+Multi Language implementationsource code location:
+     GedcomDateOptions
+
+
+
+mvn clean install -Dmaven.test.skip=true
+9A15-4/vsh ==============================================================================
+http://www.utf8-chartable.de/unicode-utf8-table.pl
+UTF-8 encoding table and Unicode characters
+\u0104	Ą	c4 84	LATIN CAPITAL LETTER A WITH OGONEK
+\u0105	ą	c4 85	LATIN SMALL LETTER A WITH OGONEK
+\u010C	Č	c4 8c	LATIN CAPITAL LETTER C WITH CARON
+\u010D	č	c4 8d	LATIN SMALL LETTER C WITH CARON
+\u0118	Ę	c4 98	LATIN CAPITAL LETTER E WITH OGONEK
+\u0119	ę	c4 99	LATIN SMALL LETTER E WITH OGONEK
+\u0116	Ė	c4 96	LATIN CAPITAL LETTER E WITH DOT ABOVE
+\u0117	ė	c4 97	LATIN SMALL LETTER E WITH DOT ABOVE
+\u012E	Į	c4 ae	LATIN CAPITAL LETTER I WITH OGONEK
+\u012F	į	c4 af	LATIN SMALL LETTER I WITH OGONEK
+\u0160	Š	c5 a0	LATIN CAPITAL LETTER S WITH CARON
+\u0161	š	c5 a1	LATIN SMALL LETTER S WITH CARON
+\u0172	Ų	c5 b2	LATIN CAPITAL LETTER U WITH OGONEK
+\u0173	ų	c5 b3	LATIN SMALL LETTER U WITH OGONEK
+\u016A	Ū	c5 aa	LATIN CAPITAL LETTER U WITH MACRON
+\u016B	ū	c5 ab	LATIN SMALL LETTER U WITH MACRON
+\u017D	Ž	c5 bd	LATIN CAPITAL LETTER Z WITH CARON
+\u017E	ž	c5 be	LATIN SMALL LETTER Z WITH CARON
+
+\u25B2  ▲
+\u25BA  ►
+\u25BC  ▼
+\u25C4  ◄
+
+\u2640  ♀ Venus             http://en.wikipedia.org/wiki/Gender_symbol
+\u2642  ♂ Mars
+\u26AD    Marriage symbol   http://www.decodeunicode.org/en/u+26ad/properties
+
+Lithuanian HTML Entity Codes
+ 	Lithuanian Vowels
+Ą	&#260; capital A ogonek ("cedille")
+ą	&#261; lower A ogonek ("cedille")
+Ę	&#280; capital E ogonek ("cedille")
+ę	&#281; lower E ogonek ("cedille")
+Ė	&#278; capital E dot
+ė	&#279; lower E dot
+Į	&#302; capital I ogonek ("cedille")
+į	&#303; lower I ogonek ("cedille")
+Ų	&#370; capital U ogonek ("cedille")
+ų	&#371; lower U ogonek ("cedille")
+Ū	&#362; capital U macron
+ū	&#363; lower U macron
+ 	Lithuanian Consonants
+Č	&#268; capital C hacheck
+č	&#269; lower C hacheck
+Š	&#352; capital S hacheck
+š	&#353; lower S hacheck
+Ž	&#381; capital Z hacheck
+ž	&#382; capital Z hachek
+
+
+9C19-6/vsh ==============================================================================
+http://blogs.jetbrains.com/idea/2008/03/opening-maven-projects-is-easy-as-pie/
+    the comments contain useful info about Maven project single source (Java, Scala) file
+    compilation process
+
+
+AB29-1/vsh ==============================================================================
+
+ // Mapper case
+ CREATE TABLE `users` (
+   ==             `id` bigint(20) unsigned NOT NULL auto_increment,
+   firstName      `firstname` varchar(32) default NULL,
+   lastName       `lastname` varchar(32) default NULL,
+   EMAIL_ADDRESS  `email` varchar(48) default NULL,
+   ==             `locale` varchar(16) default NULL,
+   ==             `timezone` varchar(32) default NULL,
+   PASSWORD_HASH  `password_pw` varchar(48) default NULL,
+   PASSWORD_SALT  `password_slt` varchar(20) default NULL,
+                  `textarea` text,
+   ==             `superuser` tinyint(1) default NULL,
+   ==             `uniqueid` varchar(32) default NULL,
+   ==             `validated` tinyint(1) default NULL,
+   PRIMARY KEY  (`id`),
+   UNIQUE KEY `id` (`id`),
+   KEY `users_email` (`email`),
+   KEY `users_uniqueid` (`uniqueid`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+// JPA case
+CREATE TABLE `users` (
+  id              `id` bigint(20) NOT NULL auto_increment,
+  email           `EMAIL_ADDRESS` varchar(255) collate utf8_lithuanian_ci NOT NULL default '',
+   ? not_in_use   `IS_ACTIVE` tinyint(1) default NULL,
+               ---`IS_ADMINISTRATOR` tinyint(1) default NULL,--------- deleted
+  password_pw     `PASSWORD_HASH` varchar(255) collate utf8_lithuanian_ci default NULL,
+  password_slt    `PASSWORD_SALT` varchar(255) collate utf8_lithuanian_ci default NULL,
+                  `VALIDATION_CODE` varchar(255) collate utf8_lithuanian_ci default NULL,
+                  `VALIDATION_EXPIRY` bigint(20) default NULL,
+  firstname       `firstName` varchar(255) collate utf8_lithuanian_ci default NULL,
+  lastname        `lastName` varchar(255) collate utf8_lithuanian_ci default NULL,
+  ==              `locale` varchar(255) collate utf8_lithuanian_ci default NULL,
+  ==              `timezone` varchar(255) collate utf8_lithuanian_ci default NULL,
+  ==              `superuser` tinyint(1) default NULL,
+  ==              `uniqueid` varchar(32) default NULL,
+  ==              `validated` tinyint(1) default NULL,
+     +            `birthDate` date default NULL,
+     +            `createdOn` date default NULL,
+     +            `updatedOn` date default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `EMAIL_ADDRESS` (`EMAIL_ADDRESS`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci
+
+
+AC02-4/vsh ==============================================================================
+    Bandau padaryti Person{INDI] Family[FAM] Ralational DB table'us per JPA anotacijas.
+    Deja tai gali būti per sudėtinga realizuoti dėl komplikuoto m:m ryšio tarp Person ir Family, nes
+    Scala dar nepalaiko nested annotations
+
+    Lift google group: "More JPA in Lift: many-to-many?"
+    http://tadtech.blogspot.com/2007/09/hibernate-association-mappings-in.html
+    http://boris.kirzner.info/blog/archives/2008/07/19/hibernate-annotations-the-many-to-many-association-with-composite-key/
+        look at Yves comments
+
+
+B118-2/vsh ==============================================================================
+   Pakeista DB schema, todėl reikėjo vykdyti:
+update family set countOfChildren=0;
+update personevent set adoptedBy="", familyIdId=0;
+
+
+B201-2/vsh ==============================================================================
+    http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance
+
+B206-7/vsh ==============================================================================
+    DB backup via SQLyog:
+        - Tools --> Backup DB as SQL Dump -->
+            - Export as SQL: Structure and data
+            - DB name: datasource-gedcom
+            - Export to file: C:\Scala\DB_backups\{YMdd}_datasource-gedcom.sql
+            - Objects: [v] Tables
+            - Options having effect on source:  [ ], [ ], [*]
+            - Options written to file: [v], [v], ..., [v]
+        - Export ==> Exported successfully ==> Done
+
+B209-3/vsh ==============================================================================
+v invalid.user.authent                   S.warning("User authentication is invalid")
+v invalid.user.email                     S.warning("No user for such email is DB")
+v success.user.create                    S.notice("You have successfully finished your user account creation.")
+v -----------                            S.warning("That validation code has expired.")
+v -----------         case x: NoResultException => S.error("Unable to find your email address.")
+v -----------         case _ => S.error("A problem was encountered.")
+v -----------         S.error("The password you entered is invalid.")
+v -----------         S.error("That validation code has expired.")
+
+
+
+
+
+B218-5/vsh ==============================================================================
+    Užsiožiavo Tomcat paleidimas per Apache Tomcat panelę, nežinau kodėl,
+todel jį atnaujinau 6.0.20 --> 7.0.8.
+    Nepavyksta JRebel configuruoti:
+
+Tomcat-6.0.20 config:
+
+-Xverify:none
+-javaagent:C:\Java\JRebel\jrebel.jar
+-Drebel.log4j-plugin=true
+-Dcatalina.base=c:\Tomcat
+-Dcatalina.home=c:\Tomcat
+-Djava.endorsed.dirs=c:\Tomcat\endorsed
+-Djava.io.tmpdir=c:\Tomcat\temp
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+-Djava.util.logging.config.file=c:\Tomcat\conf\logging.properties
+
+Tomcat-7.0.8 orig config:
+
+-Dcatalina.home=C:\Tomcat
+-Dcatalina.base=C:\Tomcat
+-Djava.endorsed.dirs=C:\Tomcat\endorsed
+-Djava.io.tmpdir=C:\Tomcat\temp
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+-Djava.util.logging.config.file=C:\Tomcat\conf\logging.properties
+
+
+B227-7/vsh ==============================================================================
+
+TODO Cannot store credentials: forbidden by "store-auth-creds=no"
+
+
+B309-3/vsh ==============================================================================
+
+http://www.decodeunicode.org/en/u+26ad/U+221E    // family relatad signs
+    U+26AD MARRIAGE SYMBOL
+
+
+B320-7/vsh ==============================================================================
+    Padariau DB laukų pakeitimus:
+    - SQLYog'u padariau "Backup DB as SQL Dump"
+    - modifikavau db table scala source'e laukų ilgius
+    - sukompiliavau pakeitimus
+    - SQLYog'u "Empty Database"
+    - stop Tomcat
+    - start Tomcat
+    - sukūriau vieną User, jį validavau, sukūriau viena Person,
+    - SQLYog'u padariau "Backup DB as SQL Dump" kaip "naujas-templatre"
+    - padariau "B206_datasource-gedcom.sql" ReadOnly kopiją "B206_datasource-gedcom_orig_readonly.sql"
+    - Naudodamasis "Beyond Compare 2" padariau pakeitimus "naujas-templatre" -> "B206_datasource-gedcom.sql"
+    - SQLYog'u užkroviau "B206_datasource-gedcom.sql"
+    Panašu, kad gerai
+
+
+B414-4/vsh ==============================================================================
+    Aplikacijos 'gedcom-web' kėlimas į StaxNetworks.
+    	Perskaityti ir padaryti:  https://www.stax.net --> Docs  --> Lift Web Framework --> Maven Guide
+    	                          http://wiki.stax.net ------------>
+    	Sukurti naują db Stax'e pagal
+    	    c:\Scala\intellij_scala_workspace\gedcom\gedcom-spa\src\main\resources\filters\stax.properties.
+        Užregistruoti sukurtą db kaip resursą projekto 'gedcom-web' failuose:
+        	    WEB-INF/stax-web.xml (or META-INF/stax-application.xml)
+        	    WEB-INF/web.xml
+        Padaryti gedcom-spa kontekste:
+                mvn clean install -Pspa_stax -Dmaven.test.skip=true
+        Padaryti gedcom-web kontekste:
+                mvn clean stax:run -Dmaven.test.skip=true  ==> turi startuoti lokaliai
+        Padaryti gedcom-web kontekste:
+                mvn clean stax:deploy -Dmaven.test.skip=true  ==> turi startuoti Stax'e
+        --------------------
+... ... ...
+[INFO] [stax:deploy {execution: default-cli}]
+Enter your Stax Username: vytastax
+Enter your Stax Password: ipvvmku
+Deploying application vytastax/gedcom-web (environment: )
+API call: http://api.stax.net/api/application.deployArchive
+........................uploaded 25%
+........................uploaded 50%
+........................uploaded 75%
+........................upload completed
+deploying application to server(s)...
+Apr 15, 2011 12:41:22 AM org.apache.commons.httpclient.HttpMethodBase getResponseBody
+WARNING: Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+Apr 15, 2011 12:41:22 AM net.stax.api.StaxClientBase executeUpload
+INFO: upload complete, response=<?xml version="1.0" encoding="UTF-8"?>
+<ApplicationDeployArchiveResponse>
+  <id>vytastax/gedcom-web</id>
+  <url>http://gedcom-web.vytastax.staxapps.net</url>
+</ApplicationDeployArchiveResponse>
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 14 minutes 19 seconds
+[INFO] Finished at: Fri Apr 15 00:41:22 EEST 2011
+[INFO] Final Memory: 41M/79M
+[INFO] ------------------------------------------------------------------------
+    --------------------
+
+    Sukurti SqlYog'e stax_datasource-gedcom
+
+    Sukurti SqlYog'e shaknisgedcom@ec2-75-101-156-134.compute-1.amazonaws.com.
+        suteikti global privileges - visas be CreateTemporaryTables, Execute LockTables
+            ReplicationClient ReplicationSlave ShowDatabases Super
+        suteikti datasource-gedcom privileges - visas be CreateTemporaryTables, LockTables
+
+B417-7/vsh ==============================================================================
+C:\Scala\intellij_scala_workspace\gedcom\gedcom-web>mvn -Pspa_padargas,padargas -Dmaven.test.skip=true clean process-resources
+[INFO] Scanning for projects...
+[WARNING]
+        Profile with id: 'spa_padargas' has not been activated.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building gedcom Web
+[INFO]    task-segment: [clean, process-resources]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] Deleting directory C:\Scala\intellij_scala_workspace\gedcom\gedcom-web\target
+[INFO] [native2ascii:native2ascii {execution: default}]
+[INFO] [resources:resources {execution: default-resources}]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources to props
+[INFO] Copying 18 resources
+[INFO] Copying 23 resources
+[INFO] [resources:copy-resources {execution: default-copy-resources}]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] [javarebel:generate {execution: generate-rebel-xml}]
+[INFO] Processing lt.node.gedcom:gedcom-web with packaging war
+[INFO] [yuicompressor:compress {execution: default}]
+[INFO] default.props (0b) -> default.props (0b)[100%]
+[INFO] padargas.props (0b) -> padargas.props (0b)[100%]
+[INFO] lift_chef.properties (0b) -> lift_chef.properties (0b)[100%]
+[INFO] lift_lt.properties (0b) -> lift_lt.properties (0b)[100%]
+[INFO] text.properties (0b) -> text.properties (0b)[100%]
+[INFO] text_lt.properties (0b) -> text_lt.properties (0b)[100%]
+[INFO] arrows-ffffff.png (0b) -> arrows-ffffff.png (0b)[100%]
+[INFO] shadow.png (0b) -> shadow.png (0b)[100%]
+[INFO] jquery.bgiframe.js (1028b) -> jquery.bgiframe.js (1028b)[100%]
+[WARNING] ...\target\classes\toserve\menu\jquery.hoverIntent.js:line -1:column -1:Try to use a single 'var' statement per scope.
+... ... ...
+------------------------------------------------------
+C:\Scala\intellij_scala_workspace\gedcom\gedcom-web>mvn -Pspa_padargas,padargas -Dmaven.test.skip=true clean resources:resources
+[INFO] Scanning for projects...
+[WARNING]
+        Profile with id: 'spa_padargas' has not been activated.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building gedcom Web
+[INFO]    task-segment: [clean, resources:resources]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] Deleting directory C:\Scala\intellij_scala_workspace\gedcom\gedcom-web\target
+[INFO] [resources:resources {execution: default-cli}]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources to props
+[INFO] Copying 18 resources
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10 seconds
+[INFO] Finished at: Sun Apr 17 17:04:19 EEST 2011
+[INFO] Final Memory: 14M/27M
+[INFO] ------------------------------------------------------------------------
+C:\Scala\intellij_scala_workspace\gedcom\gedcom-web>
+
+
+B421-4/vsh ==============================================================================
+      System path piece:
+      C:\Program Files\liftweb-1.0.1\bin;
+      C:\Program Files\liftweb-1.0.1/apache-maven/bin;
+
+B509-1/vsh ==============================================================================
+    Common rule: skip empty fields everywhere always
+
+    The Audit table record formats:
+      action - add
+        PersonAttrib:
+            <_><f n="tag">NATI</f><f n="tagValue"><lt>marsietis</lt></f><f n="personattrib_id">32</f></_>
+        Eventdetail:
+            <_><f n="descriptor"><lt></lt></f><f n="dateValue">ABT 2011 03 31</f><f n="place"><lt></lt></f>
+                <f n="ageAtEvent"><lt></lt></f><f n="source"><lt>taip sugalvojau</lt></f><f n="personevent_id">0</f>
+                <f n="personattrib_id">2</f><f n="familyevent_id">0</f></_>
+
+      action - upd
+        Eventdetail:
+        // update existing fields
+            <_><f n="descriptor"><new><lt>Neteko darbo</lt></new><old><lt>Neteko darbo per krizę</lt></old></f>
+            <f n="dateValue"><new>BET 2000 AND 2011</new><old>BET 1999 AND 2011</old></f></_>
+        // extend existing MLT field
+            <_><f n="descriptor"><new><en>He has become jobless</en></new></f></_>
+
+      action - del
+        Eventdetail:
+            <_><f n="descriptor"><lt>Neteko darbo</lt><en>He has become jobless</en></f>
+                <f n="dateValue">ABT 2011 03 31</f><f n="place"><lt></lt></f>
+                <f n="ageAtEvent"><lt></lt></f><f n="source"><lt>taip sugalvojau</lt></f><f n="personevent_id">0</f>
+                <f n="personattrib_id">2</f><f n="familyevent_id">0</f></_>
+
+
+
+BA21-5/vsh ==============================================================================
+    New forest drawing logic
+
+BB14-1/vsh ==============================================================================
+    www.stax.net --> www.cloudbees.com
+        vsh@node.lt / alexotas
+
+bc05-1/vsh ==============================================================================
+    How to build application:
+    C:\Scala\intellij_scala_workspace\gedcom\
+        gedcom-spa>mvn -Pspa_padargas,padargas -Dmaven.test.skip=true clean install
+        gedcom-web>mvn -Pspa_padargas,padargas -Dmaven.test.skip=true clean resources:resources install
+
+
+bc14-3/vsh ==============================================================================
+    XSLT document function use samples:
+        http://www.ibm.com/developerworks/xml/library/x-tipcombxslt/
+        http://www.learn-xslt-tutorial.com/Multiple-Documents.cfm
+
+c111-3/vsh ==============================================================================
+    SCM migration: SVN --> Git
+    gedcom project: SVN --> Git move
+    
+export HEAD version from svn+ssh://sodas.node.lt/srv/svn/scala/trunk/gedcom 
+    to c:/Scala/gedcom
+
+cd c:/Scala/gedcom
+
+C:\Scala\gedcom>git init
+    --> Initialized empty Git repository in C:/Scala/gedcom/.git/
+    
+C:\Scala\gedcom>git add .
+    --> ... lots of messages
+
+C:\Scala\gedcom>git commit -m "my first commit"
+[master (root-commit) 6a6f393] my first commit
+ Committer: unknown <padargas@.node.lt>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+After doing this, you may fix the identity used for this commit with:
+    git commit --amend --reset-author
+    
+C:\Scala\gedcom>git config --global user.name "vsh"
+
+C:\Scala\gedcom>git config --global user.email vytasab@gmail.com
+
+C:\Scala\gedcom>git commit --amend --reset-author -m "amend reset author"
+ 
+
+c112-3/vsh ==============================================================================
+    Project build actions:
+
+    .../gedcom> mvn clean install -Pspa_padargas  -Dmaven.test.skip=true
+
+
+c116-1/vsh ==============================================================================
+
+Global setup:
+ Set up git
+  git config --global user.name "vshgit"
+  git config --global user.email vytasab@gmail.com
+
+Next steps:
+  mkdir gedcom
+  cd gedcom
+  git init
+  touch README
+  git add README
+  git commit -m 'first commit'
+  git remote add origin git@github.com:vytasab/gedcom.git
+  git push -u origin master
+
+Existing Git Repo?
+  cd existing_git_repo
+  git remote add origin git@github.com:vytasab/gedcom.git
+  git push -u origin master
+
+Importing a Subversion Repo?
+  Click here
+
+When you're done:
+  Continue
+
+c117-2/vsh ==============================================================================
+
+ Microsoft Windows XP [Version 5.1.2600]
+ (C) Copyright 1985-2001 Microsoft Corp.
+
+ c:\Scala\gedcom>git remote add origin git@github.com:vytasab/gedcom.git
+
+ c:\Scala\gedcom>git push -u origin master
+ Enter passphrase for key '/c/Documents and Settings/padargas/.ssh/id_rsa': r...a
+ Counting objects: 320, done.
+ Delta compression using up to 2 threads.
+ Compressing objects: 100% (289/289), done.
+ Writing objects: 100% (320/320), 467.78 KiB, done.
+ Total 320 (delta 86), reused 0 (delta 0)
+ To git@github.com:vytasab/gedcom.git
+  * [new branch]      master -> master
+ Branch master set up to track remote branch master from origin.
+ c:\Scala\gedcom>
+
+
+ Pushing changes to a public repository:
+
+ c:\Scala\gedcom>git push git@github.com:vytasab/gedcom.git master
+ Enter passphrase for key '/c/Documents and Settings/padargas/.ssh/id_rsa': r...a
+ Counting objects: 76, done.
+ Delta compression using up to 2 threads.
+ Compressing objects: 100% (34/34), done.
+ Writing objects: 100% (43/43), 6.91 KiB, done.
+ Total 43 (delta 20), reused 0 (delta 0)
+ To git@github.com:vytasab/gedcom.git
+    ecf0bff..ebb2ed0  master -> master
+ c:\Scala\gedcom>
+
+
+C525-5/vsh ==============================================================================
+ http://www.regular-expressions.info/regexbuddy/dateyyyymmdd.html
+    Matching a Date in yyyy-mm-dd Format
+    ^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$
+
+ http://regexlib.com/REDetails.aspx?regexp_id=405
+    dd MMM yyyy Date
+    ^((31(?!\ (Feb(ruary)?|Apr(il)?|June?|(Sep(?=\b|t)t?|Nov)(ember)?)))|((30|29)(?!\ Feb(ruary)?))|(29(?=\ Feb(ruary)?\ (((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))|(0?[1-9])|1\d|2[0-8])\ (Jan(uary)?|Feb(ruary)?|Ma(r(ch)?|y)|Apr(il)?|Ju((ly?)|(ne?))|Aug(ust)?|Oct(ober)?|(Sep(?=\b|t)t?|Nov|Dec)(ember)?)\ ((1[6-9]|[2-9]\d)\d{2})$
+
+
+
+C731-2/vsh ==============================================================================
+Maven use problems for gedcom-web POM
+ [ERROR] Failed to execute goal on project gedcom-web:
+ Could not resolve dependencies for project lt.node.gedcom:gedcom-web:war:1.0-SNAPSHOT:
+ Failed to collect dependencies for [
+  org.scala-lang:scala-library:jar:2.9.1 (compile),
+  org.scala-lang:scala-compiler:jar:2.9.1 (test),
+  org.scala-libs:scalajpa:jar:[1.2-SNAPSHOT,) (compile),
+  org.scala-tools.testing:specs_2.8.1:jar:1.6.7 (test),
+  net.liftweb:lift-common_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-util_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-webkit_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-mapper_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-jpa_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-widgets_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-textile_2.9.1:jar:2.4 (compile),
+  net.liftweb:lift-wizard_2.9.1:jar:2.4 (compile),
+  org.apache.derby:derby:jar:10.4.2.0 (compile),
+  mysql:mysql-connector-java:jar:5.0.8 (compile),
+  javax.transaction:jta:jar:1.0.1B (compile),
+  geronimo-spec:geronimo-spec-jta:jar:1.0.1B-rc4 (runtime),
+  javax.servlet:servlet-api:jar:2.5 (provided), junit:junit:jar:4.7 (test),
+  org.mortbay.jetty:jetty:jar:6.1.25 (test),
+  org.zeroturnaround:jrebel-maven-plugin:jar:1.1.3 (compile),
+  log4j:log4j:jar:[1.2.13,) (runtime), org.slf4j:slf4j-api:jar:1.6.1 (compile),
+  org.slf4j:slf4j-log4j12:jar:1.5.10 (compile),
+  ch.qos.logback:logback-classic:jar:0.9.26 (compile),
+  lt.node.gedcom:gedcom-spa:jar:1.0-SNAPSHOT (compile),
+  org.dbunit:dbunit:jar:2.2 (test),
+  javax.persistence:persistence-api:jar:1.0 (compile),
+  org.hibernate:hibernate-entitymanager:jar:3.4.0.GA (compile)
+  ]:
+  No versions available for
+  org.scala-libs:scalajpa:jar:[1.2-SNAPSHOT,) within specified range -> [Help 1]
+
+
+C812-7/vsh ==============================================================================
+JPA logging problem:
+        http://stackoverflow.com/questions/4861110/hibernate-seam-hibernate-show-sql-setting
+        http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/session-configuration.html#configuration-logging
+        C814-2 pagaliau išsprendė log'inimo valdymo problemą -->
+            https://groups.google.com/forum/#!msg/liftweb/fvayO0t8t4o/u4cNVO_4y8MJ%5B1-25%5D    <--
+
+
+CC20-4/vsh ==============================================================================
+    Apache Tomcat 7 Properties:  JRebel sako: YOU DO NOT HAVE A VALID JREBEL LICENSE!
+    -Dcatalina.base=c:\Tomcat
+    -Dcatalina.home=c:\Tomcat
+    -Djava.endorsed.dirs=c:\Tomcat\endorsed
+    -Djava.io.tmpdir=c:\Tomcat\temp
+    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+    -Djava.util.logging.config.file=c:\Tomcat\conf\logging.properties
+    -Drebel.log4j-plugin=true
+    -Drebel.log=true
+    -Xverify:none
+    -javaagent:C:\Documents and Settings\vsh\.IdeaIC11\config\plugins\jr-ide-idea\lib\jrebel\jrebel.jar
+
+
+D110-4/vsh ==============================================================================
+Pagaliau pavyko sutvarkyti JRebal naudojimo licenziją metams į priekį.
+
+1) DON'T create any jrebel.lic!! myJRebel licensing does NOT use license files, infact,
+   if license files are present, it can prevent myjrebel licensing from taking effect!
+Please also remove those files if you have them:
+C:\Documents and Settings\vsh\.IdeaIC11\config\plugins\jr-ide-idea\lib\jrebel\jrebel.lic
+C:\Documents and Settings\vsh\.IdeaIC11\config\plugins\jr-ide-idea\lib\jrebel\javarebel.lic
+   ==> ištryniau
+2) Configuration wizard will show you success when it was able to store the values with Java Preferences API,
+   to your CURRENT user. These values are NOT global!! So this success-message is also not global => if you execute your tomcat under a different user, it would not find those values!
+Btw, what is your *normal* username when you are using windows? not "SYSTEM", is assume..?
+   ==> čia buvo mano klaida
+
+I think you have 2 options here:
+a) run tomcat also from your normal windows user (verification: in your jrebel log, we should see "user.name=..tau...", and not "user.name=SYSTEM" as it currently is.
+ There was my error - Tomcat service was started under "Local System account", ie SYSTEM, not my account.
+b) run config-wizard under system.. this is what my colleague previously suggested.. i'm not sure if you succeeded in testing that (did you verify that jr-config JVM started under SYSTEM user for sure?).
+
+Sorry about the inconvenience!
+
+
+D317-7/vsh ==============================================================================
+Nexus'o MySql config'ą taisiau, kad lietuviškas raides teisingai rodytų
+        http://cameronyule.com/2008/07/configuring-mysql-to-use-utf-8/
+c:\Program Files\MySQL\MySQL Server 5.5\my.ini:
+...
+[client]
+port=3306
+# D317-7/vsh []... ... ... ... ...
+# default-character-set=latin1
+default-character-set=utf8
+# D317-7/vsh ... ... ... ... ...[]
+...
+...
+# D317-7/vsh []... ... ... ... ...
+# character-set-server=latin1
+character-set-server=utf8
+# default-character-set=utf8
+# default-collation=utf8_general_ci
+collation-server=utf8_general_ci
+init-connect='SET NAMES utf8'
+# D317-7/vsh ... ... ... ... ...[]
+...
+...
+
+C:\Documents and Settings\vsh>mysql --user=shaknisgedcom --password=123123
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 5.5.28 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2012, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+==========> BEFORE CHANGE
+mysql> SHOW VARIABLES LIKE 'collation%';
++----------------------+-------------------+
+| Variable_name        | Value             |
++----------------------+-------------------+
+| collation_connection | latin1_swedish_ci |
+| collation_database   | latin1_swedish_ci |
+| collation_server     | latin1_swedish_ci |
++----------------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SHOW VARIABLES LIKE 'character_set%';
++--------------------------+---------------------------------------------------------+
+| Variable_name            | Value                                                   |
++--------------------------+---------------------------------------------------------+
+| character_set_client     | latin1                                                  |
+| character_set_connection | latin1                                                  |
+| character_set_database   | latin1                                                  |
+| character_set_filesystem | binary                                                  |
+| character_set_results    | latin1                                                  |
+| character_set_server     | latin1                                                  |
+| character_set_system     | utf8                                                    |
+| character_sets_dir       | c:\Program Files\MySQL\MySQL Server 5.5\share\charsets\ |
++--------------------------+---------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+==========> AFTER CHANGE
+
++----------------------+-----------------+
+| Variable_name        | Value           |
++----------------------+-----------------+
+| collation_connection | utf8_general_ci |
+| collation_database   | utf8_general_ci |
+| collation_server     | utf8_general_ci |
++----------------------+-----------------+
+3 rows in set (0.20 sec)
+
+mysql> SHOW VARIABLES LIKE 'character_set%';
++--------------------------+---------------------------------------------------------+
+| Variable_name            | Value                                                   |
++--------------------------+---------------------------------------------------------+
+| character_set_client     | utf8                                                    |
+| character_set_connection | utf8                                                    |
+| character_set_database   | utf8                                                    |
+| character_set_filesystem | binary                                                  |
+| character_set_results    | utf8                                                    |
+| character_set_server     | utf8                                                    |
+| character_set_system     | utf8                                                    |
+| character_sets_dir       | c:\Program Files\MySQL\MySQL Server 5.5\share\charsets\ |
++--------------------------+---------------------------------------------------------+
+8 rows in set (0.00 sec)
+
+mysql>
+
+
+D405-5/vsh ==============================================================================
+        I18N related locations in source code:
+GedcomDate.i18nizeGedcomDate:  gedcom date format transformation to specified locale
+
+
+D612-3/vsh ==============================================================================
+        Email siuntimas iš gedcom-web'o
+Paėmiau  InstallCert.java iš
+    http://www.cs.ucsb.edu/~pconrad/cs56/examples/ldap/SimpleQuery/InstallCert.java
+    į c:\Program Files\Java\InstallCert\java\
+
+Sukompiliavau source'ą ten pat.
+
+Tolesnius veiksmus vykdžiau pagal // http://felipeferreira.net/?p=974:
+    -----------
+C:\Program Files\Java\InstallCert\java>java InstallCert www.experianmarketing.com.br
+Loading KeyStore c:\Program Files\Java\jre7\lib\security\cacerts...
+Opening connection to www.experianmarketing.com.br:443...
+Starting SSL handshake...
+
+javax.net.ssl.SSLException: java.lang.UnsupportedOperationException
+        at sun.security.ssl.Alerts.getSSLException(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.fatal(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.fatal(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.handleException(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.startHandshake(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.startHandshake(Unknown Source)
+        at InstallCert.main(InstallCert.java:91)
+Caused by: java.lang.UnsupportedOperationException
+        at InstallCert$SavingTrustManager.getAcceptedIssuers(InstallCert.java:17
+5)
+        at sun.security.ssl.AbstractTrustManagerWrapper.checkAlgorithmConstraint
+s(Unknown Source)
+        at sun.security.ssl.AbstractTrustManagerWrapper.checkAdditionalTrust(Unk
+nown Source)
+        at sun.security.ssl.AbstractTrustManagerWrapper.checkServerTrusted(Unkno
+wn Source)
+        at sun.security.ssl.ClientHandshaker.serverCertificate(Unknown Source)
+        at sun.security.ssl.ClientHandshaker.processMessage(Unknown Source)
+        at sun.security.ssl.Handshaker.processLoop(Unknown Source)
+        at sun.security.ssl.Handshaker.process_record(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.readRecord(Unknown Source)
+        at sun.security.ssl.SSLSocketImpl.performInitialHandshake(Unknown Source
+)
+        ... 3 more
+
+Server sent 3 certificate(s):
+
+ 1 Subject CN=www.experianmarketing.com.br, OU=Serasa S.A., O=Serasa S.A., L=Sao
+ Paulo, ST=SP, C=BR
+   Issuer  CN=SerasaACGlobal, OU=Serasa Autoridade Certificadora Global, O=Seras
+a, C=BR
+   sha1    2c 21 f4 f3 03 7a 00 65 b0 a9 6c 83 dd d6 8c 06 8d 1d dd ca
+   md5     6c 60 7e 3c 6f 98 dd 59 4a 92 9e b2 42 72 07 3b
+
+ 2 Subject CN=SerasaACGlobal, OU=Serasa Autoridade Certificadora Global, O=Seras
+a, C=BR
+   Issuer  C=BE, O=GlobalSign nv-sa, OU=RootSign Partners CA, CN=GlobalSign Root
+Sign Partners CA
+   sha1    73 67 74 c2 ed 1d e0 31 a3 cf f8 1d d5 bb 26 4f cd d1 08 6e
+   md5     f7 36 92 e4 b0 23 cb 5c f2 fd ed fb 26 3c 49 74
+
+ 3 Subject C=BE, O=GlobalSign nv-sa, OU=RootSign Partners CA, CN=GlobalSign Root
+Sign Partners CA
+   Issuer  CN=GlobalSign Root CA, OU=Root CA, O=GlobalSign nv-sa, C=BE
+   sha1    c0 3c dc 3f c0 03 c3 08 75 25 bc 00 64 50 8b 2d d5 7d 74 bb
+   md5     30 95 30 54 4f 55 bf a4 21 a4 b4 70 c0 14 e2 aa
+
+Enter certificate to add to trusted keystore or 'q' to quit: [1]
+
+[
+[
+  Version: V3
+  Subject: CN=www.experianmarketing.com.br, OU=Serasa S.A., O=Serasa S.A., L=Sao
+ Paulo, ST=SP, C=BR
+  Signature Algorithm: SHA1withRSA, OID = 1.2.840.113549.1.1.5
+
+  Key:  Sun RSA public key, 1024 bits
+  modulus: 101290620165199054944563044380689095117861928131406817067546090770649
+79396707473391346350980065644310960221001256711028709843580378738069473336899417
+27498871183323382149301465957996766522900227541203258068347743618186130858671539
+26904741434774386176792920775252572549627104931249255450192040524796930452819757
+
+  public exponent: 65537
+  Validity: [From: Sat Jan 15 00:40:00 EET 2011,
+               To: Tue Jan 14 00:40:00 EET 2014]
+  Issuer: CN=SerasaACGlobal, OU=Serasa Autoridade Certificadora Global, O=Serasa
+, C=BR
+  SerialNumber: [    49aae23b 278dca87]
+
+Certificate Extensions: 5
+[1]: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 22 29 F4 D5 E8 15 5B B2   5E 67 EA 30 A7 F5 71 41  ")....[.^g.0..qA
+0010: 2D 8C 2F 69                                        -./i
+]
+]
+
+[2]: ObjectId: 2.5.29.31 Criticality=false
+CRLDistributionPoints [
+  [DistributionPoint:
+     [URIName: http://www.certificadodigital.com.br/repositorioglobal/lcr/Serasa
+ACGlobal2008.crl]
+]]
+
+[3]: ObjectId: 2.5.29.32 Criticality=false
+CertificatePolicies [
+  [CertificatePolicyId: [0.0]
+[PolicyQualifierInfo: [
+  qualifierID: 1.3.6.1.5.5.7.2.1
+  qualifier: 0000: 16 4A 68 74 74 70 3A 2F   2F 77 77 77 2E 63 65 72  .Jhttp://w
+ww.cer
+0010: 74 69 66 69 63 61 64 6F   64 69 67 69 74 61 6C 2E  tificadodigital.
+0020: 63 6F 6D 2E 62 72 2F 72   65 70 6F 73 69 74 6F 72  com.br/repositor
+0030: 69 6F 2F 70 63 2F 50 43   5F 53 45 52 41 53 41 5F  io/pc/PC_SERASA_
+0040: 41 43 47 6C 6F 62 61 6C   2E 70 64 66              ACGlobal.pdf
+
+]]  ]
+]
+
+[4]: ObjectId: 2.5.29.37 Criticality=false
+ExtendedKeyUsages [
+  serverAuth
+]
+
+[5]: ObjectId: 2.5.29.15 Criticality=true
+KeyUsage [
+  DigitalSignature
+  Non_repudiation
+  Key_Encipherment
+]
+
+]
+  Algorithm: [SHA1withRSA]
+  Signature:
+0000: 2D 53 D3 80 A8 A9 59 49   F2 E0 C4 FF C7 58 D1 3E  -S....YI.....X.>
+0010: E6 7B 1F 87 EE 34 69 01   35 A1 06 98 99 C1 72 1F  .....4i.5.....r.
+0020: 2D EC D7 B8 20 9B 54 5E   BC BE A8 71 28 D6 31 DD  -... .T^...q(.1.
+0030: 22 E7 23 52 E0 74 CD 91   78 2A D7 B9 60 34 0F E2  ".#R.t..x*..`4..
+0040: 78 BB 48 0D B4 AE 37 A3   11 50 17 1E D8 BD B3 F9  x.H...7..P......
+0050: 0E B8 77 65 02 D1 B2 F6   4F 54 9F 3E EA ED 14 41  ..we....OT.>...A
+0060: 60 27 F8 2D D3 4A 76 DA   CB FE 35 C5 35 B6 4F 4E  `'.-.Jv...5.5.ON
+0070: 35 0B 69 72 D7 F9 50 6D   99 80 FF 75 C3 49 41 0B  5.ir..Pm...u.IA.
+0080: BE 8E AE C1 1A 04 CA 58   49 72 C9 8E E4 E1 7F 89  .......XIr......
+0090: 3B 3B 0C 83 25 BB 2A D8   45 ED 97 26 59 B0 D8 FD  ;;..%.*.E..&Y...
+00A0: 9D E2 36 C1 AE A4 EC C5   0C DC 6E BA FC 69 53 E9  ..6.......n..iS.
+00B0: F9 C6 72 5E 69 1F C6 A3   65 4F F4 8A AD 03 A9 BD  ..r^i...eO......
+00C0: 20 80 35 B9 04 9E B3 0C   C9 E2 49 5E 7A AE 4F ED   .5.......I^z.O.
+00D0: CC 91 74 1D E3 0C 94 F2   29 16 A5 EF 27 71 DA 06  ..t.....)...'q..
+00E0: DC E3 7B 58 B7 AA DD 09   1E C5 D0 BE 88 BF 49 8B  ...X..........I.
+00F0: 6C DF 74 40 04 E2 33 7A   67 CF 33 20 34 8D A7 8C  l.t@..3zg.3 4...
+
+]
+
+Added certificate to keystore 'jssecacerts' using alias 'www.experianmarketing.c
+om.br-1'
+C:\Program Files\Java\InstallCert\java>
+    -----------
+--> buvo sukutras failas       C:\Program Files\Java\InstallCert\java/jssecacerts
+
+Nukopijavau: C:\Program Files\Java\InstallCert\java/jssecacerts  -> %JAVA_HOME%\\lib\security\
+
+Kitas esminis atradimas buvo
+    http://stackoverflow.com/questions/16632334/could-not-convert-socket-to-tls
+pastaba apie
+   props.put("mail.smtp.ssl.trust", "smtpserver");
+   pakeisti į
+   props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+   Boot.scala configureMailer() metode
+
+PANAŠU, kad viskas koncentruočiau paaiškinta:  http://miteff.com/install-cert
+Šiek tiek apie SMTP EHLO:  http://cr.yp.to/smtp/ehlo.html
+
+DB07-4/vsh ==============================================================================
+    Development mode:
+    Apache Tomcat 7,8 Properties -> Java -> Java Options:
+        -Xverify:none
+        -Dcatalina.base=c:\Tomcat
+        -Dcatalina.home=c:\Tomcat
+        -Djava.endorsed.dirs=c:\Tomcat\endorsed
+        -Djava.io.tmpdir=c:\Tomcat\temp
+        -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+        -Djava.util.logging.config.file=c:\Tomcat\conf\logging.properties
+
+-Drun.mode=development
+-Drebel.log4j-plugin=true
+-Drebel.log=true
+-javaagent:C:\Documents and Settings\vsh\.IdeaIC13\config\plugins\jr-ide-idea\lib\jrebel\jrebel.jar
+
+    Production mode:
+    Apache Tomcat 7,8 Properties -> Java -> Java Options:
+        -Xverify:none
+        -Dcatalina.base=c:\Tomcat
+        -Dcatalina.home=c:\Tomcat
+        -Djava.endorsed.dirs=c:\Tomcat\endorsed
+        -Djava.io.tmpdir=c:\Tomcat\temp
+        -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+        -Djava.util.logging.config.file=c:\Tomcat\conf\logging.properties
+
+-Drun.mode=production
+-Drebel.log4j-plugin=false
+-Drebel.log=false
+
+
+DB12-2/vsh ==============================================================================
+
+http --> https :   http://tomcat.apache.org/tomcat-7.0-doc/ssl-howto.html
+!!! http://stackoverflow.com/questions/14606837/cannot-recover-key?rq=1 ==>
+        The KeyStore password and The Key password should be the same.
+
+c:\Tomcat>"C:\Program Files\Java\jre7\bin\keytool.exe" -genkey -alias tomcat -keyalg RSA -keystore C:/Tomcat/keystore
+Enter keystore password:  [[paxius]]
+Re-enter new password:
+What is your first and last name?
+  [Unknown]:  ..tau... ...ana.
+What is the name of your organizational unit?
+  [Unknown]:  Home
+What is the name of your organization?
+  [Unknown]:  Home
+What is the name of your City or Locality?
+  [Unknown]:  Kaunas
+What is the name of your State or Province?
+  [Unknown]:  Kauno apskritis
+What is the two-letter country code for this unit?
+  [Unknown]:  LT
+Is CN=..tau... ...ana., OU=Home, O=Home, L=Kaunas, ST=Kauno apskritis, C=LT correct?
+  [no]:  yes
+
+Enter key password for <tomcat>
+        (RETURN if same as keystore password):  [[paxius]]
+Re-enter new password:
+
+c:\Tomcat>
+
+
+c:\Tomcat\conf\\server.xml
+---------------------------------------------------------------
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ -->
+<Server port="8005" shutdown="SHUTDOWN">
+  <!-- Security listener. Documentation at /docs/config/listeners.html
+  <Listener className="org.apache.catalina.security.SecurityListener" />
+  -->
+  <!--APR library loader. Documentation at /docs/apr.html -->
+  <!-- []... DB12-2/vsh commented out -->
+    <!--<Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />-->
+    <!-- ...[] -->
+  <!-- []... http://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html -->
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" SSLRandomSeed="builtin" />
+  <!-- ...[] -->
+
+  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <!-- Global JNDI resources
+       Documentation at /docs/jndi-resources-howto.html
+  -->
+  <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <!-- A "Service" is a collection of one or more "Connectors" that share
+       a single "Container" Note:  A "Service" is not itself a "Container",
+       so you may not define subcomponents such as "Valves" at this level.
+       Documentation at /docs/config/service.html
+   -->
+  <Service name="Catalina">
+      <!-- []... http://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html -->
+      <!-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 -->
+      <Connector
+              protocol="org.apache.coyote.http11.Http11NioProtocol"
+              port="8443" maxThreads="200"
+              scheme="https" secure="true" SSLEnabled="true"
+              keystoreFile="c:\Tomcat\.keystore" keystorePass="paxius"
+              clientAuth="false" sslProtocol="TLS"/>
+      <!--
+              protocol="HTTP/1.1"
+      keystoreFile="${user.home}/.keystore" keystorePass="changeit"
+      keystoreFile="${$CATALINA_HOME}/.keystore" keystorePass="paxius"
+      -->
+      <!-- ...[] -->
+
+    <!--The connectors can use a shared executor, you can define one or more named thread pools-->
+    <!--
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="150" minSpareThreads="4"/>
+    -->
+
+
+    <!-- A "Connector" represents an endpoint by which requests are received
+         and responses are returned. Documentation at :
+         Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
+         Java AJP  Connector: /docs/config/ajp.html
+         APR (HTTP/AJP) Connector: /docs/apr.html
+         Define a non-SSL HTTP/1.1 Connector on port 8080
+    -->
+    <!--<Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />-->
+    <!-- A "Connector" using the shared thread pool-->
+    <!--
+    <Connector executor="tomcatThreadPool"
+               port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    -->
+    <!-- Define a SSL HTTP/1.1 Connector on port 8443
+         This connector uses the JSSE configuration, when using APR, the
+         connector should be using the OpenSSL style configuration
+         described in the APR documentation -->
+    <!--
+    <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+               maxThreads="150" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" />
+    -->
+
+    <!-- Define an AJP 1.3 Connector on port 8009 -->
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+
+    <!-- An Engine represents the entry point (within Catalina) that processes
+         every request.  The Engine implementation for Tomcat stand alone
+         analyzes the HTTP headers included with the request, and passes them
+         on to the appropriate Host (virtual host).
+         Documentation at /docs/config/engine.html -->
+
+    <!-- You should set jvmRoute to support load-balancing via AJP ie :
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
+    -->
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <!--For clustering, please take a look at documentation at:
+          /docs/cluster-howto.html  (simple how to)
+          /docs/config/cluster.html (reference documentation) -->
+      <!--
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
+      -->
+
+      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+           via a brute-force attack -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+          <!--<Context displayName="Lift Web App gedcom"
+                   docBase="gedcom-web" path="/gedcom-web" reloadable="true">
+              <Resource
+                      name="jdbc/datasource-gedcom" auth="Container" type="javax.sql.DataSource"
+                      maxActive="100" maxIdle="30" maxWait="10000"
+                      username="shaknisgedcom" password="123123"
+                      driverClassName="com.mysql.jdbc.Driver"
+                      url="jdbc:mysql://localhost:3306/datasource-gedcom" />
+          </Context>-->
+          <!--<Context displayName="Lift Web App gedcom" docBase="gedcom-web" path="/gedcom-web" reloadable="true">-->
+          <Context displayName="Lift Web App gedcom" docBase="gedcom" path="/gedcom" reloadable="true">
+              <Resource
+                      name="jdbc/datasource-gedcom" auth="Container" type="javax.sql.DataSource"
+                      maxActive="100" maxIdle="30" maxWait="10000"
+                      username="shaknisgedcom" password="123123"
+                      driverClassName="com.mysql.jdbc.Driver"
+                      url="jdbc:mysql://localhost:3306/datasource-gedcom" />
+          </Context>
+
+          <!-- SingleSignOn valve, share authentication between web applications
+       Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+
+---------------------------------------------------------------
+
+https://localhost:8443 ==> veikia !!!
+
+
+DB26-2/vsh ==============================================================================
+
+Eikit savo pašto dėžutėn.
+Atidarykite laišką [New user has been created in http://...]
+Tame laiške pele paspauskite nuorodą [http://...] -> sistema aktyvuos jūsų ką tik sukurtą naudotojo paskyrą.
+Pele pasiekite pagrindinio meniu punktą Autentikacija ir palaukite vieną sekundę.
+Išsiskleidusiame meniu spustelėkite pele Prisijungti meniu punktą.
+
+Eikit savo pašto dėžutėn.
+Atidarykite laišką [New user has been created in http ...]
+Tame laiške pele paspauskite nuorodą [http ...] -> sistema aktyvuos jūsų ką tik sukurtą naudotojo paskyrą.
+Pele pasiekite pagrindinio meniu punktą Autentikacija ir palaukite vieną sekundę.
+Išsiskleidusiame meniu spustelėkite pele Prisijungti meniu punktą.
+
+
+
+
+E119-7/vsh =============================================================================
+
+Nexus rekonfiguracija 8080 -> 8443
+    - execute: c:\Scala\gedcom\nexus_tomcat_switch_to_8080.bat
+    - remove lat unnecessary char (after "</Server>") in c:\Tomcat\conf\server.xml
+    - start c:\Tomcat\bin\tomcat8w.exe :
+        - click 'Java' tab
+        - change 'Java Options' according c:\Scala\gedcom\nexus_tomcat_8080_8443_config.txt
+        - click 'General' tab
+        - click 'start' tab or 'stop' and 'start' tabs
+    - execute: c:\Scala\gedcom\build-gedcom-dev-web.bat
+    - execute: c:\Scala\gedcom\copy-gedcom_nexus.bat
+    - ... do development ...
+
+
+E128-2/vsh ==============================================================================
+    Sometimes, when you open
+        https://www.individual.lt:8443/gedcom/gedcom/forest
+    an empty page with strange message
+        Something unexpected happened while serving the page at /gedcom/forest
+    may appear
+
+E212-3/vsh ==============================================================================
+
+AOS server PC:
+Something unexpected happened while serving the page at /loginFSB
+==>
+WEB server than hosts the web site did not succeed to wakeup dard disk in time toserve your request.
+Repeat your request in 10 secs
+
+----------
+
+mvn archetype:generate -DarchetypeGroupId=net.liftweb  -DarchetypeArtifactId=lift-archetype-basic_2.10 -DarchetypeVersion=2.5 -DgroupId=lt.node  -DartifactId=gedcom-gate -Dversion=1.0 -DarchetypeRepository=https://oss.sonatype.org/content/repositories/releases
+
+c:\Scala>mvn archetype:generate -DarchetypeGroupId=net.liftweb  -DarchetypeArtifactId=lift-archetype-basic_2.10 -Da
+rchetypeVersion=2.5 -DgroupId=lt.node  -DartifactId=gedcom-gate -Dversion=1.0 -DarchetypeRepository=https://oss.son
+atype.org/content/repositories/releases
+[INFO] Scanning for projects...
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:2.1: Failed to
+parse plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:2.1 (C:\Documents and Settings\vsh\.m2
+\repository\org\apache\maven\plugins\maven-dependency-plugin\2.1\maven-dependency-plugin-2.1.jar): error in opening
+ zip file
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:2.1: Failed to
+parse plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:2.1 (C:\Documents and Settings\vsh\.m2
+\repository\org\apache\maven\plugins\maven-dependency-plugin\2.1\maven-dependency-plugin-2.1.jar): error in opening
+ zip file
+[INFO]
+[INFO] >>> maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom >>>
+[INFO]
+[INFO] <<< maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom <<<
+[INFO]
+[INFO] --- maven-archetype-plugin:2.2:generate (default-cli) @ standalone-pom ---
+[INFO] Generating project in Interactive mode
+[INFO] Archetype defined by properties
+[INFO] Using property: groupId = lt.node
+[INFO] Using property: artifactId = gedcom-gate
+[INFO] Using property: version = 1.0
+[INFO] Using property: package = lt.node
+[INFO] Using property: liftVersion = 2.5
+[INFO] Using property: logBackend = logback
+[INFO] Using property: scalaVersion = 2.10.2
+Confirm properties configuration:
+groupId: lt.node
+artifactId: gedcom-gate
+version: 1.0
+package: lt.node
+liftVersion: 2.5
+logBackend: logback
+scalaVersion: 2.10.2
+ Y: :
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating project from Archetype: lift-archetype-basic_2.10:2.5
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: lt.node
+[INFO] Parameter: artifactId, Value: gedcom-gate
+[INFO] Parameter: version, Value: 1.0
+[INFO] Parameter: package, Value: lt.node
+[INFO] Parameter: packageInPathFormat, Value: lt/node
+[INFO] Parameter: liftVersion, Value: 2.5
+[INFO] Parameter: package, Value: lt.node
+[INFO] Parameter: version, Value: 1.0
+[INFO] Parameter: groupId, Value: lt.node
+[INFO] Parameter: logBackend, Value: logback
+[INFO] Parameter: artifactId, Value: gedcom-gate
+[INFO] Parameter: scalaVersion, Value: 2.10.2
+[INFO] project created from Archetype in dir: c:\Scala\gedcom-gate
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 40.407s
+[INFO] Finished at: Wed Feb 12 18:14:39 EET 2014
+[INFO] Final Memory: 7M/19M
+[INFO] ------------------------------------------------------------------------
+c:\Scala>
+
+E214-5/vsh ==============================================================================
+
+ Tomcat web server certificate on AOS machine
+ https://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html
+ -------------------------------------------------
+ set JRE_HOME=C:\Program Files (x86)\Java\jre7
+
+ C:\Users\VytaSab\Tomcat>set JRE_HOME=C:\Program Files (x86)\Java\jre7
+
+ C:\Users\VytaSab\Tomcat>cd %JRE_HOME%/bin
+
+ C:\Program Files (x86)\Java\jre7\bin>keytool.exe -genkey -alias tomcat -keyalg RSA -keystore C:/Users/VytaSab/Tomcat/.keystore -validity 1095
+ Enter keystore password:
+ Re-enter new password:
+ What is your first and last name?
+   [Unknown]:  ..tau... ...ana.
+ What is the name of your organizational unit?
+   [Unknown]:  Home
+ What is the name of your organization?
+   [Unknown]:  Home
+ What is the name of your City or Locality?
+   [Unknown]:  Kaunas
+ What is the name of your State or Province?
+   [Unknown]:  Kauno apskritis
+ What is the two-letter country code for this unit?
+   [Unknown]:  LT
+ Is CN=..tau... ...ana., OU=Home, O=Home, L=Kaunas, ST=Kauno apskritis, C=LT correct?
+   [no]:  yes
+
+ Enter key password for <tomcat>
+         (RETURN if same as keystore password): click Enter <--'
+
+ C:\Program Files (x86)\Java\jre7\bin>
+
+
+E216-7/vsh ==============================================================================
+ Didelių MM failų problema realybėje:
+
+3:49:13.224 [http-nio-8443-exec-3] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:13.350 [http-nio-8443-exec-3] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:13.437 [http-nio-8443-exec-1] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:13.469 [http-nio-8443-exec-3] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:13.557 [http-nio-8443-exec-1] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:16.331 [http-nio-8443-exec-7] WARN  o.h.util.JDBCExceptionReporter - SQL Error: 0, SQLState: S1000
+23:49:16.332 [http-nio-8443-exec-7] ERROR o.h.util.JDBCExceptionReporter - Packet for query is too large (1790988 > 1048576). You can change this value on the server by setting the max_allowed_packet' variable.
+23:49:16.346 [http-nio-8443-exec-7] ERROR o.h.e.d.AbstractFlushingEventListener - Could not synchronize database state with session
+org.hibernate.exception.GenericJDBCException: Could not execute JDBC batch update
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:126) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:114) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:66) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:275) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:266) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:168) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:321) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:50) [hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1027) [hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.flush(AbstractEntityManagerImpl.java:304) [hibernate-entitymanager-3.4.0.GA.jar:3.4.0.GA]
+	at org.scala_libs.jpa.ScalaEntityManager$class.flush(ScalaEntityManager.scala:174) [scalajpa_2.10-1.4.jar:1.4]
+	at lt.node.gedcom.model.Model$.flush(Model.scala:22) [Model$.class:na]
+	at lt.node.gedcom.snippet.MultiMediaWizard.finish(MultiMediaWizard.scala:340) [MultiMediaWizard.class:na]
+	at net.liftweb.wizard.Wizard$$anonfun$nextScreen$1.net$liftweb$wizard$Wizard$class$$anonfun$$useAndFinish$1(Wizard.scala:404) [lift-wizard_2.10-2.5.jar:2.5]
+	at net.liftweb.wizard.Wizard$$anonfun$nextScreen$1.apply(Wizard.scala:416) [lift-wizard_2.10-2.5.jar:2.5]
+	at net.liftweb.wizard.Wizard$$anonfun$nextScreen$1.apply(Wizard.scala:381) [lift-wizard_2.10-2.5.jar:2.5]
+	at net.liftweb.common.Full.map(Box.scala:553) [lift-common_2.10-2.5.jar:2.5]
+	at net.liftweb.wizard.Wizard$class.nextScreen(Wizard.scala:381) [lift-wizard_2.10-2.5.jar:2.5]
+	at lt.node.gedcom.snippet.MultiMediaWizard.nextScreen(MultiMediaWizard.scala:50) [MultiMediaWizard.class:na]
+	at net.liftweb.wizard.Wizard$$anonfun$renderHtml$3.apply(Wizard.scala:254) [lift-wizard_2.10-2.5.jar:2.5]
+	at net.liftweb.wizard.Wizard$$anonfun$renderHtml$3.apply(Wizard.scala:253) [lift-wizard_2.10-2.5.jar:2.5]
+	at net.liftweb.http.ScreenWizardRendered$$anonfun$55$$anonfun$apply$34.apply(LiftScreen.scala:1105) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.ScreenWizardRendered$$anonfun$55$$anonfun$apply$34.apply(LiftScreen.scala:1104) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$NFuncHolder$$anonfun$apply$4.apply(S.scala:185) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$NFuncHolder$$anonfun$apply$4.apply(S.scala:185) [lift-webkit_2.10-2.5.jar:2.5]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) [scala-library-2.10.0.jar:na]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) [scala-library-2.10.0.jar:na]
+	at scala.collection.immutable.List.foreach(List.scala:309) [scala-library-2.10.0.jar:na]
+	at scala.collection.TraversableLike$class.map(TraversableLike.scala:244) [scala-library-2.10.0.jar:na]
+	at scala.collection.AbstractTraversable.map(Traversable.scala:105) [scala-library-2.10.0.jar:na]
+	at net.liftweb.http.S$NFuncHolder.apply(S.scala:185) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$ProxyFuncHolder.apply(S.scala:114) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftSession$$anonfun$net$liftweb$http$LiftSession$$buildFunc$1$2.apply(LiftSession.scala:763) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftSession$$anonfun$21$$anonfun$apply$37.apply(LiftSession.scala:777) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftSession$$anonfun$21$$anonfun$apply$37.apply(LiftSession.scala:777) [lift-webkit_2.10-2.5.jar:2.5]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) [scala-library-2.10.0.jar:na]
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244) [scala-library-2.10.0.jar:na]
+	at scala.collection.immutable.List.foreach(List.scala:309) [scala-library-2.10.0.jar:na]
+	at scala.collection.TraversableLike$class.map(TraversableLike.scala:244) [scala-library-2.10.0.jar:na]
+	at scala.collection.AbstractTraversable.map(Traversable.scala:105) [scala-library-2.10.0.jar:na]
+	at net.liftweb.http.LiftSession$$anonfun$21.apply(LiftSession.scala:777) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftSession$$anonfun$21.apply(LiftSession.scala:768) [lift-webkit_2.10-2.5.jar:2.5]
+	at scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:251) [scala-library-2.10.0.jar:na]
+	at scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:251) [scala-library-2.10.0.jar:na]
+	at scala.collection.immutable.List.foreach(List.scala:309) [scala-library-2.10.0.jar:na]
+	at scala.collection.TraversableLike$class.flatMap(TraversableLike.scala:251) [scala-library-2.10.0.jar:na]
+	at scala.collection.AbstractTraversable.flatMap(Traversable.scala:105) [scala-library-2.10.0.jar:na]
+	at net.liftweb.http.LiftSession.runParams(LiftSession.scala:767) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftSession.processRequest(LiftSession.scala:1214) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet.net$liftweb$http$LiftServlet$$dispatchStatefulRequest(LiftServlet.scala:423) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet$$anonfun$doSession$1$1.apply(LiftServlet.scala:301) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet$$anonfun$doSession$1$1.apply(LiftServlet.scala:301) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.net$liftweb$http$S$$wrapQuery(S.scala:1460) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_nest2InnerInit$1$$anonfun$apply$37.apply(S.scala:1625) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.net$liftweb$http$S$$doAround(S.scala:1389) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$doAround$1.apply(S.scala:1390) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$$anonfun$apply$15.liftedTree1$1(DB.scala:244) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$$anonfun$apply$15.net$liftweb$db$DB$class$$anon$$anonfun$$recurseMe$1(DB.scala:243) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$$anonfun$apply$15$$anonfun$net$liftweb$db$DB$class$$anon$$anonfun$$recurseMe$1$1.apply(DB.scala:260) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$$anonfun$apply$15$$anonfun$net$liftweb$db$DB$class$$anon$$anonfun$$recurseMe$1$1.apply(DB.scala:260) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anonfun$use$1.apply(DB.scala:694) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.util.DynoVar$class.run(ThreadGlobal.scala:95) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$currentConn$.run(DB.scala:679) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$class.use(DB.scala:691) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$1.use(DB.scala:40) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$$anonfun$apply$15.net$liftweb$db$DB$class$$anon$$anonfun$$recurseMe$1(DB.scala:260) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$$anonfun$apply$15.apply(DB.scala:262) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.util.DynoVar$class.run(ThreadGlobal.scala:95) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2$DepthCnt$.run(DB.scala:233) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.db.DB$$anon$2.apply(DB.scala:236) [lift-db_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.net$liftweb$http$S$$doAround(S.scala:1390) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_nest2InnerInit$1.apply(S.scala:1623) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.net$liftweb$http$S$$_nest2InnerInit(S.scala:1622) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_innerInit$1$$anonfun$apply$41$$anonfun$apply$42$$anonfun$apply$43$$anonfun$apply$44.apply(S.scala:1666) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$withReq$1.apply(S.scala:1676) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.withReq(S.scala:1675) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$.withReq(S.scala:47) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_innerInit$1$$anonfun$apply$41$$anonfun$apply$42$$anonfun$apply$43.apply(S.scala:1662) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_innerInit$1$$anonfun$apply$41$$anonfun$apply$42.apply(S.scala:1660) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_innerInit$1$$anonfun$apply$41.apply(S.scala:1659) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_innerInit$1.apply(S.scala:1658) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.net$liftweb$http$S$$_innerInit(S.scala:1657) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_init$1$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49$$anonfun$apply$50$$anonfun$apply$51.apply(S.scala:1699) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_init$1$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49$$anonfun$apply$50.apply(S.scala:1697) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$class.apply(Vars.scala:613) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.RequestVarHandler$.apply(Vars.scala:515) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_init$1$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49.apply(S.scala:1696) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$class.apply(Vars.scala:613) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.TransientRequestVarHandler$.apply(Vars.scala:528) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_init$1$$anonfun$apply$47$$anonfun$apply$48.apply(S.scala:1695) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_init$1$$anonfun$apply$47.apply(S.scala:1694) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$$anonfun$net$liftweb$http$S$$_init$1.apply(S.scala:1693) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.net$liftweb$http$S$$_init(S.scala:1692) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$class.init(S.scala:1274) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.S$.init(S.scala:47) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet.doSession$1(LiftServlet.scala:300) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet.doService(LiftServlet.scala:310) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet$$anonfun$doIt$1$1.apply(LiftServlet.scala:148) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet$$anonfun$doIt$1$1.apply(LiftServlet.scala:147) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.TimeHelpers$class.calcTime(TimeHelpers.scala:345) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.util.Helpers$.calcTime(Helpers.scala:34) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.util.TimeHelpers$class.logTime(TimeHelpers.scala:364) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.util.Helpers$.logTime(Helpers.scala:34) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet.doIt$1(LiftServlet.scala:147) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftServlet.service(LiftServlet.scala:158) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.apply$mcV$sp(HTTPProvider.scala:72) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.apply(HTTPProvider.scala:71) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.apply(HTTPProvider.scala:71) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.URLRewriter$.doWith(Req.scala:1278) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2$$anonfun$apply$mcV$sp$1.apply$mcV$sp(HTTPProvider.scala:70) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2$$anonfun$apply$mcV$sp$1.apply(HTTPProvider.scala:70) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2$$anonfun$apply$mcV$sp$1.apply(HTTPProvider.scala:70) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2.apply$mcV$sp(HTTPProvider.scala:66) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2.apply(HTTPProvider.scala:60) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$$anonfun$service$2.apply(HTTPProvider.scala:60) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.HTTPProvider$class.service(HTTPProvider.scala:60) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftFilter.service(LiftServlet.scala:928) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.apply$mcV$sp(ServletFilterProvider.scala:82) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.apply(ServletFilterProvider.scala:82) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.apply(ServletFilterProvider.scala:82) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$class.handleLoan$1(ServletFilterProvider.scala:59) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$class.net$liftweb$http$provider$servlet$ServletFilterProvider$$handleLoanWrappers(ServletFilterProvider.scala:63) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1$$anonfun$apply$mcV$sp$1.apply$mcV$sp(ServletFilterProvider.scala:82) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1$$anonfun$apply$mcV$sp$1.apply(ServletFilterProvider.scala:77) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1$$anonfun$apply$mcV$sp$1.apply(ServletFilterProvider.scala:77) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14$$anonfun$apply$15$$anonfun$apply$16$$anonfun$apply$17.apply(Vars.scala:619) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14$$anonfun$apply$15$$anonfun$apply$16.apply(Vars.scala:618) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14$$anonfun$apply$15.apply(Vars.scala:617) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14.apply(Vars.scala:616) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$class.apply(Vars.scala:615) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.RequestVarHandler$.apply(Vars.scala:515) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1.apply$mcV$sp(ServletFilterProvider.scala:75) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1.apply(ServletFilterProvider.scala:75) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$$anonfun$doFilter$1.apply(ServletFilterProvider.scala:75) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14$$anonfun$apply$15$$anonfun$apply$16$$anonfun$apply$17.apply(Vars.scala:619) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14$$anonfun$apply$15$$anonfun$apply$16.apply(Vars.scala:618) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14$$anonfun$apply$15.apply(Vars.scala:617) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$$anonfun$apply$14.apply(Vars.scala:616) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.util.ThreadGlobal.doWith(ThreadGlobal.scala:71) [lift-util_2.10-2.5.jar:2.5]
+	at net.liftweb.http.CoreRequestVarHandler$class.apply(Vars.scala:615) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.TransientRequestVarHandler$.apply(Vars.scala:528) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.provider.servlet.ServletFilterProvider$class.doFilter(ServletFilterProvider.scala:74) [lift-webkit_2.10-2.5.jar:2.5]
+	at net.liftweb.http.LiftFilter.doFilter(LiftServlet.scala:928) [lift-webkit_2.10-2.5.jar:2.5]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:221) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:107) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:504) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:76) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:934) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:90) [catalina.jar:8.0.0-RC5]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:515) [catalina.jar:8.0.0-RC5]
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1012) [tomcat-coyote.jar:8.0.0-RC5]
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:642) [tomcat-coyote.jar:8.0.0-RC5]
+	at org.apache.coyote.http11.Http11NioProtocol$Http11ConnectionHandler.process(Http11NioProtocol.java:223) [tomcat-coyote.jar:8.0.0-RC5]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597) [tomcat-coyote.jar:8.0.0-RC5]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1555) [tomcat-coyote.jar:8.0.0-RC5]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [na:1.7.0_51]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [na:1.7.0_51]
+	at java.lang.Thread.run(Unknown Source) [na:1.7.0_51]
+Caused by: java.sql.BatchUpdateException: Packet for query is too large (1790988 > 1048576). You can change this value on the server by setting the max_allowed_packet' variable.
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:2054) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.PreparedStatement.executeBatch(PreparedStatement.java:1467) ~[mysql-connector-java-5.1.21.jar:na]
+	at org.hibernate.jdbc.BatchingBatcher.doExecuteBatch(BatchingBatcher.java:70) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	at org.hibernate.jdbc.AbstractBatcher.executeBatch(AbstractBatcher.java:268) ~[hibernate-core-3.3.0.SP1.jar:3.3.0.SP1]
+	... 178 common frames omitted
+Caused by: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1790988 > 1048576). You can change this value on the server by setting the max_allowed_packet' variable.
+	at com.mysql.jdbc.MysqlIO.send(MysqlIO.java:3756) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2449) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2629) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2719) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2155) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2450) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.PreparedStatement.executeBatchSerially(PreparedStatement.java:2006) ~[mysql-connector-java-5.1.21.jar:na]
+	... 181 common frames omitted
+/ path =|C:\Users\VytaSab\Tomcat\webapps\gedcom\|
+/ path =|file:/C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml|
+LiftRules.getResource.getContent =|java.io.BufferedInputStream@6d4d6e|
+LiftRules.getResource.getProtocol =|file|
+LiftRules.getResource.getFile =|/C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml|
+LiftRules.getResource.getPath =|/C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml|
+23:49:16.646 [http-nio-8443-exec-6] WARN  GedcomUtil - i18nizeGedcomDate LT final Exception DateOtherPtrn(null, null, null): ||
+23:49:16.648 [http-nio-8443-exec-6] WARN  GedcomUtil - i18nizeGedcomDate LT final Exception DateOtherPtrn(null, null, null): ||
+23:49:16.649 [http-nio-8443-exec-6] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:16.930 [http-nio-8443-exec-6] WARN  GedcomUtil - i18nizeGedcomDate LT final Exception DateOtherPtrn(null, null, null): ||
+23:49:16.932 [http-nio-8443-exec-6] WARN  GedcomUtil - i18nizeGedcomDate LT final Exception DateOtherPtrn(null, null, null): ||
+23:49:16.934 [http-nio-8443-exec-6] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+/ path =|C:\Users\VytaSab\Tomcat\webapps\gedcom\|
+/ path =|file:/C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml|
+LiftRules.getResource.getContent =|java.io.BufferedInputStream@1a7ff54|
+LiftRules.getResource.getProtocol =|file|
+LiftRules.getResource.getFile =|/C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml|
+LiftRules.getResource.getPath =|/C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml|
+23:49:17.017 [http-nio-8443-exec-9] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:17.093 [http-nio-8443-exec-6] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:17.166 [http-nio-8443-exec-9] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+23:49:17.237 [http-nio-8443-exec-6] INFO  XslTransformer - Loaded xsl from file: /C:/Users/VytaSab/Tomcat/webapps/gedcom/WEB-INF/classes/xsl/person.xsl
+2
+
+
+ymdd-x/vsh ==============================================================================
+
+http-apr-8080-exec-5 DEBUG 16:10:22,593 [LoginOps] [debug 174] - logUserIn: rasta db; password=123123
+http-apr-8080-exec-5 DEBUG 16:10:22,609 [LoginOps] [debug 174] - logUserIn: user.passwordHash=IuQWK9DSHzm8JG0JQkBSYq7QXgk=
+http-apr-8080-exec-5 DEBUG 16:10:22,609 [LoginOps] [debug 174] - logUserIn: user.passwordSalt=SMXRaJIAMdMGfKAZ
+User hash in=123123SMXRaJIAMdMGfKAZ|
+User hash=IuQWK9DSHzm8JG0JQkBSYq7QXgk=|
+          IuQWK9DSHzm8JG0JQkBSYq7QXgk=
+http-apr-8080-exec-5 WARN 16:10:22,671 [LoginOps] [warn 216] - logUserIn: User authentication is invalid
+
+
+[INFO] Checking for multiple versions of scala
+[WARNING]  Expected all dependencies to require Scala version: 2.10.0
+[WARNING]  lt.node.gedcom:gedcom-web:1.0 requires scala version: 2.10.0
+[WARNING]  lt.node.gedcom:gedcom-web:1.0 requires scala version: 2.10.0
+[WARNING]  org.scala-lang:scala-compiler:2.10.0 requires scala version: 2.10.0
+[WARNING]  org.scala-lang:scala-reflect:2.10.0 requires scala version: 2.10.0
+[WARNING]  org.scala-tools.testing:specs_2.8.1:1.6.7 requires scala version: 2.10.0
+[WARNING]  org.scala-tools.testing:specs_2.8.1:1.6.7 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-common_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-actor_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-json_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-json_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  org.scala-lang:scalap:2.10.0 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-util_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-util_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-webkit_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  org.scala-lang:scala-actors:2.10.0 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-db_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-proto_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-mapper_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-jpa_2.10:2.5 requires scala version: 2.10.0
+[WARNING]  org.scala-libs:scalajpa_2.10:1.4 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-webkit_2.9.1:2.4 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-widgets_2.9.1:2.4 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-common_2.9.1:2.4 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-actor_2.9.1:2.4 requires scala version: 2.10.0
+[WARNING]  net.liftweb:lift-json_2.9.1:2.4 requires scala version: 2.9.1
+[WARNING] Multiple versions of scala libraries detected!
+
+
+mvn archetype:generate -DarchetypeGroupId=net.liftweb  -DarchetypeArtifactId=lift-archetype-basic_2.10 -DarchetypeVersion=2.5 -DgroupId=lt.node  -DartifactId=gedcom-gate -Dversion=1.0 -DarchetypeRepository=https://oss.sonatype.org/content/repositories/releases
+
+
+Ec01-1/vsh ==============================================================================
+    Pradedama kraustytis į Nexus Linux Mint!
+
+
+F505-2/vsh ==============================================================================
+
+    {/home/vsh/Projects/}gedcom #
+    {/home/vsh/Projects/gedcom/}gedcom-web #
+
+    mvn -Pprod -Dmaven.test.skip=true clean install
+    mvn -Pdev -Dmaven.test.skip=true clean install
+
+
+ymdd-x/vsh ==============================================================================
+
+
+ymdd-x/vsh ==============================================================================
+
+
+ymdd-x/vsh ==============================================================================
+
+
+ymdd-x/vsh ==============================================================================
+
+
+ymdd-x/vsh ==============================================================================

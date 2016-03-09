@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- ooks.sonatype.com/mvnex-book/reference/index.html -->
+
+    <!--
+    mvn -Pdev -Dmaven.test.skip=true clean install
+    mvn -Pdev -Dmaven.test.skip=true       install
+
+    mvn -Pdev -Dmaven.test.skip=true compile
+    mvn -Pdev-resources -Dmaven.test.skip=true process-resources
+    mvn -Dmaven.test.skip=true package install
+    mvn -Pdev,Pdev-resources -Dmaven.test.skip=true clean compile process-resources package
+
+          mvn -Pdev -Dmaven.test.skip=true clean resources:resources install
+          mvn -Pdev -Dmaven.test.skip=true clean resources:resources
+          mvn -Pdev -Dmaven.test.skip=true install
+
+          mvn -Pcloudbees -Dmaven.test.skip=true clean resources:resources install
+          mvn -Pcloudbees -Dmaven.test.skip=true clean resources:resources
+
+          mvn clean install -Pspa_dev -Dmaven.test.skip=true
+          mvn install -Pspa_dev -Dmaven.test.skip=true
+    -->
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>lt.node.gedcom</groupId>
+        <artifactId>gedcom-master</artifactId>
+        <version>1.0</version> <!-- *: 1.0-SNAPSHOT  DA26-6: 1.0    -->
+    </parent>
+    <artifactId>gedcom</artifactId>  <!-- gedcom-web -->
+    <!--<version>1.0-SNAPSHOT</version> &lt;!&ndash; *: 1.0-SNAPSHOT  DA26-6: 1.0    &ndash;&gt;-->
+    <packaging>war</packaging>
+    <name>gedcom Web</name>
+
+    <properties>
+        <yuicompressor-skip>true</yuicompressor-skip>
+    </properties>
+
+    <scm>
+        <!--<connection>scm:svn:svn+ssh://sodas.node.lt/srv/svn/scala/trunk/gedcom/gedcom-web</connection>-->
+        <!--<developerConnection>scm:svn:svn+ssh://sodas.node.lt/srv/svn/scala/trunk/gedcom/gedcom-web</developerConnection>-->
+        <!-- http://www.sonatype.com/people/2009/09/maven-tips-and-tricks-using-github/ -->
+        <connection>scm:git:git@github.com:vytasab/gedcom.git</connection>
+        <developerConnection>scm:git:git@github.com:vytasab/gedcom.git</developerConnection>
+    </scm>
+
+    <repositories/>
+
+    <pluginRepositories/>
+
+    <dependencies>
+        <!--  S_C_A_L_A  -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-tools.testing</groupId>
+            <artifactId>specs_2.8.1</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-common_${lift.jar.scala.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-util_${lift.jar.scala.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-webkit_${lift.jar.scala.version}</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-mapper_${lift.jar.scala.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-jpa_${lift.jar.scala.version}</artifactId>
+            <!--<artifactId>lift-jpa_2.9.1</artifactId>-->
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <!--<artifactId>lift-widgets_${lift.jar.scala.version}</artifactId>-->
+            <artifactId>lift-widgets_2.9.1</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <!--<artifactId>lift-textile_${lift.jar.scala.version}</artifactId>-->
+            <artifactId>lift-textile_2.9.1</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-wizard_${lift.jar.scala.version}</artifactId>
+        </dependency>
+        <!--  D_B  d_r_i_v_e_r_s  -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--<dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        </dependency>-->
+        <!--  J_T_A  === commented out in NEXUS at CA25-4 === -->
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>geronimo-spec</groupId>
+            <artifactId>geronimo-spec-jta</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!--  v_a_r_i_o_u_s  -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <!--<version>2.5</version>
+            <scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>jrebel-maven-plugin</artifactId>
+        </dependency>
+
+        <!-- L_o_g_g_i_n_g -->
+        <!--<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- https://groups.google.com/forum/#!msg/liftweb/fvayO0t8t4o/u4cNVO_4y8MJ%5B1-25%5D
+            http://stackoverflow.com/questions/5029862/configure-logging-with-lift
+        DA30-3/vsh -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+        </dependency>
+        <!-- Cloner (java) -->
+        <!--<dependency>
+        <groupId>uk.com.robust-it</groupId>
+        <artifactId>cloning</artifactId>
+        </dependency>-->
+
+        <!-- s_a_v_i -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>gedcom-spa</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!--<build>
+        <defaultGoal>
+            &lt;!&ndash;clean install -Pspa_dev -Dmaven.test.skip=true&ndash;&gt;
+            clean install -Pdev -Dmaven.test.skip=true
+        </defaultGoal>
+    </build>-->
+
+    <build>
+        <!--<finalName>gedcom_web</finalName>  &lt;!&ndash;=== is not necessary here === &ndash;&gt;-->
+        <!--<defaultGoal>-Pdev -Dmaven.test.skip=true clean install</defaultGoal>-->
+        <extensions>
+            <!-- http://maven.40175.n5.nabble.com/maven-3-deploy-deploy-file-and-dav-http-td3370548.html -->
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>1.0-beta-7</version>
+            </extension>
+        </extensions>
+        <!--  mvn clean install -Dmaven.test.skip=true  -->
+        <!-- <sourceDirectory>src/main/scala</sourceDirectory>
+             <testSourceDirectory>src/test/scala</testSourceDirectory> -->
+        <!-- Instructing the resources plugin to filter certain directories -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+
+            <!-- Enabling and configuring regular resources filtering. See also section "resources" below -->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>-->
+
+            <!-- Enabling and configuring web resources filtering -->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <filtering>true</filtering>
+                            <directory>src/main/webapp</directory>
+                            <includes>
+                                <include>**/*.css</include>
+                                &lt;!&ndash; include any other file types you want to filter &ndash;&gt;
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>-->
+
+           <!--<plugin>
+                &lt;!&ndash; http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin &ndash;&gt;
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.24</version>
+                <configuration>
+                    <contextPath>/</contextPath>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>8888</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                    <stopPort>9966</stopPort>
+                    <stopKey>foo</stopKey>
+                </configuration>
+            </plugin>-->
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nosuffix>true</nosuffix>
+                    <skip>${yuicompressor-skip}</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-idea-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- http://code.google.com/p/specs/wiki/RunningSpecs#Run_your_specifications_with_JUnit4_and_Maven -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <argLine>-Xmx512m</argLine>
+                    <includes>
+                        <include>**/*Unit.java</include>
+                        <include>**/*Spec.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!--<plugin>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>javarebel-maven-plugin</artifactId>
+                <version>1.0.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native2ascii-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                        <!-- specific configurations -->
+                        <configuration>
+                            <encoding>UTF8</encoding>
+                            <!--<includes>**/*.properties</includes>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    &lt;!&ndash;<execution>
+                        <id>default-copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src</directory>
+                                    <includes>
+                                        <include>packageLinkDefs.properties</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>&ndash;&gt;
+                    <execution>
+                        &lt;!&ndash;<id>process-resources-xxx</id>&ndash;&gt;
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.directory}/classes/garbage</outputDirectory>
+                            &lt;!&ndash;<outputDirectory>${project.build.directory}/garbage</outputDirectory>&ndash;&gt;
+                            &lt;!&ndash;<resources>
+                                <resource>
+                                    <directory>${project.basedir}/src</directory>
+                                    <includes>
+                                        <include>packageLinkDefs.properties</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>&ndash;&gt;
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> -->
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <configuration>
+                    <charset>${project.build.sourceEncoding}</charset>
+                    <jvmArgs>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                        <jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
+                    </jvmArgs>
+                    <args>
+                        <!-- arg>-unchecked</arg -->
+                        <arg>-deprecation</arg>
+                    </args>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <!-- mvn -Ddb-init-load generate-sources  ================================================================== -->
+        <profile>
+            <id>db-init-load</id>
+            <!--<activation>
+            <property><name>db-init-load</name></property>
+            </activation>-->
+            <properties>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.url>jdbc:mysql://localhost:3306/datasource-gedcom</db.url>
+                <db.user>shaknisgedcom</db.user>
+                <db.password>123123</db.password>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.0.8</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>${db.driver}</driver>
+                            <url>${db.url}</url>
+                            <autocommit>true</autocommit>
+                            <username>${db.user}</username>
+                            <password>${db.password}</password>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>db-init-load-now</id>
+                                <phase>generate-sources</phase>
+                                <!--<goals>
+                                    <goal>execute</goal>
+                                </goals>-->
+                                <configuration>
+                                    <!--<srcFiles>
+                                        <srcFile>
+                                            ${basedir}/src/main/resources/sql/vshmixweb-init-load.sql
+                                        </srcFile>
+                                    </srcFiles>-->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- ======================================================================================================= -->
+        <!--  mvn -Pdev -Dmaven.test.skip=true clean install  -->
+        <profile>
+            <id>dev</id>
+            <!--<activation><property><name>dev-on</name></property></activation>-->
+            <!-- http://www.manydesigns.com/en/portofino/portofino3/tutorials/using-maven-profiles-and-resource-filtering -->
+            <properties>
+                <db_driver>com.mysql.jdbc.Driver</db_driver>
+                <db_url>jdbc:mysql://localhost:3306/datasource-gedcom</db_url>
+                <db_user>shaknisgedcom</db_user>
+                <db_password>271314log</db_password>
+                <__app>/gedcom/</__app>
+                <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>
+            </properties>
+            <build>
+                <!--http://www.waltercedric.com/java-j2ee-mainmenu-53/361-maven-build-system/1639-maven-project-filtering.html-->
+                <filters>
+                    <filter>src/main/resources/dev-resources/nexus.properties</filter>  <!--  default  nexus  -->
+                    <!--<filter>src/main/resources/nexus.properties</filter>  &lt;!&ndash;  default  nexus  &ndash;&gt;-->
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/dev-resources</directory>
+                        <targetPath>.</targetPath>     <!-- .../WEB-INF/classes/ -->
+                        <filtering>false</filtering>   <!-- true false -->
+                        <includes>
+                            <include>logback.xml</include>
+                        </includes>
+                    </resource>
+                </resources>
+                <plugins>
+                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <!--
+                            WEB-INF/logback.xml,
+                            WEB-INF/classes/props/production.Freda.props,
+                            -->
+                            <packagingExcludes>
+                                scripts/raphael/gedcom.js_BA21-5_init_version,
+                                scripts/raphael/gedcomLoader.js,
+                                scripts/raphael/gedcomLoaderDeprec.js,
+                                scripts/raphael/gedcomRestLoader.js,
+                                scripts/raphael/raphLab.js,
+                                WEB-INF/cloudbees-web.xml,
+                                WEB-INF/stax-web.xml,
+                                WEB-INF/production.nexus.logback.xml,
+                                WEB-INF/classes/dev-resources/,
+                                WEB-INF/classes/prod-resources/,
+                                WEB-INF/classes/props/production.Freda.props,
+                                WEB-INF/classes/props/production.default.props,
+                                WEB-INF/classes/props/production.aosvu.props,
+                                WEB-INF/lib/h2-1.2.138.jar,
+                                WEB-INF/lib/scalajpa_2.9.2-1.4.jar,
+                                WEB-INF/lib/lift-actor_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-common_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-json_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-util_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-webkit_2.9.1-2.4.jar
+                            </packagingExcludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <!-- http://code.google.com/p/specs/wiki/RunningSpecs#Run_your_specifications_with_JUnit4_and_Maven -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.5</version>
+                        <configuration>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                            <argLine>-Xmx512m</argLine>
+                            <includes>
+                                <include>**/*Unit.java</include>
+                                <include>**/*Spec.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>native2ascii-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>native2ascii</goal>
+                                </goals>
+                                <configuration>
+                                    <encoding>UTF8</encoding>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <!--  ====================================================================================================== -->
+        <!--  mvn -Pprod -Dmaven.test.skip=true clean install  -->
+        <profile>
+            <id>prod</id>
+            <activation><property><name>prod-on</name></property></activation>
+            <properties>
+                <db_driver>com.mysql.jdbc.Driver</db_driver>
+                <db_url>jdbc:mysql://localhost:3306/datasource-gedcom</db_url>
+                <db_user>shaknisgedcom</db_user>
+                <db_password>271314log</db_password>
+                <__app>/gedcom/</__app>
+                <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>
+            </properties>
+            <build>
+                <!--http://www.waltercedric.com/java-j2ee-mainmenu-53/361-maven-build-system/1639-maven-project-filtering.html-->
+                <filters>
+                    <filter>src/main/resources/prod-resources/production.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/prod-resources</directory>
+                        <targetPath>.</targetPath>     <!-- .../WEB-INF/classes/ -->
+                        <filtering>false</filtering>   <!-- true false -->
+                        <includes>
+                            <include>logback.xml</include>
+                        </includes>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <packagingExcludes>
+                                scripts/raphael/gedcom.js_BA21-5_init_version,
+                                scripts/raphael/gedcomLoader.js,
+                                scripts/raphael/gedcomLoaderDeprec.js,
+                                scripts/raphael/gedcomRestLoader.js,
+                                scripts/raphael/raphLab.js,
+                                WEB-INF/cloudbees-web.xml,
+                                WEB-INF/stax-web.xml,
+                                WEB-INF/classes/dev-resources/,
+                                WEB-INF/classes/prod-resources/,
+                                WEB-INF/classes/rebel.xml,
+                                WEB-INF/classes/props/nexus.props,
+                                WEB-INF/classes/props/production.Freda.props,
+                                WEB-INF/classes/props/production.aosvu.props,
+                                WEB-INF/lib/h2-1.2.138.jar,
+                                WEB-INF/lib/scalajpa_2.9.2-1.4.jar,
+                                WEB-INF/lib/lift-actor_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-common_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-json_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-util_2.9.1-2.4.jar,
+                                WEB-INF/lib/lift-webkit_2.9.1-2.4.jar
+                            </packagingExcludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <!-- http://code.google.com/p/specs/wiki/RunningSpecs#Run_your_specifications_with_JUnit4_and_Maven -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                            <argLine>-Xmx512m</argLine>
+                            <includes>
+                                <include>**/*Unit.java</include>
+                                <include>**/*Spec.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>native2ascii-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>native2ascii</goal>
+                                </goals>
+                                <configuration>
+                                    <encoding>UTF8</encoding>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <configuration>
+                    <charset>${project.build.sourceEncoding}</charset>
+                    <jvmArgs>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                        <jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+
+</project>

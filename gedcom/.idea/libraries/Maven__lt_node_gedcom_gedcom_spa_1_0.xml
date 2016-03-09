@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: lt.node.gedcom:gedcom-spa:1.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/lt/node/gedcom/gedcom-spa/1.0/gedcom-spa-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/lt/node/gedcom/gedcom-spa/1.0/gedcom-spa-1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/lt/node/gedcom/gedcom-spa/1.0/gedcom-spa-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

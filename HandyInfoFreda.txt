@@ -1,0 +1,423 @@
+Ec01-1/vsh ==============================================================================
+    Pradedama kraustytis į Nexus Linux Mint!
+
+F213-5/vsh ==============================================================================
+    Freda's MySQL DB
+    root / sh...is
+    sh...isgedcom / {e3}{pi3    }log
+
+F218-3/vsh ==============================================================================
+    JRebel configuration:
+
+   - open
+        https://my.jrebel.com/account/how-to-activate  via Twitter account: vytasab / fredafreda
+
+   - read
+        /home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/readme.txt:
+                ---------------------------------------------------------------
+                The ZIP distrubution is to be used without the IDE
+                Activating a JRebel license
+                ===========================
+                To activate a JRebel license from the command line, run:
+                bin/activate.{cmd|sh} <ACTIVATION_KEY_OR_PATH_TO_LICENSE_FILE>
+
+                To activate a JRebel license using a GUI activation wizard, run:
+                bin/activate-gui.{cmd|sh}
+
+                Enabling JRebel for your server
+                ===============================
+                To enable JRebel for your server container, run:
+                bin/setup.{cmd|sh}
+
+                and follow the instructions displayed in the Usage.
+                For the simplest case (enabling JRebel for Tomcat for example), run:
+
+                bin/setup.{cmd|sh} -r "path/to/tomcat/installation/directory"
+                ./bin/setup/sh -r /opt/apache-tomcat-8.0.15
+                ---------------------------------------------------------------
+
+   - run
+        /home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/bin/activate-gui.sh
+
+   - read
+        http://zeroturnaround.com/software/jrebel/learn/remoting/setting-up-jrebel-remoting-with-intellij-idea-and-tomcat/
+
+Win XP rebel.xml:
+---------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+    <classpath>
+        <dir name="c:/Scala/gedcom/gedcom-web/target/classes">
+        </dir>
+    </classpath>
+    <web>
+        <link target="/">
+            <dir name="c:/Scala/gedcom/gedcom-web/src/main/webapp">
+            </dir>
+        </link>
+    </web>
+</application>
+---------------------------------------
+
+Config Log:
+
+Freda bin # ./setup.sh  --?
+The Utility to tune server containers to work with JRebel.
+Copyright (C) 2013 ZeroTurnaround AS (http://www.zeroturnaround.com)
+All questions and bugs please send to support@zeroturnaround.com
+
+usage: Options:
+ -all,--alldomains      Process all domains of a server
+ -D <property=value>    Set value to the given JVM property
+ -d,--domains <arg>     List of domains to be processed to be used with
+                        JRebel, use ',' as the name separator
+ -dr,--dryrun           Write list of possible changed files for the
+                        container without any real writing operation
+ -h,--?                 This list of options
+ -jh,--javahome <arg>   The java home to be used to start external java
+                        based processes
+ -jr <arg>              Path to the jrebel.jar (by default the path is
+                        ../jrebel.jar)
+ -nb,--nobackup         Disable backup of changed files
+ -r,--root <arg>        The Server or Domain root folder
+ -rb,--rollback         Rollback changes in server configuration
+ -rt,--remoting         Prepare container for remote work
+ -v,--verbose           Verbose
+ -y,--yes               Positive acknowledgement for all questions
+Freda bin # ./activate-gui.sh
+Created new window in existing browser session.
+
+Freda bin # ./setup.sh -r /opt/apache-tomcat-8.0.15
+Preparing to do modification
+The Path to jrebel.jar: /home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar
+os.name is Linux
+UsingNativeAgent (1st): true, useNativeAgent()=true, JavaVM2=true
+UsingNativeAgent (2st): osArch=i386
+check DLL for OS with hasNativeAgentFor(i386): vm64bit=false, hasLibFolder[/home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/lib]=true, hasDLLForOS=true
+UsingNativeAgent (3st): hasNativeAgentForOS=true
+UsingNativeAgent (Final): true
+Detected container : Tomcat 8.0.15
+Is the server container correct? (Y/N): Y
+
+ List of new files or modified files
+----------------------------------------
+1:      /opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+----------------------------------------
+Do you agree the changes? (Y/N): Y
+Can't make backup for file:     /opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+Saved new file: /opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+Executing the command:  chmod +x/opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+
+Freda bin #
+Freda bin # ./shutdown.sh
+Using CATALINA_BASE:   /opt/apache-tomcat-8.0.15
+Using CATALINA_HOME:   /opt/apache-tomcat-8.0.15
+Using CATALINA_TMPDIR: /opt/apache-tomcat-8.0.15/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /opt/apache-tomcat-8.0.15/bin/bootstrap.jar:/opt/apache-tomcat-8.0.15/bin/tomcat-juli.jar
+
+Freda bin # ./startup-jrebel.sh
+Using CATALINA_BASE:   /opt/apache-tomcat-8.0.15
+Using CATALINA_HOME:   /opt/apache-tomcat-8.0.15
+Using CATALINA_TMPDIR: /opt/apache-tomcat-8.0.15/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /opt/apache-tomcat-8.0.15/bin/bootstrap.jar:/opt/apache-tomcat-8.0.15/bin/tomcat-juli.jar
+Usage: catalina.sh ( commands ... )
+commands:
+  debug             Start Catalina in a debugger
+  debug -security   Debug Catalina with a security manager
+  jpda start        Start Catalina under JPDA debugger
+  run               Start Catalina in the current window
+  run -security     Start in the current window with security manager
+  start             Start Catalina in a separate window
+  start -security   Start in a separate window with security manager
+  stop              Stop Catalina, waiting up to 5 seconds for the process to end
+  stop n            Stop Catalina, waiting up to n seconds for the process to end
+  stop -force       Stop Catalina, wait up to 5 seconds and then use kill -KILL if still running
+  stop n -force     Stop Catalina, wait up to n seconds and then use kill -KILL if still running
+  configtest        Run a basic syntax check on server.xml - check exit code for result
+  version           What version of tomcat are you running?
+Note: Waiting for the process to end and use of the -force option require that $CATALINA_PID is defined
+
+
+
+
+
+F324-2/vsh ==============================================================================
+
+Freda gedcom #
+git --help
+git --version  ==> 1.9.1
+git hlp config
+git config --global user.email "vytasab@gmail.com"
+git config --global push.default simple
+
+git commit -a -m "išpreęstas neleistinas http naudojimas"
+git push
+Warning: Permanently added the RSA host key for IP address '192.30.252.131' to the list of known hosts.
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Freda gedcom #
+
+F325-3/vsh  ==============================================================================
+
+https://github.com/settings/ssh  ==> Need help?
+        Check out our guide to [generating SSH keys] or troubleshoot [common SSH Problems]
+
+Freda gedcom # git push
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # git config --global user.name "vshgit"
+Freda gedcom # ssh -T -p 443 git@ssh.github.com
+The authenticity of host '[ssh.github.com]:443 ([192.30.252.149]:443)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)? no
+Host key verification failed.
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -vT git@github.com
+OpenSSH_6.6.1, OpenSSL 1.0.1f 6 Jan 2014
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: Applying options for *
+debug1: Connecting to github.com [192.30.252.129] port 22.
+debug1: Connection established.
+debug1: permanently_set_uid: 0/0
+debug1: identity file /root/.ssh/id_rsa type -1
+debug1: identity file /root/.ssh/id_rsa-cert type -1
+debug1: identity file /root/.ssh/id_dsa type -1
+debug1: identity file /root/.ssh/id_dsa-cert type -1
+debug1: identity file /root/.ssh/id_ecdsa type -1
+debug1: identity file /root/.ssh/id_ecdsa-cert type -1
+debug1: identity file /root/.ssh/id_ed25519 type -1
+debug1: identity file /root/.ssh/id_ed25519-cert type -1
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+debug1: Remote protocol version 2.0, remote software version libssh-0.6.0
+debug1: no match: libssh-0.6.0
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: server->client aes128-ctr hmac-sha1 none
+debug1: kex: client->server aes128-ctr hmac-sha1 none
+debug1: sending SSH2_MSG_KEX_ECDH_INIT
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: RSA 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+debug1: Host 'github.com' is known and matches the RSA host key.
+debug1: Found key in /root/.ssh/known_hosts:1
+debug1: ssh_rsa_verify: signature correct
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: Roaming not allowed by server
+debug1: SSH2_MSG_SERVICE_REQUEST sent
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Trying private key: /root/.ssh/id_rsa
+debug1: Trying private key: /root/.ssh/id_dsa
+debug1: Trying private key: /root/.ssh/id_ecdsa
+debug1: Trying private key: /root/.ssh/id_ed25519
+debug1: No more authentication methods to try.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -T -p 443 git@ssh.github.com
+The authenticity of host '[ssh.github.com]:443 ([192.30.252.151]:443)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '[ssh.github.com]:443,[192.30.252.151]:443' (RSA) to the list of known hosts.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -T -p 443 git@ssh.github.com
+Warning: Permanently added the RSA host key for IP address '[192.30.252.150]:443' to the list of known hosts.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -vT git@github.com
+OpenSSH_6.6.1, OpenSSL 1.0.1f 6 Jan 2014
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: Applying options for *
+debug1: Connecting to github.com [192.30.252.129] port 22.
+debug1: Connection established.
+debug1: permanently_set_uid: 0/0
+debug1: identity file /root/.ssh/id_rsa type -1
+debug1: identity file /root/.ssh/id_rsa-cert type -1
+debug1: identity file /root/.ssh/id_dsa type -1
+debug1: identity file /root/.ssh/id_dsa-cert type -1
+debug1: identity file /root/.ssh/id_ecdsa type -1
+debug1: identity file /root/.ssh/id_ecdsa-cert type -1
+debug1: identity file /root/.ssh/id_ed25519 type -1
+debug1: identity file /root/.ssh/id_ed25519-cert type -1
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+debug1: Remote protocol version 2.0, remote software version libssh-0.6.0
+debug1: no match: libssh-0.6.0
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: server->client aes128-ctr hmac-sha1 none
+debug1: kex: client->server aes128-ctr hmac-sha1 none
+debug1: sending SSH2_MSG_KEX_ECDH_INIT
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: RSA 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+debug1: Host 'github.com' is known and matches the RSA host key.
+debug1: Found key in /root/.ssh/known_hosts:1
+debug1: ssh_rsa_verify: signature correct
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: Roaming not allowed by server
+debug1: SSH2_MSG_SERVICE_REQUEST sent
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Trying private key: /root/.ssh/id_rsa
+debug1: Trying private key: /root/.ssh/id_dsa
+debug1: Trying private key: /root/.ssh/id_ecdsa
+debug1: Trying private key: /root/.ssh/id_ed25519
+debug1: No more authentication methods to try.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ls -al ~/.ssh
+total 12
+drwx------  2 root root 4096 Sau 10 15:29 .
+drwx------ 28 root root 4096 Kov 26 00:44 ..
+-rw-r--r--  1 root root 3536 Kov 26 00:52 known_hosts
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh-keygen -t rsa -C "vytasab@gmail.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+c6:c4:f9:27:be:af:84:be:87:72:cc:e8:42:d5:5d:58 vytasab@gmail.com
+The key's randomart image is:
++--[ RSA 2048]----+
+|           oE    |
+|       . .. .    |
+|       .+. .     |
+|      .o...      |
+|     .  S o .    |
+|    .  . o o     |
+|   .   +..o      |
+|    . o.=...     |
+|     o.ooooo.    |
++-----------------+
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # eval "$(ssh-agent -s)"
+Agent pid 4018
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh-add ~/.ssh/id_rsa
+Enter passphrase for /root/.ssh/id_rsa:
+Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # sudo apt-get install xclip
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  xclip
+0 upgraded, 1 newly installed, 0 to remove and 29 not upgraded.
+Need to get 16,5 kB of archives.
+After this operation, 67,6 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty/universe xclip i386 0.12+svn84-4 [16,5 kB]
+Fetched 16,5 kB in 0s (42,0 kB/s)
+Selecting previously unselected package xclip.
+(Reading database ... 174169 files and directories currently installed.)
+Preparing to unpack .../xclip_0.12+svn84-4_i386.deb ...
+Unpacking xclip (0.12+svn84-4) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up xclip (0.12+svn84-4) ...
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # xclip -sel clip < ~/.ssh/id_rsa.pub
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -T git@github.com
+Hi vytasab! You've successfully authenticated, but GitHub does not provide shell access.
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # git push
+Counting objects: 659, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (351/351), done.
+Writing objects: 100% (379/379), 185.53 KiB | 0 bytes/s, done.
+Total 379 (delta 271), reused 0 (delta 0)
+To git@github.com:vytasab/gedcom.git
+   60737e5..5fa0c5a  master -> master
+Freda gedcom #    ======> pavyko !!!
+
+
+F505-2/vsh ==============================================================================
+
+{/home/vsh/Projects/gedcom/}gedcom-web #
+    mvn -Pprod -Dmaven.test.skip=true clean install
+    mvn -Pdev -Dmaven.test.skip=true clean install
+
+{/home/vsh/Projects/gedcom/}gedcom-spa #
+    mvn -Pspa_prodNexus -Dmaven.test.skip=true clean install
+    mvn -Pspa_prodAosvu -Dmaven.test.skip=true clean install
+    mvn -Pspa_dev -Dmaven.test.skip=true clean install
+
+
+F506-3/vsh ==============================================================================
+
+startup-jrebel.sh
+-----------------
+#!/bin/bash
+export JAVA_OPTS="-agentpath:/home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/lib/libjrebel32.so $JAVA_OPTS \
+-Drebel.remoting_plugin=false -Drebel.log=true"
+sh `dirname $0`/catalina.sh $@
+# Usage: catalina.sh ( commands ... )
+# commands:
+#   debug             Start Catalina in a debugger
+#   debug -security   Debug Catalina with a security manager
+#   jpda start        Start Catalina under JPDA debugger
+#   run               Start Catalina in the current window
+#   run -security     Start in the current window with security manager
+#   start             Start Catalina in a separate window
+#   start -security   Start in a separate window with security manager
+#   stop              Stop Catalina, waiting up to 5 seconds for the process to end
+#   stop n            Stop Catalina, waiting up to n seconds for the process to end
+#   stop -force       Stop Catalina, wait up to 5 seconds and then use kill -KILL if still running
+#   stop n -force     Stop Catalina, wait up to n seconds and then use kill -KILL if still running
+#   configtest        Run a basic syntax check on server.xml - check exit code for result
+#   version           What version of tomcat are you running?
+
+rebel.xml
+---------
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.zeroturnaround.com"
+             xsi:schemaLocation="http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+	<classpath>
+		<dir name="/home/vsh/Projects/gedcom/gedcom-web/target/classes"/>
+		<dir name="/home/vsh/Projects/gedcom/gedcom-web/src/main/resources"/>
+	</classpath>
+    <web>
+        <link target="/">
+            <dir name="/home/vsh/Projects/gedcom/gedcom-web/src/main/webapp"/>
+        </link>
+    </web>
+</application>
+
+
+ymdd-x/vsh ==============================================================================
+ymdd-x/vsh ==============================================================================
+ymdd-x/vsh ==============================================================================
+ymdd-x/vsh ==============================================================================
+
