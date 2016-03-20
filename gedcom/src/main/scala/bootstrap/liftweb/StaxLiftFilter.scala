@@ -17,8 +17,6 @@ class StaxLiftFilter extends LiftFilter {
       println("StaxLiftFilter: Props.fileName |" + Props.fileName + "|")
       println("StaxLiftFilter: Props.get(\"run.mode\").get |" + Props.get("run.mode").get + "|")
       println("StaxLiftFilter: Props.mode |" + Props.mode.toString + "|")
-      //System.setProperty("run.mode", "production")
-      //System.setProperty("run.mode", "development")
       System.setProperty("run.mode", Props.get("run.mode").get)
       /*Props.get("run.mode").get match {
         case "production" =>
