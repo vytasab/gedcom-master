@@ -73,7 +73,7 @@
     </div>
     <div>
         <span class="column span-24">
-		  	<lift:CmsMenu.render/>
+		  	<lift:CmsMenu.render/><!--fissure-->
             <span>
             <form action="POST">
                 <span class="lift:SettingSnips.flag" style="vertical-align:top">
@@ -112,7 +112,14 @@
         </div>-->
         <span class="column span-20 last">
           <lift:bind name="content"/>
-            <script id="raphael" src="/scripts/raphael/raphael.js" type="text/javascript"/>
+            <!-- raphael.js" == raphael_v1.5.2.js -->
+            <!--<script id="raphael" src="/scripts/raphael/raphael.js" type="text/javascript"/>-->
+            <!--<script id="raphael" src="/scripts/raphael/raphael_v1.5.2.js" type="text/javascript"/>-->
+
+            <!--<script id="raphael" src="/scripts/raphael/raphael_v2.1.2.js" type="text/javascript"/>-->
+            <!--<script id="raphael" src="/scripts/raphael/raphael-min.js_v2.1.2" type="text/javascript"/>-->
+            <script id="raphael" src="/scripts/raphael/raphael_v2.1.4.js" type="text/javascript"/>
+            <script id="raphaelSerialize" src="/scripts/raphael/raphael.serialize.js" type="text/javascript"/>
             <script id="gedcomLoader" src="/scripts/raphael/gedcom.js" type="text/javascript"/>
         </span>
     </div>

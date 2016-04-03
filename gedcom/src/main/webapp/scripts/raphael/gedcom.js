@@ -1,4 +1,6 @@
 // a family tree drawing
+// 16402-6/vsh  the arrows go{up,right,down,left} location is changed
+// 16330-3/vsh [Family-box] and [child-box] connection mode is changed "leaf-rake" to "garden-rake"
 // E121-2/vsh  pe : fa <-=-> 1:n is implemented, code has been cleaned
 // B104-2/vsh started from gedcomLoader.js
 /* naming conventions for assoc arrays:
@@ -18,6 +20,7 @@ G.horizGapBetweenLiness = 2;
 G.horizGapBetweenSiblings = 25 + 25 * 0;
 G.margin = 10; // Family and Person box internal margin
 G.xDefault = G.yDefault =  G.xyDefault = 100; // default position for every Person box
+G.arm = 25; // Action rect margin
 // G.rootId = id; // a root Person id
 // G.gSize = 0; // number of generations
 // G.gMin = +999 // min generation
@@ -38,21 +41,24 @@ if (!G.shownFam.indexOf) {
     alert ("Your browser does not support indexOf method!");
 }
 
-// Development time tools:  Loging configuration
-G.DIWE = '-DIWE'; //'-DIWE';
-G.diwe = 'I';
-function logD(msg) { if ('-D   '.indexOf(G.diwe.toUpperCase()) > 0) alert('DEBUG ' + msg); }
-function logI(msg) { if ('_DI  '.indexOf(G.diwe.toUpperCase()) > 0) alert('INFO ' + msg); }
-function logW(msg) { if ('_DIW '.indexOf(G.diwe.toUpperCase()) > 0) alert('WARN ' + msg); }
-function logE(msg) { if ('_DIWE'.indexOf(G.diwe.toUpperCase()) > 0) alert('ERROR ' + msg); }
-
 CSS={};
-CSS.male =       {'fill':'270-#cff-#fff', 'stroke':'#000'};       // 'stroke-width':1
-CSS.female =     {'fill':'270-#fcf-#fff', 'stroke':'#000'};
-CSS.maleOver =   {'fill':'90-#6ff-#fff',  'stroke':'#000'};
-CSS.femaleOver = {'fill':'90-#f6f-#fff',  'stroke':'#000'};
-CSS.maleOut =    {'fill':'270-#cff-#fff', 'stroke':'#000'};
-CSS.femaleOut =  {'fill':'270-#fcf-#fff', 'stroke':'#000'};
+CSS.male  =       {fill:'#cff', 'stroke':'#000'};              // 'stroke-width':1
+CSS.male_ =       {fill:'270-#cff-#fff', 'stroke':'#000'};     // 'stroke-width':1
+
+CSS.female  =     {fill:'#fcf', 'stroke':'#000'};
+CSS.female_ =     {fill:'270-#fcf-#fff', 'stroke':'#000'};
+
+CSS.maleOver  =   {fill:'#6ff',  'stroke':'#000'};
+CSS.maleOver_ =   {fill:'90-#6ff-#fff',  'stroke':'#000'};
+
+CSS.femaleOver  = {fill:'#f6f',  'stroke':'#000'};
+CSS.femaleOver_ = {fill:'90-#f6f-#fff',  'stroke':'#000'};
+
+CSS.maleOut  =    {fill:'#cff', 'stroke':'#000'};
+CSS.maleOut_ =    {fill:'270-#cff-#fff', 'stroke':'#000'};
+
+CSS.femaleOut =   {fill:'#fcf', 'stroke':'#000'};
+CSS.femaleOut_ =  {fill:'270-#fcf-#fff', 'stroke':'#000'};
 
 As = {};
 Aa = {};
@@ -63,6 +69,21 @@ Aa = {};
 // A key structure: pId[.fId[.fId[...]]], where pId is p.id value, fId is optional f.id value
 // R[key] value
 R={};
+
+
+    // Development time tools:  Loging configuration
+    G.DIWE = '-DIWE'; //'-DIWE';
+    G.diwe = 'I';
+    G.log2Page = true;
+    function jsLog(logLevel,msg) {
+        var logText = logLevel.substring(0, 1) + ' ' + msg
+        if (G.log2Page) document.getElementById("jslog").innerHTML += logText+"<br/>";
+        alert(logText);
+    }
+    function logD(msg) { if ('-D   '.indexOf(G.diwe.toUpperCase()) > 0) jsLog('DEBUG',msg); /*alert('DEBUG ' + msg);*/ }
+    function logI(msg) { if ('_DI  '.indexOf(G.diwe.toUpperCase()) > 0) jsLog('INFO',msg);  /*alert('INFO ' + msg);*/ }
+    function logW(msg) { if ('_DIW '.indexOf(G.diwe.toUpperCase()) > 0) jsLog('WARN',msg);  /*alert('WARN ' + msg);*/ }
+    function logE(msg) { if ('_DIWE'.indexOf(G.diwe.toUpperCase()) > 0) jsLog('ERROR',msg); /*alert('ERROR ' + msg);*/ }
 
 
     // initialize a generation objects position global variables -------------------
@@ -80,7 +101,8 @@ R={};
     // Define horizontal lines to connect family and children -------------------
     // 16318-5/vsh init
     function setFam2CildHorizonPos() {
-        G.diwe_=G.diwe;  //G.diwe='D';
+        G.diwe_=G.diwe;
+        //G.diwe='D';
         for (var j = G.gMin; j <= G.gMax; j++) {
             //--var peHeightPos = G['g'+j+'_hMax']; // look at drawBox4Gener function
             //--var faMaxHeight = 0;
@@ -109,23 +131,32 @@ R={};
     // update global variables -----------------------------------------------------
     // AC28-2/vsh init
     updateGlobVars = function() {
-        G.diwe_=G.diwe;  //G.diwe='D';
+        G.diwe_=G.diwe;
+        //G.diwe='D';
         logD('updateGlobVars key='+arguments[0]+';')
+        if (G.diwe=='D') showGlobVars(arguments[1]);
         if (arguments.length == 2) {   //  (key, logMsg) {
             var key = ''+arguments[0]
             var logMsg = arguments[1]
             var person = g['p'+key.split('.')[0]]
             var idsInKey = key.split('.')
-            var x = R[key][0].getBBox(false).x
-            var y = R[key][0].getBBox(false).y
-            var width = R[key][0].getBBox(true).width
-            var height = R[key][0].getBBox(true).height
-            logD('updateGlobVars key='+key+';  generation='+person.generation+';  x='+x+';  '+'y='+y+';  '+'width='+width+';  '+'height='+height+';')
-            //for (var j = 1; j < key.split('.').length; j++){ // the person family ids
-            for (var j = 1; j < idsInKey.length; j++){ // the person family ids
-                //var spouse = getPersonSpouseInFamily(person, g['f'+j])
+
+            // 16330-3/vsh vis dar nepagaunu  Element.getBBox(isWithoutTransform) naudojimo
+//            logD("updateGlobVars: R[key] = "+ R[key])
+//            logD("updateGlobVars: R[key][0] = "+ R[key][0].type)
+//            var x = R[key][0].getBBox(false).x
+//            var y = R[key][0].getBBox(false).y
+//            var width = R[key][0].getBBox(true).width
+//            var height = R[key][0].getBBox(true).height
+            var x = R[key][0].getBBox().x
+            var y = R[key][0].getBBox().y
+            var width = R[key][0].getBBox().width
+            var height = R[key][0].getBBox().height
+
+
+            logD('updateGlobVars key='+key+'; generation='+person.generation+'; x='+x+'; '+'y='+y+'; '+'width='+width+'; '+'height='+height+';')
+            for (var j = 1; j < idsInKey.length; j++) { // the person family ids
                 var spouse = getPersonSpouseInFamily(person, g['f'+idsInKey[j]])
-                //width = +((Object.keys(spouse).length > 0) ?  spouse.r[0].getBBox(true).width : 0)
                 width += ((Object.keys(spouse).length > 0) ?  spouse.r[0].getBBox(true).width : 0)
             }
             G.baseWmin = Math.min(G.baseWmin, x);
@@ -333,7 +364,7 @@ Raphael.fn.drawImage = function(url, x, y, w_or_h, size) {
 // B123-7/vsh init
 //sketchPerson = function() {
 Raphael.fn.sketchPerson = function() { //==================================================
-    G.diwe_=G.diwe;  //G.diwe = 'D';
+    G.diwe_=G.diwe;  //G.diwe='D';
     for (var i in g) {
         if (!(i.indexOf('p') >= 0)) continue;
         var p = g[i/*pKey*/];
@@ -388,9 +419,9 @@ Raphael.fn.sketchPerson = function() { //=======================================
     }
     for (var i in g) {
         if (!(i.indexOf('p') >= 0)) continue;
-        var x = g[i]
+        var x = g[i];
         for (var j in x.r) {
-            x.r[j].hide();
+           x.r[j].hide(); //alert(i);
         }
     }
     G.diwe=G.diwe_;
@@ -424,7 +455,7 @@ Raphael.fn.drawPersonDefault = function(personId) { //====================   d_r
         //var y = G.initY - 1*textLineHeight * nLines;
         p.y = y; // - G.margin;
 
-        logD('dP finally: personId nLines ' +pKey+' '+nLines)
+        //logD('dP finally: personId nLines ' +pKey+' '+nLines)
         p.x = x - 0*G.margin;
 
         var rectBorder = (p.id==G.rootId) ? 3 : 1
@@ -449,6 +480,7 @@ Raphael.fn.drawPersonDefault = function(personId) { //====================   d_r
         p.r[p.r.length] = text5;
         var text6 = this.text(p.x, p.y + 5*textLineHeight, ' '+p.dp).attr(CSS.font).attr(CSS.text)
         p.r[p.r.length] = text6;
+        logD('dP finally: personId xx yy nLines ' +pKey+' '+p.x+' '+p.y+' '+nLines)
     } else {
          logE("direction must be 'BT' [BottomTop] only");
     }
@@ -545,7 +577,8 @@ Raphael.fn.drawFamilyDefault = function(famId) { //====================   d_r_a_
 
 // DC30-1/vsh init rebuilt from  Raphael.fn.drawFamily = function(familyId, skipSpouseId, skipChildId)
 Raphael.fn.drawFamilies = function(key) { // key (in R) structure is pId[.fId]{1,n}
-    G.diwe_=G.diwe;  //G.diwe='D';
+    G.diwe_=G.diwe;
+    //G.diwe='D';
 
     CSS.font = {'font-family':'Verdana', 'font-size':'10px'};
     CSS.text = {'fill':'#000000', 'stroke-width':'1', 'text-anchor':'start'};
@@ -574,17 +607,17 @@ Raphael.fn.drawFamilies = function(key) { // key (in R) structure is pId[.fId]{1
         var rTemp = [];    //alert('rTemp.length=' + rTemp.length)
         var deltaX = deltaY = 0;
         if (Object.keys(spouse).length == 0) {
-            var peBox = R[key][0].getBBox(false);
+            var peBox = R[key][0].getBBox();
             var pX = peBox.x, pY = peBox.y, pWidth = peBox.width, pHeight = peBox.height;
             deltaX = pX - G.xyDefault + (pWidth - w)/2
             deltaY = pY - G.xyDefault + /*pHeight*/Math.max(pHeight, maxPeHeight)
         } else if (famIds.length == 1) {
-            var peBox = R[key][0].getBBox(false);
+            var peBox = R[key][0].getBBox();
             var pX = peBox.x, pY = peBox.y, pWidth = peBox.width, pHeight = peBox.height;
             deltaX = pX - G.xyDefault + pWidth - w/2
             deltaY = pY - G.xyDefault + /*pHeight*/Math.max(pHeight, maxPeHeight)
         } else if (famIds.length > 1) {
-            var xBox = R[fKey][0].getBBox(false);
+            var xBox = R[fKey][0].getBBox();
             var pX = xBox.x, pY = xBox.y, pWidth = xBox.width, pHeight = xBox.height;
             deltaX = pX - G.xyDefault + pWidth/2
             deltaY = pY - G.xyDefault + /*pHeight*/Math.max(pHeight, maxPeHeight)
@@ -619,53 +652,53 @@ Raphael.fn.drawFamilies = function(key) { // key (in R) structure is pId[.fId]{1
         var fam0 = g["f"+famIds[0]];
         if ((fam0.father == G.rootId || fam0.mother == G.rootId)) {       //alert('fam0.id '+fam0.id)
             fam0.afc ={};
-            var x = fam0.r[0].getBBox(false).x + fam0.w/2 + 0.5*G.margin;
-            var y = fam0.r[0].getBBox(false).y + fam0.h + 1.6*G.margin;
+            var x = fam0.r[0].getBBox().x + fam0.w/2 + 0.5*G.margin;
+            var y = fam0.r[0].getBBox().y + fam0.h + 1.6*G.margin;
             fam0.arrowDown = paper.drawImage( G.app+'images/goDown.png', x, y, 'w', fam0.h);
             fam0.r.push(fam0.arrowDown)
             //fam0.arrowDown = arrowDown
             fam0.arrowDown.node.onmouseover = function() {  //logI("arrowUp.node.onmouseover 0 fKey="+fam0.id);
                 if ('arrowDown' in fam0) fam0.arrowDown.show();
-                paper.setActions4FamilyChildren(fam0.id, fam0.r[0].getBBox(false));
+                paper.setActions4FamilyChildren(fam0.id, fam0.r[0].getBBox());
             };
             if (famIds.length > 1) {
                 var fam1 = g["f"+famIds[1]];
                 if ((fam1.father == G.rootId || fam1.mother == G.rootId)) {       //alert('fam1.id '+fam1.id)
                     fam1.afc ={};
-                    x = fam1.r[0].getBBox(false).x + fam1.w/2 + 0.5*G.margin;
-                    y = fam1.r[0].getBBox(false).y + fam1.h + 1.6*G.margin;
+                    x = fam1.r[0].getBBox().x + fam1.w/2 + 0.5*G.margin;
+                    y = fam1.r[0].getBBox().y + fam1.h + 1.6*G.margin;
                     fam1.arrowDown = paper.drawImage( G.app+'images/goDown.png', x, y, 'w', fam1.h);
                     fam1.r.push(fam1.arrowDown)
                     //fam1.arrowDown = arrowDown
                     fam1.arrowDown.node.onmouseover = function() {  //logI("arrowUp.node.onmouseover 1 fKey="+fam1.id);
                         if ('arrowDown' in fam1) fam1.arrowDown.show();
-                        paper.setActions4FamilyChildren(fam1.id, fam1.r[0].getBBox(false));
+                        paper.setActions4FamilyChildren(fam1.id, fam1.r[0].getBBox());
                     };
                     if (famIds.length > 2) {
                         var fam2 = g["f"+famIds[2]];
                         if ((fam2.father == G.rootId || fam2.mother == G.rootId)) {       //alert('fam2.id '+fam2.id)
                             fam2.afc ={};
-                            x = fam2.r[0].getBBox(false).x + fam2.w/2 + 0.5*G.margin;
-                            y = fam2.r[0].getBBox(false).y + fam2.h + 1.6*G.margin;
+                            x = fam2.r[0].getBBox().x + fam2.w/2 + 0.5*G.margin;
+                            y = fam2.r[0].getBBox().y + fam2.h + 1.6*G.margin;
                             fam2.arrowDown = paper.drawImage( G.app+'images/goDown.png', x, y, 'w', fam2.h);
                             fam2.r.push(arrowDown)
                             //fam2.arrowDown = arrowDown
                             fam2.arrowDown.node.onmouseover = function() {  //logI("arrowUp.node.onmouseover 2 fKey="+fam2.id);
                                 if ('arrowDown' in fam2) fam2.arrowDown.show();
-                                paper.setActions4FamilyChildren(fam2.id, fam2.r[0].getBBox(false));
+                                paper.setActions4FamilyChildren(fam2.id, fam2.r[0].getBBox());
                             };
                             if (famIds.length > 3) {
                                 var fam3 = g["f"+famIds[2]];
                                 if ((fam3.father == G.rootId || fam3.mother == G.rootId)) {       //alert('fam3.id '+fam3.id)
                                     fam3.afc ={};
-                                    x = fam3.r[0].getBBox(false).x + fam3.w/2 + 0.5*G.margin;
-                                    y = fam3.r[0].getBBox(false).y + fam3.h + 1.6*G.margin;
+                                    x = fam3.r[0].getBBox().x + fam3.w/2 + 0.5*G.margin;
+                                    y = fam3.r[0].getBBox().y + fam3.h + 1.6*G.margin;
                                     fam3.arrowDown = paper.drawImage( G.app+'images/goDown.png', x, y, 'w', fam2.h);
                                     fam3.r.push(arrowDown)
                                     //fam2.arrowDown = arrowDown
                                     fam3.arrowDown.node.onmouseover = function() {  //logI("arrowUp.node.onmouseover 3 fKey="+fam3.id);
                                         if ('arrowDown' in fam3) fam3.arrowDown.show();
-                                        paper.setActions4FamilyChildren(fam3.id, fam3.r[0].getBBox(false));
+                                        paper.setActions4FamilyChildren(fam3.id, fam3.r[0].getBBox());
                                     };
                                 }
                                 if (famIds.length > 1) { logW(localeString('js_person_fams_exceeds_4 ')); return }
@@ -980,44 +1013,6 @@ RETURNS:
 }
 
 
-// B528-6/vsh commented out  // B120-4/vsh init
-//function locateBox(p, searchDirection, xi, yi) {
-////************************************************
-////DESCRIPTION: finds free enough space for Person box
-////PARAMETERS:
-////    p - person object
-////    searchDirection - {cLR,cRL} - look for free space in the {right,left}
-////    xi, yi - the box pssible top-left corner
-////    //w, h - the box width, height
-////RETURNS:
-////   (x, y)
-////**************************************************
-//    G.diwe_=G.diwe; G.diwe = 'D';    //G.diwe=G.diwe_;
-//    var xx = xi;
-//    var yy = yi;
-//    //logD((G['g'+p.generation]+'').split(','));
-//    var pgenArr = (G['g'+p.generation]+'').split(',');
-//    for (var id in pgenArr) {
-//        //logD('id='+id);
-//        var pInGener = g['p'+pgenArr[id]];
-//        //logD('pInGener='+pInGener);
-//        if (pInGener.r.length > 0)/*('x' in pInGener)*/ {
-//            if(overlayCheck(p, pInGener, xx, yy)) { // no overlay
-//                G.diwe=G.diwe_;
-//                return {x:xx, y:yy};
-//            } else {
-//                if (searchDirection == 'cLR') {
-//                    xx = pInGener.x + pInGener.w + G.horizGapBetweenSiblings;
-//                    yy = 0 + yy;
-//                } else { }
-//            }
-//        }
-//    }
-//    G.diwe=G.diwe_;
-//    return {x:xx, y:yy};
-//}
-
-
 // draws box that contains ALL objects
 // B126-3-3/vsh init
 Raphael.fn.drawBaseBox = function() {
@@ -1054,7 +1049,7 @@ Raphael.fn.drawBox4Gener = function() {
     var person = p = g['p'+key.split('.')[0]]  //peObj;
     var maxPeHeight = p.r[0].getBBox(true).height
     var idsInKey = key.split('.')
-    for (var j = 1; j < idsInKey.length; j++){
+    for (var j = 1; j < idsInKey.length; j++) {
         var family =  g['f'+idsInKey[j]]    //faObj;
         /*var spouseId = ((family.mother > 0) && (person.id == family.mother)) ?
             ((family.father > 0) ? family.father : 0) :
@@ -1062,9 +1057,11 @@ Raphael.fn.drawBox4Gener = function() {
                 ((family.mother > 0) ? family.mother : 0) : 0;*/
         var spouse = getPersonSpouseInFamily(person, family)
         //maxPeHeight = Math.max(maxPeHeight, g['p'+spouseId].r[0].getBBox(true).height)
+        logD("getMaxPeHeight: maxPeHeight (Object.keys(spouse).length "+maxPeHeight+" "+(Object.keys(spouse).length))
         maxPeHeight = Math.max(maxPeHeight, (Object.keys(spouse).length > 0) ?  spouse.r[0].getBBox(true).height : 0)
     }
     G.diwe=G.diwe_;
+    logD("getMaxPeHeight: finally maxPeHeight "+maxPeHeight)
     return maxPeHeight;
 };
 
@@ -1082,8 +1079,9 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
 //RETURNS:
 //   rTemp - array of rect objects
 //**************************************************
-    G.diwe_=G.diwe  //G.diwe='D';
-    G.arm = 25; // Action rect margin
+    G.diwe_=G.diwe;
+    //G.diwe='D';
+    // 16329-2/vsh  moved to the top  G.arm = 25; // Action rect margin
     var maxPeHeight = getMaxPeHeight(key)
     var person = g['p'+key.split('.')[0]]  //peObj;
     var personId = person.id
@@ -1093,14 +1091,26 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
     var rTemp = [];
     for (var rp in person.r) { rTemp[rTemp.length] = person.r[rp].clone().show().translate(deltaX, deltaY); }
     var rect1 = rTemp[0];
-    if (rect1.getBBox(true).height < maxPeHeight) {
-       var rect2 = this.rect(rect1.getBBox(true).x, rect1.getBBox(true).y,
-            rect1.getBBox(true).width, maxPeHeight, 5)/*.attr(CSS.gender)*//*.toBack()*/
+    // ----------------------------------------------------------------
+    // 16330-3/vsh:  use (false) or () only; (true) causes erroneus data dispay
+    var aBBox = rect1.getBBox();
+    if (aBBox.height < maxPeHeight) {
+        logD('createPeBox: aBBox.height {mažiau} maxPeHeight ' + aBBox.height + ' ' + maxPeHeight);
+        var rect2 = this.rect(aBBox.x, aBBox.y, aBBox.width, maxPeHeight, 5)/*.attr(CSS.gender)*//*.toBack()*/
         rTemp.shift();
         rTemp.unshift(rect2);
         for (var i = 1; i < rTemp.length; i++)  rTemp[i].toFront();
         rect1.remove()
+        logD('createPeBox: aBBox.height {mažiau} maxPeHeight ...[]');
     }
+//    if (rect1.getBBox(true).height < maxPeHeight) {
+//       var rect2 = this.rect(rect1.getBBox(true).x, rect1.getBBox(true).y,
+//            rect1.getBBox(true).width, maxPeHeight, 5)/*.attr(CSS.gender)*//*.toBack()*/
+//        rTemp.shift();
+//        rTemp.unshift(rect2);
+//        for (var i = 1; i < rTemp.length; i++)  rTemp[i].toFront();
+//        rect1.remove()
+//    }
     rect1 = rTemp[0].attr((personGender=='M') ? CSS.male : CSS.female).attr({'stroke-width':rectBorder})
 
     rect1.node.onclick = function() { //logI("rect1.node.onclick " + personId);
@@ -1111,9 +1121,11 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
             location.assign ( G.app+"rest/person/" + personId);
     };
 
-    rect1.node.onmouseover = function() { //logI("rect1.node.onmouseover " + personId);
+    rect1.node.onmouseover = function() { //logI("createPeBox: rect1.node.onmouseover " + personId);
         var rectBorder = (personId==G.rootId) ? 3 : 1
+        //rect1/*.stop()*/.animate(((personGender=='M') ? CSS.maleOver : CSS.femaleOver),444);//.attr({'stroke-width':rectBorder})
         rect1.attr((personGender=='M') ? CSS.maleOver : CSS.femaleOver).attr({'stroke-width':rectBorder})
+        //rect1.attr((personGender=='M') ? {fill:'90-#fff-#000', stroke:'#fff'} : {fill:'90-#f6f-#ff0', stroke:'#000'}).attr({'stroke-width':rectBorder})
         if (personId == G.rootId) {
             rect1.attr("title", localeString("js_go2PeData")/*"click mouse to see all the person data"*/);
         } else {
@@ -1121,9 +1133,11 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
         }
     };
 
-    rect1.node.onmouseout = function() { //logI("rect1.node.onmouseout " + personId);
+    rect1.node.onmouseout = function() { //logI("createPeBox: rect1.node.onmouseout " + personId);
         var rectBorder = (personId==G.rootId) ? 3 : 1
+        //rect1.stop().animate((personGender=='M') ? CSS.maleOut : CSS.femaleOut).attr({'stroke-width':rectBorder})
         rect1.attr((personGender=='M') ? CSS.maleOut : CSS.femaleOut).attr({'stroke-width':rectBorder})
+        //rect1.attr((personGender=='M') ? {fill:'270-#cff-#fff', 'stroke':'#000'} : {fill:'000-#fcf-#ff0', 'stroke':'#000'}).attr({'stroke-width':rectBorder})
     };
 
     rTemp[0] = rect1;
@@ -1133,8 +1147,8 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
         // D7004-4/vsh start using  (G.loggedIn
         // D207-4/vsh // goLeft, goUp icon shape is (p.h X p.h)
         // goLeft icon drawing  S-i-b-l-i-n-g  S-i-b-l-i-n-g  S-i-b-l-i-n-g
-        var xgli = rect1.getBBox(false).x - g['p'+personId].h-0*1*G.margin-1
-        var ygli = rect1.getBBox(false).y - 0*1*G.margin
+        var xgli = rect1.getBBox().x - g['p'+personId].h-0*1*G.margin-1
+        var ygli = rect1.getBBox().y - 0*1*G.margin
         var arrowLeft = paper.drawImage( G.app+'images/goLeft.png', xgli, ygli, 'w', person.h);
         //rTemp.push(/*p.r[p.r.length] = */arrowLeft)
         person.r[person.r.length] = arrowLeft
@@ -1143,7 +1157,7 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
         arrowLeft.node.onmouseover = function() {   //logI("arrowLeft.node.onmouseover");
             if ('arrowLeft' in person) person.arrowLeft.hide();
             if ('arrowUp' in person) person.arrowUp.hide();
-            paper.setActions4Sibling(person.id, rect1.getBBox(false));   //alert();
+            paper.setActions4Sibling(person.id, rect1.getBBox());   //alert();
         };
 
         arrowLeft.node.onmouseout = function() {  //logD("arrowLeft.node.onmouseout");
@@ -1153,15 +1167,15 @@ Raphael.fn.createPeBox = function(key, deltaX, deltaY) {
         // goUp icon drawing  A-n-c-e-s-t-o-r  A-n-c-e-s-t-o-r  A-n-c-e-s-t-o-r  A-n-c-e-s-t-o-r
         var family = g['f'+person.familyId];
         if ((!('familyId' in person)) || (!(family.father > 0)) || (!(family.mother > 0))) {
-            var xglj = rect1.getBBox(false).x
-            var yglj = rect1.getBBox(false).y - person.h - 0.1*G.margin;
+            var xglj = rect1.getBBox().x
+            var yglj = rect1.getBBox().y - person.h - 0.1*G.margin;
             var arrowUp = paper.drawImage( G.app+'images/goUp.png', xglj, yglj, 'w', person.h);
             rTemp.push(arrowUp)
             person["arrowUp"] = arrowUp;
             arrowUp.node.onmouseover = function() { ///*logD*/alert("arrowUp.node.onmouseover");
                if ('arrowLeft' in person) person.arrowLeft.hide();
                if ('arrowUp' in person) person.arrowUp.hide();
-               paper.setActions4Ancestor(person.id, rect1.getBBox(false));
+               paper.setActions4Ancestor(person.id, rect1.getBBox());
             };
             arrowUp.node.onmouseout = function() { ///*logD*/alert("arrowUp.node.onmouseout");
                 //if ('arrowLeft' in person) person.arrowLeft.show();
@@ -1408,36 +1422,51 @@ Raphael.fn.createSpouseBox = function(key, spIndex, deltaX, deltaY) {
 //    deltaY - y-axis shift
 //RETURNS:  true, when spouse really exists, false - otherwise
 //**************************************************
-    G.diwe_=G.diwe;  //G.diwe='D';
+    G.diwe_=G.diwe;
+    //G.diwe='D';
+    logD('createSpouseBox: key spIndex deltaX deltaY = '+key+' '+spIndex+' '+deltaX+' '+deltaY);
     var maxPeHeight = getMaxPeHeight(key)
     logD("createSpouseBox key="+key);
-    var person = /*p = */g['p'+key.split('.')[0]]      //peObj;
-    var family =  g['f'+key.split('.')[spIndex]]       //faObj;
+    var person = g['p'+key.split('.')[0]]           //peObj;
+    var family = g['f'+key.split('.')[spIndex]]     //faObj;
     logD("createSpouseBox family.id="+family.id);
     var spouse = getPersonSpouseInFamily(person, family)
 
     if (Object.keys(spouse).length == 0) {
-        //logE('drawFamilies: no spouse for person id='+ person.id + '; in family id=' + family.id);
+        logE('drawFamilies: no spouse for person id='+ person.id + '; in family id=' + family.id);
         return false;
     }
     var spouseId = spouse.id
-
     logD("createSpouseBox spouseId="+spouseId);
+
     var rTemp = [];
+    /*if (G.diwe=='D') for (var rp in g['p'+spouseId].r) { g['p'+spouseId].r[rp].clone().show(); alert('before') }*/
     for (var rp in g['p'+spouseId].r) {
+        //logD("createSpouseBox: "+g['p'+spouseId].r[rp].clone().show().translate(deltaX, deltaY);
         rTemp[rTemp.length] = g['p'+spouseId].r[rp].clone().show().translate(deltaX, deltaY);
     }
+
+    //  error !!!
+    //if (G.diwe=='D') { for (var rp in rTemp) { rp.clone().show(); alert('after'); } }  // error !!!
+
     var rectBorder = (g['p'+spouseId].id == G.rootId) ? 3 : 1
     var rect1 = rTemp[0];
-    if (rect1.getBBox(true).height < maxPeHeight) {
-        var rect2 = this.rect(rect1.getBBox(true).x, rect1.getBBox(true).y,
-            rect1.getBBox(true).width, maxPeHeight, 5).
-            attr((spouse.gender=='M') ? CSS.male : CSS.female).attr({'stroke-width':rectBorder})
-        rect1.remove()
-        rTemp.shift();
-        rTemp.unshift(rect2);
-        for (var i = 1; i < rTemp.length; i++)  rTemp[i].toFront();
-        rect1 = rTemp[0];
+    var tempBox = rect1.getBBox()
+    if (tempBox.height < maxPeHeight) { //
+        //logD("createSpouseBox tempBox.height < maxPeHeight: "+tempBox.height+"  "+ maxPeHeight);
+        var rect2 = this.rect(tempBox.x, tempBox.y, tempBox.width, maxPeHeight, 5).
+            attr((spouse.gender=='M') ? CSS.male : CSS.female).attr({'stroke-width':rectBorder}); //alert("rect2")
+//    if (rect1.getBBox(true).height < maxPeHeight) { //
+//        logD("createSpouseBox rect1.getBBox(true).height < maxPeHeight: "+rect1.getBBox(true).height+" < "+ maxPeHeight);
+//        var rect2 = this.rect(rect1.getBBox(true).x, rect1.getBBox(true).y,
+//            rect1.getBBox(true).width, maxPeHeight, 5).
+//            attr((spouse.gender=='M') ? CSS.male : CSS.female).attr({'stroke-width':rectBorder})
+        rect1.remove();        //alert("rect1.remove()")
+        rTemp.shift();         //alert("rTemp.shift()")
+        rTemp.unshift(rect2);  //alert("rTemp.unshift(rect2)")
+        for (var i = 1; i < rTemp.length; i++)
+            rTemp[i].toFront();
+        rect1 = rTemp[0];      //alert("rect1 = rTemp[0]")
     }
 
     rect1.node.onclick = function() { //logI("rect1.node.onclick " + spouseId);
@@ -1445,13 +1474,20 @@ Raphael.fn.createSpouseBox = function(key, spIndex, deltaX, deltaY) {
         location.assign ( G.app+"rest/person/" + g['p'+spouseId].id);
     };
 
-    rect1.node.onmouseover = function() { //logI("rect1.node.onmouseover " + spouseId);
+
+    rect1.node.onmouseover = function() { //logI("createSpouseBox: rect1.node.onmouseover " + spouseId);
+        //rect1.stop().animate((spouse.gender=='M') ? CSS.maleOver : CSS.femaleOver).attr({'stroke-width':rectBorder}).
+        //    attr("title", localeString("js_go2ChgPe")/*"click mouse to change current person"*/);
         rect1.attr((spouse.gender=='M') ? CSS.maleOver : CSS.femaleOver).attr({'stroke-width':rectBorder}).
             attr("title", localeString("js_go2ChgPe")/*"click mouse to change current person"*/);
+        //rect1.attr((spouse.gender=='M') ? {'fill':'90-#6ff-#ff0',  'stroke':'#000'} : {'fill':'90-#f6f-#ff0',  'stroke':'#000'}).attr({'stroke-width':rectBorder}).
+        //    attr("title", localeString("js_go2ChgPe")/*"click mouse to change current person"*/);
     };
 
-    rect1.node.onmouseout = function() { //logI("rect1.node.onmouseout " + spouseId);
+    rect1.node.onmouseout = function() { //logI("createSpouseBox: rect1.node.onmouseout " + spouseId);
+        //rect1.stop().animate((spouse.gender=='M') ? CSS.maleOut : CSS.femaleOut).attr({'stroke-width':rectBorder}) //.attr({fill: '270-#fcf-#fff', opacity: 0.5});
         rect1.attr((spouse.gender=='M') ? CSS.maleOut : CSS.femaleOut).attr({'stroke-width':rectBorder}) //.attr({fill: '270-#fcf-#fff', opacity: 0.5});
+        //rect1.attr((spouse.gender=='M') ? {'fill':'270-#cff-#ff0', 'stroke':'#000'} : {'fill':'270-#fcf-#ff0', 'stroke':'#000'}).attr({'stroke-width':rectBorder}) //.attr({fill: '270-#fcf-#fff', opacity: 0.5});
     };
 
     rTemp[0] = rect1;
@@ -1488,13 +1524,14 @@ Raphael.fn.translteForest = function(deltaX, deltaY) {
 //      artimiausi 'root' asmeniui
 // BB08-2/vsh init
 Raphael.fn.rangeAll = function() {
-    G.diwe_=G.diwe;  //G.diwe='D';
+    G.diwe_=G.diwe;
+    //G.diwe='D';
     for (var i = G.gMin; i <= G.gMax; i++) {
-        //logD('Karta ' + (i));
+        logD('rangeAll: karta ' + (i));
         G['s'+(i)] = (G['g'+(i)]+'').split(',');
-        //logD( 'g'+(i) + '  ' + G['s'+(i)].length + '  ' + G['s'+(i)].toString());
+        logD('rangeAll: g'+(i) + '  ' + G['s'+(i)].length + '  ' + G['s'+(i)].toString());
     }
-    logD( 's0 rootId' + '  ' + G['s0'].length + '  ' + G['s0'].toString());
+    logD('rangeAll: s0 rootId' + '  ' + G['s0'].length + '  ' + G['s0'].toString());
     swapIds(G['s'+(0)], G.rootId);
     var pRoot = g['p'+G.rootId];                                            //alert(p.toString());
     if (('familyId' in pRoot)) { // the person is child in family
@@ -1521,7 +1558,7 @@ Raphael.fn.rangeAll = function() {
             }
         }
     }
-    logD( 's0 rootId' + '  ' + G['s0'].length + '  ' + G['s0'].toString());
+    logD('rangeAll: s0 rootId' + '  ' + G['s0'].length + '  ' + G['s0'].toString());
 
     for (var i =  -1; i >= G.gMin; i--) { //  ancestor generations
         var childrenArr = G['s'+(i+1)];
@@ -1572,7 +1609,7 @@ Raphael.fn.rangeAll = function() {
     for (var i = G.gMin; i <= G.gMax; i++) {
         logText = logText + ' [' + i + ']=' + G['s'+(i)] + ';  ';
     }
-    logD( logText);
+    logD("rangeAll: finally" + logText);
     G.diwe=G.diwe_;
 };
 
@@ -1633,120 +1670,130 @@ swapIds = function(arr, id) {    //return;
 };
 
 
-// ============================================================================
-// Shows one person and his not yet shown families
-// DC28-6/vsh init
-Raphael.fn.drawPeAndFams = function(personObj) {   //alert('drawPeAndFams')
-    G.diwe_=G.diwe;  //G.diwe='D';
-    var p = personObj;
-    logD('drawPeAndFamilies Asmuo ' + p.id + '  ' +  p.nameGivn + '  ' + p.nameSurn + '  fd=' + p.fd);
-    var key = ''+p.id
-    if (('fd' in p)) { // the Person is/was maried at least once
-        var familyIds = getPersonFamilyIdsArr(p);
-        // build a key for R
-        for (var j = 0; j < familyIds.length; j++){
-            if (!isFamilyDrawn(p, familyIds[j])) {
-                key = key + '.' + familyIds[j]
+    // ====================================
+    // draws all generation families and persons
+    // BA25-2/vsh init
+    Raphael.fn.drawAll = function() {   //alert("drawAll");
+        G.diwe_=G.diwe;
+        //G.diwe='D';
+        paper.drawPeAndFams(g["p"+G.rootId]);
+        for (var i = G.gMin; i <= (0); i++) {
+            logD('Karta (protėviai) ' +  i);
+            var pgenArr = G['s'+(i)]; //(G['g'+(i)]+'').split(',');
+            logD( 's'+(i) + '  ' + G['s'+(i)].length + ';  ' + G['s'+(i)].toString())
+            for (var ii in G['s'+(i)]) {
+                logD('pgenArr[ii] ' + G['s'+(i)][ii]);
+                var pe = pInGener = g['p'+Math.abs(G['s'+(i)][ii])];
+                if (pe.id != G.rootId) this.drawPeAndFams(pe);
             }
         }
-        logD('drawPeAndFamilies key ' + key);
-        var idsInKey = key.split('.')
-        var maxPeHeight = getMaxPeHeight(key)
-        //if (key.indexOf(".") > 0) { // there are not shown families for the person
-        if (idsInKey.length > 1) { // there are not shown families for the person
-            //  http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
-            var realXY = locateBox(p);  //var x = realXY.x;   //var y = realXY.y;
-            var deltaX = realXY.x - G.xyDefault;
-            var deltaY = realXY.y - G.xyDefault;
-            R[key] = paper.createPeBox(key/*p*/, deltaX, deltaY)
-            deltaX += /*deltaX +*/ p.r[0].getBBox(true).width;
-            for (var j = 1; j < idsInKey.length; j++){
-                if (paper.createSpouseBox(key, j/*peObj, faObj*/, deltaX, deltaY))
-                    deltaX += R['f'+key.split('.')[j]][0].getBBox(true).width
+        for (var i = 1; i <= G.gMax; i++) {
+            logD('Karta (palikuonys) ' + i);
+            var pgenArr = G['s'+i]; //(G['g'+i]+'').split(',');
+            logD( 's'+(i) + '  ' + pgenArr.length)
+            for (var ii in pgenArr) {
+                var pe = pInGener = g['p'+Math.abs(G['s'+(i)][ii])];
+                this.drawPeAndFams(pe);
             }
-            this.drawFamilies(key); // key is pId[.fId]{1,n}
-            updateGlobVars(key, 'drawPeAndFams');
         }
-    } else { // the Person is single
-            var realXY = locateBox(p);  //var x = realXY.x;   //var y = realXY.y;
-            var deltaX = realXY.x - G.xyDefault;
-            var deltaY = realXY.y - G.xyDefault;
-            R[key] = paper.createPeBox(key/*p*/, deltaX, deltaY)
-            updateGlobVars(key, 'drawPeAndFams');
-    }
-    logD('drawPeAndFamilies R key='+key+';  keys=' +  Object.keys(R));
-    G.diwe=G.diwe_;
-};
 
-
-var getPersonFamilyIdsArr = function(person) {
-    var familyIds = [];
-    if (('fd' in person)) { // the Person is/was maried at least once
-        var familyIdsString = ""+person.fd;  // !!! ==> ""+...  is IMPORTANT
-        familyIds = familyIdsString.split(",");
-    }
-    return familyIds;
-}
-
-
-// Checks if family is drawn now
-// E107-2/vsh init
-function isFamilyDrawn(person, familyId) {
-    var fKey = "f"+familyId;
-    var f = g[fKey];
-    return ((('f'+familyId) in R) ? true : false)
- }
-
-
-// ====================================
-// draws all generation families and persons
-// BA25-2/vsh init
-Raphael.fn.drawAll = function() {   //alert("drawAll");
-    G.diwe_=G.diwe;  //G.diwe='D';
-    paper.drawPeAndFams(g["p"+G.rootId]);
-    for (var i = G.gMin; i <= (0); i++) {
-        logD('Karta (<=0) ' +  i);
-        var pgenArr = G['s'+(i)]; //(G['g'+(i)]+'').split(',');
-        logD( 's'+(i) + '  ' + G['s'+(i)].length + ';  ' + G['s'+(i)].toString())
-        for (var ii in G['s'+(i)]) {
-            logD('pgenArr[ii] ' + G['s'+(i)][ii]);
-            var pe = pInGener = g['p'+Math.abs(G['s'+(i)][ii])];
-            if (pe.id != G.rootId)  this.drawPeAndFams(pe);
+       /*  for (var i = 0; i <= (0-G.gMin); i++) {
+            logD('Karta ' + (-i));
+            var pgenArr = (G['g'+(-i)]+'').split(',');
+            logD( 'g'+(-i) + '  ' + pgenArr.length)
+            for (var id in pgenArr) {
+                var pInGener = g['p'+pgenArr[id]];
+                logD('Asmuo ' + pInGener.id);
+            }
+            //for (var j = 0; j < familyIds.length; j++){
         }
-        //break;
-    }
-    for (var i = 1; i <= G.gMax; i++) {
-        logD('Karta (>0) ' + i);
-        var pgenArr = G['s'+i]; //(G['g'+i]+'').split(',');
-        logD( 's'+(i) + '  ' + pgenArr.length)
-        for (var ii in pgenArr) {
-            var pe = pInGener = g['p'+Math.abs(G['s'+(i)][ii])];
-            this.drawPeAndFams(pe);
+        for (var i = 1; i <= G.gMax; i++) {
+            logD('Karta ' + i);
+            var pgenArr = (G['g'+i]+'').split(',');
+            logD( 'g'+(i) + '  ' + pgenArr.length)
+            for (var id in pgenArr) {
+                var pInGener = g['p'+pgenArr[id]];
+                logD('Asmuo ' + pInGener.id);
+            }
+       }  */
+        G.diwe=G.diwe_;
+    };
+
+
+    // ============================================================================
+    // Shows one person and his not yet shown families
+    // DC28-6/vsh init
+    Raphael.fn.drawPeAndFams = function(personObj) {
+        G.diwe_=G.diwe;
+        //G.diwe='D';
+        var p = personObj;
+        logD('drawPeAndFams Asmuo ' + p.id + '  ' +  p.nameGivn + '  ' + p.nameSurn + '  fd=' + p.fd);
+        var key = ''+p.id
+        var realXY = locateBox(p);  //var x = realXY.x;   //var y = realXY.y;
+        logD("drawPeAndFams: after locateBox: x y = "+realXY.x+' '+realXY.y);
+        var deltaX = realXY.x - G.xyDefault + 0*25;
+        var deltaY = realXY.y - G.xyDefault + 0*25;
+        if (('fd' in p)) { // the Person is/was maried at least once
+            var familyIds = getPersonFamilyIdsArr(p);
+            // build a key for R
+            for (var j = 0; j < familyIds.length; j++){
+                if (!isFamilyDrawn(p, familyIds[j])) {
+                    key = key + '.' + familyIds[j]
+                }
+            }
+            logD('drawPeAndFams:  key= ' + key);
+            var idsInKey = key.split('.')
+            var maxPeHeight = getMaxPeHeight(key)
+            //if (key.indexOf(".") > 0) { // there are not shown families for the person
+            if (idsInKey.length > 1) { logD("drawPeAndFams: there are not shown families for the person")
+                //  http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
+                //..var realXY = locateBox(p);  //var x = realXY.x;   //var y = realXY.y;
+                //..logD("drawPeAndFams: after LocateBox: x y = "+realXY.x+' '+realXY.y);
+                //..var deltaX = realXY.x - G.xyDefault + 0*25;
+                //..var deltaY = realXY.y - G.xyDefault + 0*25;
+                logD('drawPeAndFams: before createPeBox key deltaX deltaY = '+key+' '+deltaX+' '+deltaY);
+                R[key] = paper.createPeBox(key, deltaX, 1*deltaY - 0*maxPeHeight)
+                logD('drawPeAndFams: after');
+                var boolVar = false;
+                deltaX += p.r[0].getBBox(boolVar).width;
+                for (var j = 1; j < idsInKey.length; j++) {
+                    logD('drawPeAndFams: j=' + j);
+                    if (paper.createSpouseBox(key, j/*peObj, faObj*/, deltaX, deltaY)){
+                        logD('drawPeAndFams: after paper.createSpouseBox()');
+                        deltaX += R['f'+key.split('.')[j]][0].getBBox(boolVar).width
+                        logD('drawPeAndFams: after deltaX=' + deltaX);
+                    }
+                }
+                this.drawFamilies(key); // key is pId[.fId]{1,n}
+                updateGlobVars(key, 'drawPeAndFams-A');
+            }
+        } else { //alert("drawPeAndFams: the Person is single")
+                //..var realXY = locateBox(p);  //var x = realXY.x;   //var y = realXY.y;
+                //..var deltaX = realXY.x - G.xyDefault;
+                //..var deltaY = realXY.y - G.xyDefault;
+                R[key] = paper.createPeBox(key, deltaX, deltaY)
+                updateGlobVars(key, 'drawPeAndFams-B');
         }
-    }
-/*
-    for (var i = 0; i <= (0-G.gMin); i++) {
-        logD('Karta ' + (-i));
-        var pgenArr = (G['g'+(-i)]+'').split(',');
-        logD( 'g'+(-i) + '  ' + pgenArr.length)
-        for (var id in pgenArr) {
-            var pInGener = g['p'+pgenArr[id]];
-            logD('Asmuo ' + pInGener.id);
+        logD('drawPeAndFams R key='+key+';  keys=' +  Object.keys(R));
+        G.diwe=G.diwe_;
+    };
+
+    var getPersonFamilyIdsArr = function(person) {
+        var familyIds = [];
+        if (('fd' in person)) { // the Person is/was maried at least once
+            var familyIdsString = ""+person.fd;  // !!! ==> ""+...  is IMPORTANT
+            familyIds = familyIdsString.split(",");
         }
-        //for (var j = 0; j < familyIds.length; j++){
+        return familyIds;
     }
-    for (var i = 1; i <= G.gMax; i++) {
-        logD('Karta ' + i);
-        var pgenArr = (G['g'+i]+'').split(',');
-        logD( 'g'+(i) + '  ' + pgenArr.length)
-        for (var id in pgenArr) {
-            var pInGener = g['p'+pgenArr[id]];
-            logD('Asmuo ' + pInGener.id);
-        }
-    }
-*/
-    G.diwe=G.diwe_;
-};
+
+    // Checks if family is drawn now
+    // E107-2/vsh init
+    function isFamilyDrawn(person, familyId) {
+        var fKey = "f"+familyId;
+        var f = g[fKey];
+        return ((('f'+familyId) in R) ? true : false)
+     }
 
 
 // C103-5/vsh init
@@ -1758,10 +1805,46 @@ PARAMETERS:
 RETURNS:
    (x, y) of top-left corner
 **************************************************/
-    var xptfc = 1*75+0*150+0*150; //f.x + f.w/2 - 0*G.margin/* - f.childrenWidth/2 + f.wMean/2*/;  //
-    var yptfc = 1*75+0*50+0*50;   //f.y + f.h + G.vertGapBetweenGenerations;                       //
+    var xptfc = 1*75 + 0*150 + 0*150; //f.x + f.w/2 - 0*G.margin/* - f.childrenWidth/2 + f.wMean/2*/;  //
+    var yptfc = 1*75 + 0*50  + 0*50;   //f.y + f.h + G.vertGapBetweenGenerations;                       //
     return locateXpendBox(p, 'cLR', xptfc, yptfc);
 }
+// B528-6/vsh commented out  // B120-4/vsh init
+//function locateBox(p, searchDirection, xi, yi) {
+////************************************************
+////DESCRIPTION: finds free enough space for Person box
+////PARAMETERS:
+////    p - person object
+////    searchDirection - {cLR,cRL} - look for free space in the {right,left}
+////    xi, yi - the box pssible top-left corner
+////    //w, h - the box width, height
+////RETURNS:
+////   (x, y)
+////**************************************************
+//    G.diwe_=G.diwe; G.diwe = 'D';    //G.diwe=G.diwe_;
+//    var xx = xi;
+//    var yy = yi;
+//    //logD((G['g'+p.generation]+'').split(','));
+//    var pgenArr = (G['g'+p.generation]+'').split(',');
+//    for (var id in pgenArr) {
+//        //logD('id='+id);
+//        var pInGener = g['p'+pgenArr[id]];
+//        //logD('pInGener='+pInGener);
+//        if (pInGener.r.length > 0)/*('x' in pInGener)*/ {
+//            if(overlayCheck(p, pInGener, xx, yy)) { // no overlay
+//                G.diwe=G.diwe_;
+//                return {x:xx, y:yy};
+//            } else {
+//                if (searchDirection == 'cLR') {
+//                    xx = pInGener.x + pInGener.w + G.horizGapBetweenSiblings;
+//                    yy = 0 + yy;
+//                } else { }
+//            }
+//        }
+//    }
+//    G.diwe=G.diwe_;
+//    return {x:xx, y:yy};
+//}
 
 
 // BB03-4/vsh vėl naudoju
@@ -1806,7 +1889,7 @@ RETURNS:
             yy = gg_hMin + G.margin;
         }
     }
-    logD("locateXpendBox: generation xx yy " +p.generation+" "+xx+" "+yy);
+    logD("locateXpendBox: generation xx yy " +p.generation+" "+xx+" "+yy+" "+p.nameGivn+" "+p.nameSurn);
     G.diwe=G.diwe_;
     return {x:xx, y:yy};
 }
@@ -1829,7 +1912,7 @@ RETURNS:
         logD('getPersonBox [ok] per |' + per + '| ')
         if (per.split('.')[0] == peId) {
             G.diwe=G.diwe_;
-            return R[per][0].getBBox(false)
+            return R[per][0].getBBox()
         }
         //}
     }
@@ -1843,7 +1926,7 @@ RETURNS:
             logD('getPersonBox [2]... peId |' + peId + '| ' + fam.father + '  ' + fam.mother )
             if ((fam.father == peId) || (fam.mother == peId )) {
                 G.diwe=G.diwe_;
-                return R[per][0].getBBox(false)
+                return R[per][0].getBBox()
             }
         }
     }
@@ -1856,7 +1939,8 @@ RETURNS:
 // BB07-1/vsh  init
 // 16318-5/vsh update Family---Children connection method
 Raphael.fn.bindPersons = function() { //==================================================
-    G.diwe_=G.diwe;  //G.diwe='D';
+    G.diwe_=G.diwe;
+    //G.diwe='D';
     logD('bindPersons R keys ' +  Object.keys(R));
     //logger('bindPersons R keys ' +  Object.keys(R))
     for (var i in g) {
@@ -1872,7 +1956,7 @@ Raphael.fn.bindPersons = function() { //========================================
                 var rColor = f.color
                 //var fmw = f.x + f.w/2;                                  //logD("f.x f.w "+f.x+" "+f.w);
                 //var fmh = f.y + f.h*f.rLines + 0*G.margin/2;            //logD("f.y f.h "+f.y+" "+f.h);*/
-                var fBox = f.r[0].getBBox(false)
+                var fBox = f.r[0].getBBox()
                 var fmw = fBox.x + fBox.width/(2 - 0)
                 var fmh = fBox.y + fBox.height*f.rLines - 3*G.margin/1
 
@@ -1881,11 +1965,11 @@ Raphael.fn.bindPersons = function() { //========================================
                 //if (fKey == 'f1') alert('fKey in g fKey=' + fKey + '------- ' + 'M'+fmw+' '+fmh+'L'+plw+' '+plh);
                 var box = this.getPersonBox(p.id)
                 if (box == undefined) logE("bindPersons box undefined for p.id " + p.id )
-                var plw = box.x + box.width/2
+                var plw = box.x + box.width/2         //  16329-2 error:  Cannot read property 'x' of underfined
                 var plh = box.y - 0*G.margin
 
-                if (f.children.split(",").length == 1*0) {  // ignore "if"
-                    logD/*alert*/('path |'+'M'+fmw+' '+fmh+'L'+plw+' '+plh+'|');  // alert("drawPerson relPosition = " + relPosition);
+                if (f.children.split(",").length <= 1*1) {  // ignore "if"
+                    logD('path |'+'M'+fmw+' '+fmh+'L'+plw+' '+plh+'|');  // alert("drawPerson relPosition = " + relPosition);
                     var path1 = this.path('M'+fmw+' '+fmh+'L'+plw+' '+plh).attr({stroke: rColor})
                     p.r[p.r.length] = path1;
                     //logD("bindPersons: p.r[p.r.length-1] = " +  p.r[p.r.length-1]);
@@ -1991,12 +2075,20 @@ Raphael.fn.bindPersons = function() { //========================================
 //alert("G.initX = "+G.initX);
 InitGlobVars();
 
-paper = Raphael(document.getElementById("canvas"), G.globWidth, G.globHeight);
-var scale = 1.375;
+/*var*/ paper = Raphael(document.getElementById("canvas")/*"canvas"*/, G.globWidth, G.globHeight);
+
+//alert('document.getElementById("canvas")|='+document.getElementById("canvas")+'|');
+
+// 16324-4 - error exploration:  Uncaught TypeError: paper.set is not a function
+//alert("after paper creation ... " + paper);
+//    var exploreSet = paper.set();
+//alert("after exploreSet creation ... " + exploreSet);
+
+/*var*/ scale = 1.25;  // 1.3  1.375;
 paper.setSize(scale*G.globWidth, scale*G.globHeight);
 G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRectCssAttrs);
 
-//--paper.drawTestShapes(); // DO NOT DELETE
+//-- paper.drawTestShapes(); // DO NOT DELETE
 
 ///*
 // //========================================
@@ -2022,33 +2114,109 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
 //*/
 
 //========================================
-  paper.rangeAll();
-  //alert("G.initX = "+G.initX + ";   G.initY = "+G.initY);
-  // e103-5/vsh sketchPerson();
+    paper.rangeAll();
+    //alert("G.initX = "+G.initX + ";   G.initY = "+G.initY);
+    // e103-5/vsh sketchPerson();
 
-  paper.sketchPerson(); // since e103-5
-  paper.sketchFamily();
+    paper.sketchPerson(); // since e103-5
+    paper.sketchFamily();
 
-  //paper.drawPerson(G.rootId, 'personOnly');
-  //  var pKey = "p"+G.rootId;    //alert(pKey);
-  //  var pe = g["p"+G.rootId];   //alert(p);
-  //paper.drawPeAndFams(g["p"+G.rootId]);
+    //paper.drawPerson(G.rootId, 'personOnly');
+    //  var pKey = "p"+G.rootId;    //alert(pKey);
+    //  var pe = g["p"+G.rootId];   //alert(p);
+    //paper.drawPeAndFams(g["p"+G.rootId]);
 
-  paper.drawAll();
-  paper.drawBox4Gener();  // 16319-6/vsh  develpment time tool
-  setFam2CildHorizonPos();
-  paper.bindPersons();
+    paper.drawAll();     //paper.drawBox4Gener();  // 16319-6/vsh  develpment time tool
+    setFam2CildHorizonPos();
+    paper.bindPersons();
 
-  //G.diwe_=G.diwe;  G.diwe='D';
-  //logD('drawPersonAndFamilies R keys ' +  Object.keys(R));
-  //G.diwe=G.diwe_;
+
+// 16324-4/vsh  experiments []...
+/*
+    var jsonn = [{"id":1,"msg"   : "hi","tid" : "2013-05-05 23:35","fromWho": "hello1@email.se"},
+    {"id" : "2","msg"   : "there","tid" : "2013-05-05 23:45","fromWho": "hello2@email.se"}];
+    alert("jsonn.length=|||"+jsonn.length+"|||");
+    for(var j = 0; j < jsonn.length; j++) {
+        var obj = jsonn[j];
+        //console.log(obj.id);
+        //document.getElementById("jsondiv").innerHTML += obj.id;
+        alert(obj.id + obj.msg);
+    }
+    //for (var i in jsonn) {
+    for(var i = 0; i < jsonn.length; i++) {
+        alert("i=|||"+i+"|||");
+        var obj = jsonn[i];
+        //alert("json[i]=|||"+json[i]+"|||");
+        // //document.getElementById("jsondiv").write(json[i]);
+        document.getElementById("jsondiv").innerHTML += obj.id + obj.msg;
+        //for (var pv in json[i]) {
+        //    if (pv.hasOwnProperty(pv))
+        //    //document.getElementById("jsondiv").write("prop: " + pv + " value: " + obj[pv]);
+        //    document.getElementById("jsondiv").innerHTML=("prop: " + pv + " value: " + json[i][pv]);
+        //}
+    }
+*/
+// ...[]
+
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+
+//    // 16321-1/vsh  -- svg ==> png experiments
+//    var jsonText = paper.serialize.json(); // saves as json text
+//    alert("jsonText=|||"+jsonText+"|||");
+//    alert("IsJsonString(jsonText)=" + IsJsonString(jsonText));
+//    var json = JSON.parse(jsonText); // saves as json
+//    alert("json.length=|||"+json.length+"|||");
+//    //alert("json=|||"+json+"|||");
+//    // http://stackoverflow.com/questions/3010840/loop-through-array-in-javascript
+//    // http://stackoverflow.com/questions/18238173/javascript-loop-through-json-array
+//    document.getElementById("jsondiv").innerHTML += '[';
+//    sep = '';
+//    for(var i = 0; i < json.length; i++) {
+//        //if (i == 11) { break; }
+//        var obj = json[i];
+//        document.getElementById("jsondiv").innerHTML += sep+'{';
+//        sepa = '';
+//        for(var k in obj){
+//                if (obj.hasOwnProperty(k)) {
+//                    //console.info(key + ': ' + currentObject[key]);
+//                    document.getElementById("jsondiv").innerHTML += sepa+k+":"+obj[k]+' ';
+//                }
+//            sepa = ',';
+//        }
+//        document.getElementById("jsondiv").innerHTML += '}';
+//        sep = ',';
+//       // document.getElementById("jsondiv").innerHTML += ' '+obj.type;
+//        //alert("i=|||"+i+"|||");
+//        //alert("json[i]=|||"+json[i]+"|||");
+//        // //document.getElementById("jsondiv").write(json[i]);
+//        //if (i == 1000) { break; }
+//        //document.getElementById("jsondiv").innerHTML += json[i];
+//        //for (var pv in json[i]) {
+//        //    if (pv.hasOwnProperty(pv))
+//        //    //document.getElementById("jsondiv").write("prop: " + pv + " value: " + obj[pv]);
+//        //    document.getElementById("jsondiv").innerHTML=("prop: " + pv + " value: " + json[i][pv]);
+//        //}
+//    }
+//    document.getElementById("jsondiv").innerHTML += ']';
+
+  //paper.clear();
+  //paper.serialize.load_json(json); // load it back
+
 
   var goXxxW = 30;
   var goXxxH = 30;
   var marginX = 10;
   var marginY = 10;
   var vInitx = marginX;
-  var vInity = 10 //G.globHeight/2 + 2*goXxxH;
+  var vInity = 10 //G.globHeight/2 + 2*goXxxH;                  // -1*hGap, G.globHeight
   var step = 200;
   var vGap = hGap = 10;
 
@@ -2061,7 +2229,9 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
      goDown.attr("title", localeString("js_goInit"));
    };
 
-  var goUp = paper.drawImage( G.app+'images/goUp.png', vInitx + 1*(goXxxH + hGap), vInity  + 0*(goXxxH + vGap), 'w', 30);
+  //var goUp = paper.drawImage( G.app+'images/goUp.png', vInitx + 1*(goXxxH + hGap), vInity  + 0*(goXxxH + vGap), 'w', 30);
+  var goUp = paper.drawImage( G.app+'images/goUp.png',
+        vInitx+scale*G.globWidth/2-goXxxW, vInity-1*vGap + 0*(goXxxH + vGap), 'w', 30);
   goUp.node.onclick = function() {
     paper.translteForest(0, 1*step);
     goUp.attr("title", localeString("js_goUp"));
@@ -2071,7 +2241,9 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
     goUp.attr("title", localeString("js_goUp"));
   };
 
-  var goRight = paper.drawImage( G.app+'images/goRight.png', vInitx, vInity + 1*(goXxxH + vGap), 'w', 30);   // go090.jpg
+  //var goRight = paper.drawImage( G.app+'images/goRight.png', vInitx, vInity + 1*(goXxxH + vGap), 'w', 30);   // go090.jpg
+  var goRight = paper.drawImage( G.app+'images/goRight.png',
+        vInitx+scale*G.globWidth-goXxxW-hGap, scale*G.globHeight/2-vInity, 'w', 30);
   goRight.node.onclick = function() {
     paper.translteForest(-1*step, 0);
     goRight.attr("title", localeString("js_goRight"));
@@ -2081,7 +2253,9 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
     goRight.attr("title", localeString("js_goRight"));
   };
 
-  var goLeft = paper.drawImage( G.app+'images/goLeft.png', vInitx, vInity + 2*(goXxxH + vGap), 'w', 30);
+  //var goLeft = paper.drawImage( G.app+'images/goLeft.png', vInitx, vInity + 2*(goXxxH + vGap), 'w', 30);
+  var goLeft = paper.drawImage( G.app+'images/goLeft.png',
+        vInitx-hGap, scale*G.globHeight/2-vInity, 'w', 30);
   goLeft.node.onclick = function() {
     paper.translteForest(1*step, 0);
     goLeft.attr("title", localeString("js_goLeft"));
@@ -2091,7 +2265,9 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
     goLeft.attr("title", localeString("js_goLeft"));
   };
 
-  var goDown = paper.drawImage( G.app+'images/goDown.png', vInitx + 2*(goXxxH + hGap), vInity + 0*(goXxxH + vGap), 'w', 30);
+  //var goDown = paper.drawImage( G.app+'images/goDown.png', vInitx + 2*(goXxxH + hGap), vInity + 0*(goXxxH + vGap), 'w', 30);
+  var goDown = paper.drawImage( G.app+'images/goDown.png',
+        vInitx+scale*G.globWidth/2-goXxxW, vInity+scale*G.globHeight-1*goXxxH-1*hGap, 'w', 30);
   goDown.node.onclick = function() {
     paper.translteForest(0, -1*step);
     goDown.attr("title", localeString("js_goDown"));
@@ -2120,20 +2296,20 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
      //alert('event.clientX: ' + event.clientX + ', event.clientY: ' + event.clientY + '; bnds.left: ' + bnds.left + ', bnds.top: ' + bnds.top + '; x: ' + fx + ', y: ' + fy);
  };
 
-    window.onload = function(paper) {
-        G.diwe_=G.diwe;  //G.diwe='D';
-        //logger('window.onload 0');
-        logD("window.onload ");
-        G.diwe=G.diwe_;
-    }
+//    window.onload = function(paper) {
+//        G.diwe_=G.diwe;  //G.diwe='D';
+//        //logger('window.onload 0');
+//        logD("window.onload ");
+//        G.diwe=G.diwe_;
+//    }
 
     paper.rect(scale*G.globWidth/2-8, scale*G.globHeight/2-8, 16, 16, 8).attr('fill', 'lightgreen').attr("title", localeString("js_canvas_center"));
 
 //======================================================================================================================
 // E115-3/vsh  The statement is necessary for editing functionality impelemtation
 // http://stackoverflow.com/questions/15257059/how-do-i-get-an-event-in-raphaels-paper-coordinates
-    // paper.setViewBox(0, 0, 10, 10, true);
+     //paper.setViewBox(0, 0, 10, 10, true);
 // 16319-6/vsh  aukščiau eilutėje funkcija ,atrodo man, nereikalinga ir
 //      kartais generuoja klaidą: Uncaught TypeError: paper.setViewBox is not a function
-/*============================================================*/
+/*============================================================ */
 
