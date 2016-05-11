@@ -26,6 +26,8 @@ G.arm = 25; // Action rect margin
 // G.gMin = +999 // min generation
 // G.gMax = -999 // max generation
 // G['g'+generationLevel] = 'pId,...' // list of Person ids
+G.wMin = G.hMin = 9999;
+G.wMax = G.hMax = -9999;
 
 // 2D size of tree
 G.baseWmin = G.initX = G.globWidth/2+00;
@@ -34,9 +36,12 @@ G.baseHmin = G.initY = G.globHeight/2+00;
 G.baseHmax = G.globHeight/2;
 G.tempWidth = 0;
 G.tempHeight = 0;
-G.topRectCssAttrs = ({fill: "#eeeeee", stroke: "#fff", opacity: 1});
+G.topRectCssAttrs = ({fill:"#eeeeee", stroke:"#fff", opacity:1});
+//G.topRectCssAttrs = ({fill:"#ffffff", stroke:"#fff", opacity:1});
+G.topRectCssAttrs4png = ({fill:"#ffffff", stroke:"#fff", opacity:1});
 
 G.shownFam=[];
+
 if (!G.shownFam.indexOf) {
     alert ("Your browser does not support indexOf method!");
 }
@@ -75,9 +80,10 @@ R={};
     G.DIWE = '-DIWE'; //'-DIWE';
     G.diwe = 'I';
     G.log2Page = true;
+
     function jsLog(logLevel,msg) {
         var logText = logLevel.substring(0, 1) + ' ' + msg
-        if (G.log2Page) document.getElementById("jslog").innerHTML += logText+"<br/>";
+        if (G.log2Page) document.getElementById("logger").innerHTML += logText+"<br/>";
         alert(logText);
     }
     function logD(msg) { if ('-D   '.indexOf(G.diwe.toUpperCase()) > 0) jsLog('DEBUG',msg); /*alert('DEBUG ' + msg);*/ }
@@ -85,6 +91,76 @@ R={};
     function logW(msg) { if ('_DIW '.indexOf(G.diwe.toUpperCase()) > 0) jsLog('WARN',msg);  /*alert('WARN ' + msg);*/ }
     function logE(msg) { if ('_DIWE'.indexOf(G.diwe.toUpperCase()) > 0) jsLog('ERROR',msg); /*alert('ERROR ' + msg);*/ }
 
+
+    logger = function(message) {
+        //logD(document.getElementById("logger").firstChild.nodeValue);
+        document.getElementById("logger").firstChild.nodeValue = message;
+    };
+
+    // Development time tool. Defines show Person info
+    // B106-4/vsh init
+    function logPerson(personId) {
+        var xKey = "p"+personId;
+        var p = g[xKey];
+        var res = "Person: ";
+        var s = '';
+        for (var i in p) { res = res + ' ' + i +'=' + p[i]; s ='; ' }
+        var t = G.diwe; G.diwe="D";  logD(res);  G.diwe=t;
+    }
+
+    // Development time tool.  Defines show Family  info
+    // B106-4/vsh init
+    function logFamily(familyId) {
+        var xKey = "f"+familyId;
+        var f = g[xKey];
+        var res = "Family: ";
+        var s = '';
+        for (var i in f) { res = res + ' ' + i +'=' + f[i]; s ='; '  }
+        var t = G.diwe; G.diwe="D";  logD(res);  G.diwe=t;
+    }
+
+    // Development time tool.
+    // 16414-4/vsh init
+    function logGlobVars() {
+      var str = ""
+      //var wMin = 9999;
+      //var wMax = -9999;
+      //var hMin = 9999;
+      //var hMax = -9999;
+      for (var i = G.gMin; i <= G.gMax; i++) {
+          //wMin = Math.min(wMin, G['g'+i+'_wMin'])
+          //wMax = Math.max(wMax, G['g'+i+'_wMax'])
+          //hMin = Math.min(hMin, G['g'+i+'_hMin'])
+          //hMax = Math.max(hMax, G['g'+i+'_hMax'])
+          str += " G[g"+i+"_wMin]=" +G['g'+i+'_wMin'] +
+                   " G[g"+i+"_wMax]=" +G['g'+i+'_wMax'] +
+                   " G[g"+i+"_hMin]=" +G['g'+i+'_hMin'] +
+                   " G[g"+i+"_hMax]=" +G['g'+i+'_hMax']
+        }
+        var t = G.diwe; G.diwe="D";  logD(str);  G.diwe=t;
+        //return {wMin, wMax, hMin, hMax}
+    }
+
+    // 16414-4/vsh init
+    function getGlobWH() {
+      //var str = ""
+      var wMin = 9999;
+      var wMax = -9999;
+      var hMin = 9999;
+      var hMax = -9999;
+      for (var i = G.gMin; i <= G.gMax; i++) {
+          wMin = Math.min(wMin, G['g'+i+'_wMin'])
+          wMax = Math.max(wMax, G['g'+i+'_wMax'])
+          hMin = Math.min(hMin, G['g'+i+'_hMin'])
+          hMax = Math.max(hMax, G['g'+i+'_hMax'])
+          //str += " G[g"+i+"_wMin]=" +G['g'+i+'_wMin'] +
+          //         " G[g"+i+"_wMax]=" +G['g'+i+'_wMax'] +
+          //         " G[g"+i+"_hMin]=" +G['g'+i+'_hMin'] +
+          //         " G[g"+i+"_hMax]=" +G['g'+i+'_hMax']
+        }
+        //var t = G.diwe; G.diwe="D";  logD(str);  G.diwe=t;
+        return {wMin, wMax, hMin, hMax}
+    }
 
     // initialize a generation objects position global variables -------------------
     // AC29-3/vsh init
@@ -289,11 +365,11 @@ function levenshtein(str1, str2) {
     * Returns a random CSS color rgb code between min and max
     */
     function randomColor () {
-        var min = 50;
-        var max = 250;
-        var r = Math.random() * (max - min) + min;
-        var g = Math.random() * (max - min) + min;
-        var b = Math.random() * (max - min) + min;
+        var min = 5;
+        var max = 150;
+        var r = Math.round(Math.random()) * (max - min) + min;
+        var g = Math.round(Math.random()) * (max - min) + min;
+        var b = Math.round(Math.random()) * (max - min) + min;
         return "rgb("+r+","+g+","+b+")"
     }
 
@@ -851,37 +927,10 @@ Raphael.fn.drawTestShapes = function() { //-------------------------------------
 
 }
 
-logger = function(message) {
-    //logD(document.getElementById("logger").firstChild.nodeValue);
-    document.getElementById("logger").firstChild.nodeValue = message;
-};
-
 function LoadNewPage () {
    location.assign ( G.app+"rest/person/6");
 };
 
-
-// Development time tool. Defines show Person info via alert
-// B106-4/vsh init
-function logPerson(personId) {
-    var xKey = "p"+personId;
-    var p = g[xKey];
-    var res = "Person: ";
-    var s = '';
-    for (var i in p) { res = res + ' ' + i +'=' + p[i]; s ='; ' }
-    var t = G.diwe; G.diwe="D";  logD(res);  G.diwe=t;
-}
-
-// Development time tool.  Defines show Family  info via alert
-// B106-4/vsh init
-function logFamily(familyId) {
-    var xKey = "f"+familyId;
-    var f = g[xKey];
-    var res = "Family: ";
-    var s = '';
-    for (var i in f) { res = res + ' ' + i +'=' + f[i]; s ='; '  }
-    var t = G.diwe; G.diwe="D";  logD(res);  G.diwe=t;
-}
 
 
 function validateInteger( strValue ) {
@@ -2073,9 +2122,8 @@ Raphael.fn.bindPersons = function() { //========================================
 // =====================================================================================================================
 // =====================================================================================================================
 //alert("G.initX = "+G.initX);
-InitGlobVars();
-
-/*var*/ paper = Raphael(document.getElementById("canvas")/*"canvas"*/, G.globWidth, G.globHeight);
+    InitGlobVars();
+    paper = Raphael(document.getElementById("canvas")/*"canvas"*/, G.globWidth, G.globHeight);
 
 //alert('document.getElementById("canvas")|='+document.getElementById("canvas")+'|');
 
@@ -2084,9 +2132,27 @@ InitGlobVars();
 //    var exploreSet = paper.set();
 //alert("after exploreSet creation ... " + exploreSet);
 
-/*var*/ scale = 1.25;  // 1.3  1.375;
-paper.setSize(scale*G.globWidth, scale*G.globHeight);
-G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRectCssAttrs);
+    scale = 1.25;  // 1.3  1.375;
+    paper.setSize(scale*G.globWidth, scale*G.globHeight);
+    G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRectCssAttrs);
+
+     G.topRect.node.onclick = function(event) {
+         // get bounding rect of the paper
+         var bnds = event.target.getBoundingClientRect();
+         // adjust mouse x/y
+         var mx = event.clientX - bnds.left
+         var my = event.clientY - bnds.top
+         // divide x/y by the bounding w/h to get location %s and apply factor by actual paper w/h
+         var fx = mx/bnds.width * G.topRect.attrs.width
+         var fy = my/bnds.height * G.topRect.attrs.height
+         // cleanup output
+         fx = Number(fx).toPrecision(3);
+         fy = Number(fy).toPrecision(3);
+         paper.translteForest((scale*G.globWidth/2 - fx), (scale*G.globHeight/2 - fy));        // G.globWidth, G.globHeight
+         //paper.translteForest(10, 10);        // G.globWidth, G.globHeight
+         //alert('event.clientX: ' + event.clientX + ', event.clientY: ' + event.clientY + '; bnds.left: ' + bnds.left + ', bnds.top: ' + bnds.top + '; x: ' + fx + ', y: ' + fy);
+     };
+
 
 //-- paper.drawTestShapes(); // DO NOT DELETE
 
@@ -2132,8 +2198,7 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
 
 
 // 16324-4/vsh  experiments []...
-/*
-    var jsonn = [{"id":1,"msg"   : "hi","tid" : "2013-05-05 23:35","fromWho": "hello1@email.se"},
+/*    var jsonn = [{"id":1,"msg"   : "hi","tid" : "2013-05-05 23:35","fromWho": "hello1@email.se"},
     {"id" : "2","msg"   : "there","tid" : "2013-05-05 23:45","fromWho": "hello2@email.se"}];
     alert("jsonn.length=|||"+jsonn.length+"|||");
     for(var j = 0; j < jsonn.length; j++) {
@@ -2155,161 +2220,210 @@ G.topRect = paper.rect(0, 0, scale*G.globWidth, scale*G.globHeight).attr(G.topRe
         //    document.getElementById("jsondiv").innerHTML=("prop: " + pv + " value: " + json[i][pv]);
         //}
     }
+    function IsJsonString(str) {
+             try {
+                 JSON.parse(str);
+             } catch (e) {
+                 return false;
+             }
+             return true;
+    }
 */
 // ...[]
 
-    function IsJsonString(str) {
-        try {
-            JSON.parse(str);
-        } catch (e) {
-            return false;
-        }
-        return true;
-    }
 
+    var goXxxW = 30;
+    var goXxxH = 30;
+    var marginX = 10;
+    var marginY = 10;
+    var vInitx = marginX;
+    var vInity = 10 //G.globHeight/2 + 2*goXxxH;     // -1*hGap, G.globHeight
+    var step = 200;
+    var vGap = hGap = 10;
 
-//    // 16321-1/vsh  -- svg ==> png experiments
-//    var jsonText = paper.serialize.json(); // saves as json text
-//    alert("jsonText=|||"+jsonText+"|||");
-//    alert("IsJsonString(jsonText)=" + IsJsonString(jsonText));
-//    var json = JSON.parse(jsonText); // saves as json
-//    alert("json.length=|||"+json.length+"|||");
-//    //alert("json=|||"+json+"|||");
-//    // http://stackoverflow.com/questions/3010840/loop-through-array-in-javascript
-//    // http://stackoverflow.com/questions/18238173/javascript-loop-through-json-array
-//    document.getElementById("jsondiv").innerHTML += '[';
-//    sep = '';
-//    for(var i = 0; i < json.length; i++) {
-//        //if (i == 11) { break; }
-//        var obj = json[i];
-//        document.getElementById("jsondiv").innerHTML += sep+'{';
-//        sepa = '';
-//        for(var k in obj){
+    //var go2TopLeft = paper.rect(vInitx+3, vInitx, 20, 20).attr('fill', 'lightgreen').attr("title", localeString("js_goInit"))
+    var go2TopLeft = paper.drawImage( G.app+'images/goRefresh.png',
+        vInitx, vInity + 0*(goXxxH + vGap), 'w', 30)/*.attr("title", localeString("js_goInit"))*/.attr("display", "no");
+        go2TopLeft.node.onclick = function() {
+         location.assign(G.app+"/gedcom/forest");
+    };
+    go2TopLeft.node.onmouseover = function() {
+        go2TopLeft.attr("title", localeString("js_goInit"));
+    };
+
+    //var goUp = paper.drawImage( G.app+'images/goUp.png', vInitx + 1*(goXxxH + hGap), vInity  + 0*(goXxxH + vGap), 'w', 30);
+    var goUp = paper.drawImage( G.app+'images/goUp.png',
+        vInitx+scale*G.globWidth/2-goXxxW, vInity-1*vGap + 0*(goXxxH + vGap), 'w', 30);
+    goUp.node.onclick = function() {
+        paper.translteForest(0, 1*step);
+        goUp.attr("title", localeString("js_goUp"));
+    };
+    goUp.node.onmouseover = function() {
+        //paper.translteForest(0, 1*step);
+        goUp.attr("title", localeString("js_goUp"));
+    };
+
+    //var goRight = paper.drawImage( G.app+'images/goRight.png', vInitx, vInity + 1*(goXxxH + vGap), 'w', 30);   // go090.jpg
+    var goRight = paper.drawImage( G.app+'images/goRight.png',
+        vInitx+scale*G.globWidth-goXxxW-hGap, scale*G.globHeight/2-vInity, 'w', 30);
+    goRight.node.onclick = function() {
+        paper.translteForest(-1*step, 0);
+        goRight.attr("title", localeString("js_goRight"));
+    };
+    goRight.node.onmouseover = function() {
+        //paper.translteForest(-1*step, 0);
+        goRight.attr("title", localeString("js_goRight"));
+    };
+
+    //var goLeft = paper.drawImage( G.app+'images/goLeft.png', vInitx, vInity + 2*(goXxxH + vGap), 'w', 30);
+    var goLeft = paper.drawImage( G.app+'images/goLeft.png',
+        vInitx-hGap, scale*G.globHeight/2-vInity, 'w', 30);
+    goLeft.node.onclick = function() {
+        paper.translteForest(1*step, 0);
+        goLeft.attr("title", localeString("js_goLeft"));
+    };
+    goLeft.node.onmouseover = function() {
+        //paper.translteForest(1*step, 0);
+        goLeft.attr("title", localeString("js_goLeft"));
+    };
+
+    //var goDown = paper.drawImage( G.app+'images/goDown.png', vInitx + 2*(goXxxH + hGap), vInity + 0*(goXxxH + vGap), 'w', 30);
+    var goDown = paper.drawImage( G.app+'images/goDown.png',
+        vInitx+scale*G.globWidth/2-goXxxW, vInity+scale*G.globHeight-1*goXxxH-1*hGap, 'w', 30);
+    goDown.node.onclick = function() {
+        paper.translteForest(0, -1*step);
+        goDown.attr("title", localeString("js_goDown"));
+    };
+    goDown.node.onmouseover = function() {
+        //paper.translteForest(0, -1*step);
+        goDown.attr("title", localeString("js_goDown"));
+    };
+
+    var go2BottomRight = paper.drawImage( G.app+'images/goRefresh.png',
+        vInitx+scale*G.globWidth-goXxxW-hGap, vInity+scale*G.globHeight-1*goXxxH-1*hGap, 'w', 30);
+    go2BottomRight.node.onclick = function() {
+        //location.assign(G.app+"/gedcom/forest")
+        // 16321-1/vsh  -- svg ==> png experiments
+
+        go2TopLeft.hide(); goUp.hide(); goRight.hide(); goLeft.hide(); goDown.hide();
+        centras.hide(); go2BottomRight.hide();
+
+        var wh = getGlobWH();
+        G.wMin = wh.wMin;
+        G.wMax = wh.wMax;
+        G.hMin = wh.hMin;
+        G.hMax = wh.hMax;
+
+        // logGlobVars();
+        G.topRect.attr(G.topRectCssAttrs4png);
+        var canvas_svg = paper.toSVG();
+        //document.getElementById('svg').innerHTML = canvas_svg.toString();
+        //alert("canvas_svg=|||"+canvas_svg+"|||");
+        canvg('html_canvas',canvas_svg);
+        go2TopLeft.show(); goUp.show(); goRight.show(); goLeft.show(); goDown.show();
+        centras.show(); go2BottomRight.show();
+        G.topRect.attr(G.topRectCssAttrs);
+
+        //var canvas_html = document.getElementById("html_canvas");
+        //window.location = canvas_html.toDataURL("image/png");
+
+//        alert("-------------------------------------------------------------------------------------")
+//        var jsonText = paper.serialize.json(); // saves as json text
+//        var json = JSON.parse(jsonText); // saves as json
+//        alert("jsonText=|||"+jsonText+"|||");
+//        //alert("IsJsonString(jsonText)=" + IsJsonString(jsonText));
+//        //alert("json.length=|||"+json.length+"|||");
+//        //alert("json=|||"+json+"|||");
+//        // http://stackoverflow.com/questions/3010840/loop-through-array-in-javascript
+//        // http://stackoverflow.com/questions/18238173/javascript-loop-through-json-array
+//        //document.getElementById("jsondiv").innerHTML += '[';
+//        fillDoc('[');
+//        sep = '';
+//        for(var i = 0; i < json.length; i++) {
+//            //if (i == 11) { break; }
+//            var obj = json[i];
+//            //document.getElementById("jsondiv").innerHTML += sep+'{';
+//            fillDoc(sep+'{');
+//            sepa = '';
+//            for(var k in obj) {
 //                if (obj.hasOwnProperty(k)) {
 //                    //console.info(key + ': ' + currentObject[key]);
-//                    document.getElementById("jsondiv").innerHTML += sepa+k+":"+obj[k]+' ';
+//                    //document.getElementById("jsondiv").innerHTML += sepa+k+":"+obj[k]+' ';
+//                    fillDoc(sepa+k+":"+obj[k]+' ');
 //                }
-//            sepa = ',';
+//                sepa = ',';
+//            }
+//            //document.getElementById("jsondiv").innerHTML += '}';
+//            fillDoc('}');
+//            sep = ',';
+//           // document.getElementById("jsondiv").innerHTML += ' '+obj.type;
+//            //alert("i=|||"+i+"|||");
+//            //alert("json[i]=|||"+json[i]+"|||");
+//            // //document.getElementById("jsondiv").write(json[i]);
+//            //if (i == 1000) { break; }
+//            //document.getElementById("jsondiv").innerHTML += json[i];
+//            //for (var pv in json[i]) {
+//            //    if (pv.hasOwnProperty(pv))
+//            //    //document.getElementById("jsondiv").write("prop: " + pv + " value: " + obj[pv]);
+//            //    document.getElementById("jsondiv").innerHTML=("prop: " + pv + " value: " + json[i][pv]);
+//            //}
 //        }
-//        document.getElementById("jsondiv").innerHTML += '}';
-//        sep = ',';
-//       // document.getElementById("jsondiv").innerHTML += ' '+obj.type;
-//        //alert("i=|||"+i+"|||");
-//        //alert("json[i]=|||"+json[i]+"|||");
-//        // //document.getElementById("jsondiv").write(json[i]);
-//        //if (i == 1000) { break; }
-//        //document.getElementById("jsondiv").innerHTML += json[i];
-//        //for (var pv in json[i]) {
-//        //    if (pv.hasOwnProperty(pv))
-//        //    //document.getElementById("jsondiv").write("prop: " + pv + " value: " + obj[pv]);
-//        //    document.getElementById("jsondiv").innerHTML=("prop: " + pv + " value: " + json[i][pv]);
-//        //}
-//    }
-//    document.getElementById("jsondiv").innerHTML += ']';
+//        //document.getElementById("jsondiv").innerHTML += ']';
+//        fillDoc(']');
+//
+//        var zip = new JSZip();
+//        zip.file("svg.txt", document.getElementById("jsondiv").innerHTML);
+//        var content = zip.generate({type:"blob"});
+//        // see FileSaver.js
+//        saveAs(content, "example.zip");
+//
+//        //paper.clear();
+//        //paper.serialize.load_json(json); // load it back
+//
+//        //var fillDoc = function(txtPiece) {
+//        function fillDoc(txtPiece) {
+//            G.diwe_=G.diwe; //G.diwe='D';
+//            logD('updateGlobVars key='+arguments[0]+';')
+//            document.getElementById("jsondiv").innerHTML += txtPiece;
+//            G.diwe=G.diwe_;
+//        };
+        //// develiopment time code []...
+        ////-- see FileSaver.js
+        //var zip = new JSZip();
+        //zip.file("svg.txt", canvas_svg);
+        //var content = zip.generate({type:"blob"});
+        //saveAs(content, "example.zip");
+        //// ...[]
 
-  //paper.clear();
-  //paper.serialize.load_json(json); // load it back
+    };
+    go2BottomRight.node.onmouseover = function() {
+         goDown.attr("title", localeString("js_goInit"));
+    };
 
+    //logger('Logger Logger Logger Logger Logger  ')
 
-  var goXxxW = 30;
-  var goXxxH = 30;
-  var marginX = 10;
-  var marginY = 10;
-  var vInitx = marginX;
-  var vInity = 10 //G.globHeight/2 + 2*goXxxH;                  // -1*hGap, G.globHeight
-  var step = 200;
-  var vGap = hGap = 10;
+    //window.onload = function(paper) {
+    //    G.diwe_=G.diwe;  //G.diwe='D';
+    //    //logger('window.onload 0');
+    //    logD("window.onload ");
+    //    G.diwe=G.diwe_;
+    //}
 
-  //var go2TopLeft = paper.rect(vInitx+3, vInitx, 20, 20).attr('fill', 'lightgreen').attr("title", localeString("js_goInit"))
-  var go2TopLeft = paper.drawImage( G.app+'images/goRefresh.png', vInitx, vInity + 0*(goXxxH + vGap), 'w', 30).attr("title", localeString("js_goInit"));
-   go2TopLeft.node.onclick = function() {
-     location.assign(G.app+"/gedcom/forest")
-   };
-   go2TopLeft.node.onmouseover = function() {
-     goDown.attr("title", localeString("js_goInit"));
-   };
+    var centras = paper.rect(scale*G.globWidth/2-8, scale*G.globHeight/2-8, 16, 16, 8).
+            attr('fill', 'lightgreen').attr("title", localeString("js_canvas_center"));
 
-  //var goUp = paper.drawImage( G.app+'images/goUp.png', vInitx + 1*(goXxxH + hGap), vInity  + 0*(goXxxH + vGap), 'w', 30);
-  var goUp = paper.drawImage( G.app+'images/goUp.png',
-        vInitx+scale*G.globWidth/2-goXxxW, vInity-1*vGap + 0*(goXxxH + vGap), 'w', 30);
-  goUp.node.onclick = function() {
-    paper.translteForest(0, 1*step);
-    goUp.attr("title", localeString("js_goUp"));
-  };
-  goUp.node.onmouseover = function() {
-    //paper.translteForest(0, 1*step);
-    goUp.attr("title", localeString("js_goUp"));
-  };
+    //======================================================================================================================
+    // E115-3/vsh  The statement is necessary for editing functionality impelemtation
+    // http://stackoverflow.com/questions/15257059/how-do-i-get-an-event-in-raphaels-paper-coordinates
+         //paper.setViewBox(0, 0, 10, 10, true);
+    // 16319-6/vsh  aukščiau eilutėje funkcija ,atrodo man, nereikalinga ir
+    //      kartais generuoja klaidą: Uncaught TypeError: paper.setViewBox is not a function
+    /*============================================================*/
 
-  //var goRight = paper.drawImage( G.app+'images/goRight.png', vInitx, vInity + 1*(goXxxH + vGap), 'w', 30);   // go090.jpg
-  var goRight = paper.drawImage( G.app+'images/goRight.png',
-        vInitx+scale*G.globWidth-goXxxW-hGap, scale*G.globHeight/2-vInity, 'w', 30);
-  goRight.node.onclick = function() {
-    paper.translteForest(-1*step, 0);
-    goRight.attr("title", localeString("js_goRight"));
-  };
-  goRight.node.onmouseover = function() {
-    //paper.translteForest(-1*step, 0);
-    goRight.attr("title", localeString("js_goRight"));
-  };
-
-  //var goLeft = paper.drawImage( G.app+'images/goLeft.png', vInitx, vInity + 2*(goXxxH + vGap), 'w', 30);
-  var goLeft = paper.drawImage( G.app+'images/goLeft.png',
-        vInitx-hGap, scale*G.globHeight/2-vInity, 'w', 30);
-  goLeft.node.onclick = function() {
-    paper.translteForest(1*step, 0);
-    goLeft.attr("title", localeString("js_goLeft"));
-  };
-  goLeft.node.onmouseover = function() {
-    //paper.translteForest(1*step, 0);
-    goLeft.attr("title", localeString("js_goLeft"));
-  };
-
-  //var goDown = paper.drawImage( G.app+'images/goDown.png', vInitx + 2*(goXxxH + hGap), vInity + 0*(goXxxH + vGap), 'w', 30);
-  var goDown = paper.drawImage( G.app+'images/goDown.png',
-        vInitx+scale*G.globWidth/2-goXxxW, vInity+scale*G.globHeight-1*goXxxH-1*hGap, 'w', 30);
-  goDown.node.onclick = function() {
-    paper.translteForest(0, -1*step);
-    goDown.attr("title", localeString("js_goDown"));
-  };
-  goDown.node.onmouseover = function() {
-    //paper.translteForest(0, -1*step);
-    goDown.attr("title", localeString("js_goDown"));
-  };
-
- //logger('Logger Logger Logger Logger Logger  ')
-
- G.topRect.node.onclick = function(event) {   //alert("!!!!!!")
-     // get bounding rect of the paper
-     var bnds = event.target.getBoundingClientRect();
-     // adjust mouse x/y
-     var mx = event.clientX - bnds.left
-     var my = event.clientY - bnds.top
-     // divide x/y by the bounding w/h to get location %s and apply factor by actual paper w/h
-     var fx = mx/bnds.width * G.topRect.attrs.width
-     var fy = my/bnds.height * G.topRect.attrs.height
-     // cleanup output
-     fx = Number(fx).toPrecision(3);
-     fy = Number(fy).toPrecision(3);
-     paper.translteForest((scale*G.globWidth/2 - fx), (scale*G.globHeight/2 - fy));        // G.globWidth, G.globHeight
-     //paper.translteForest(10, 10);        // G.globWidth, G.globHeight
-     //alert('event.clientX: ' + event.clientX + ', event.clientY: ' + event.clientY + '; bnds.left: ' + bnds.left + ', bnds.top: ' + bnds.top + '; x: ' + fx + ', y: ' + fy);
- };
-
-//    window.onload = function(paper) {
-//        G.diwe_=G.diwe;  //G.diwe='D';
-//        //logger('window.onload 0');
-//        logD("window.onload ");
-//        G.diwe=G.diwe_;
-//    }
-
-    paper.rect(scale*G.globWidth/2-8, scale*G.globHeight/2-8, 16, 16, 8).attr('fill', 'lightgreen').attr("title", localeString("js_canvas_center"));
-
-//======================================================================================================================
-// E115-3/vsh  The statement is necessary for editing functionality impelemtation
-// http://stackoverflow.com/questions/15257059/how-do-i-get-an-event-in-raphaels-paper-coordinates
-     //paper.setViewBox(0, 0, 10, 10, true);
-// 16319-6/vsh  aukščiau eilutėje funkcija ,atrodo man, nereikalinga ir
-//      kartais generuoja klaidą: Uncaught TypeError: paper.setViewBox is not a function
-/*============================================================ */
-
+//    var canvas_svg = paper.toSVG();
+//    //document.getElementById('svg').innerHTML = canvas_svg;
+//    alert("canvas_svg=|||"+canvas_svg+"|||");
+//    //var canvas_svg = test.toSVG();
+//    canvg('html_canvas',canvas_svg);
+//    //var canvas_html = document.getElementById("html_canvas");
+//    //window.location = canvas_html.toDataURL("image/png");

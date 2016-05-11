@@ -173,6 +173,14 @@
       <groupId>org.zeroturnaround</groupId>
       <artifactId>jrebel-maven-plugin</artifactId>
     </dependency>
+
+    <!-- O_p_e_n_s_h_i_f_t -->
+    <dependency>
+      <groupId>com.openshift</groupId>
+      <artifactId>openshift-java-client</artifactId>
+      <version>2.7.0.Final</version>
+    </dependency>
+
   </dependencies>
 
   <build>

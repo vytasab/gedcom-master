@@ -165,7 +165,7 @@ object AccessControl {
     usual
   }
 
-  def isHttps_?(): Boolean = (S.request.map(_.request.scheme == "https").openOr(false))
+  def isHttps_?(): Boolean = true //(S.request.map(_.request.scheme == "https").openOr(false))
 
   def isDeveloper_?(): Boolean = isAuthenticated_?() && CurrentUser.is.get.emailAddress == "vytasab@gmail.com"
 

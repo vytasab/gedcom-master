@@ -66,6 +66,17 @@ class JSDialog {
   //        Unblock & Alert("Rhode Island Destroyed")
   //      })),
   //      "no" -> ((b: NodeSeq) => <button onclick={Unblock.toJsCmd}>{b}</button>))
+
+}
+
+object AjaxInvoke extends /*Loggable*/ {
+
+  def callback() : JsCmd = {
+    //logger.info("The button was pressed")
+    JsCmds.Alert("You clicked it")
+  }
+
+  def button = "button [onclick]" #> SHtml.ajaxInvoke(callback)
 }
 
 //}

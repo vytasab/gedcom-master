@@ -46,7 +46,7 @@
         </layout>
     </appender>-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>../logs/gedcom.log</file>
+        <file>gedcom.log</file>    <!--<file>../logs/gedcom.log</file>-->
         <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             &lt;!&ndash; daily rollover &ndash;&gt;
             <FileNamePattern>gedcom.%d{yyyy-MM-dd}.log</FileNamePattern>

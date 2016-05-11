@@ -139,7 +139,7 @@
             <properties>
                 <hibernate.dialect>org.hibernate.dialect.MySQLDialect</hibernate.dialect>
                 <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
-                <hibernate.connection.url>jdbc:mysql://localhost:3306/datasource-gedcom</hibernate.connection.url>
+                <hibernate.connection.url>jdbc:mysql://localhost:3306/ds-gedcom-dev</hibernate.connection.url>
                 <hibernate.connection.username>shaknisgedcom</hibernate.connection.username>
                 <hibernate.connection.password>271314log</hibernate.connection.password>
                 <hibernate.max_fetch_depth>3</hibernate.max_fetch_depth>
@@ -213,6 +213,27 @@
                 <hibernate.connection.url>jdbc:mysql://localhost:3306/datasource-gedcom</hibernate.connection.url>
                 <hibernate.connection.username>shaknisgedcom</hibernate.connection.username>
                 <hibernate.connection.password>271314log</hibernate.connection.password>
+                <hibernate.max_fetch_depth>3</hibernate.max_fetch_depth>
+                <hibernate.show_sql>false</hibernate.show_sql>
+                <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
+            </properties>
+        </profile>
+
+
+        <!--  mvn -Pspa_prod-rhc -Dmaven.test.skip=true clean install  -->
+        <profile>
+            <id>spa_prod-rhc</id>
+            <activation>
+                <property>
+                    <name>spa_prod-rhc-on</name>
+                </property>
+            </activation>
+            <properties>
+                <hibernate.dialect>org.hibernate.dialect.MySQLDialect</hibernate.dialect>
+                <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
+                <hibernate.connection.url>jdbc:mysql://127.12.182.130:3306/gedcom</hibernate.connection.url>
+                <hibernate.connection.username>adminl8hhbmy</hibernate.connection.username>
+                <hibernate.connection.password>sGGbni1RAMII</hibernate.connection.password>
                 <hibernate.max_fetch_depth>3</hibernate.max_fetch_depth>
                 <hibernate.show_sql>false</hibernate.show_sql>
                 <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
