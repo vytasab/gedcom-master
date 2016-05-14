@@ -495,7 +495,7 @@
                 <db_user>shaknisgedcom</db_user>
                 <db_password>271314log</db_password>
                 <__app>/gedcom/</__app>
-                <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>
+                <!--16511-3/vsh deprecated <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>-->
             </properties>
             <build>
                 <!--http://www.waltercedric.com/java-j2ee-mainmenu-53/361-maven-build-system/1639-maven-project-filtering.html-->
@@ -627,7 +627,7 @@
                 <db_user>shaknisgedcom</db_user>
                 <db_password>271314log</db_password>
                 <__app>/gedcom/</__app>
-                <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>
+                <!--16511-3/vsh deprecated <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>-->
             </properties>
             <build>
                 <!--http://www.waltercedric.com/java-j2ee-mainmenu-53/361-maven-build-system/1639-maven-project-filtering.html-->
@@ -712,11 +712,11 @@
             <activation><property><name>prod-rhc-on</name></property></activation>
             <properties>
                 <db_driver>com.mysql.jdbc.Driver</db_driver>
-                <db_url>jdbc:mysql://127.12.182.130:3306/gedcom</db_url>  <!-- jdbc:mysql://localhost:3306/datasource-gedcom -->
-                <db_user>adminl8hhbmy</db_user>  <!-- shaknisgedcom -->
-                <db_password>sGGbni1RAMII</db_password>  <!-- 271314log -->
-                <__app>gedcom</__app>
-                <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>
+                <db_url>jdbc:mysql://127.12.182.130:3306/gedcom</db_url>    <!-- jdbc:mysql://localhost:3306/datasource-gedcom -->
+                <db_user>adminl8hhbmy</db_user>                             <!-- shaknisgedcom -->
+                <db_password>sGGbni1RAMII</db_password>                     <!-- 271314log -->
+                <__app>/gedcom/</__app>
+                <!--16511-3/vsh deprecated <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>-->
             </properties>
             <build>
                 <!--http://www.waltercedric.com/java-j2ee-mainmenu-53/361-maven-build-system/1639-maven-project-filtering.html-->

@@ -2,249 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc754f16-edb5-43a5-975c-e72a99182b2b" name="Default" comment="the location of the arrows go{up,right,down,left} is changed">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/props/default.props" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/ant.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/copyright/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/dictionaries/root.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/dictionaries/vsh.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/highlighting.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__antlr_antlr_2_7_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__ch_qos_logback_logback_classic_1_0_13.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__ch_qos_logback_logback_core_1_0_13.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__classworlds_classworlds_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__classworlds_classworlds_1_1_alpha_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_google_code_findbugs_jsr305_2_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_google_collections_google_collections_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_h2database_h2_1_2_138.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_h2database_h2_1_3_171.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_jcraft_jsch_0_1_27.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_thoughtworks_paranamer_paranamer_2_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__com_thoughtworks_xstream_xstream_1_4_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_beanutils_commons_beanutils_1_7_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_chain_commons_chain_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_cli_commons_cli_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_collections_commons_collections_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_digester_commons_digester_1_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_fileupload_commons_fileupload_1_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_io_commons_io_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_logging_commons_logging_1_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_logging_commons_logging_api_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__commons_validator_commons_validator_1_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__geronimo_spec_geronimo_spec_ejb_2_1_rc4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__geronimo_spec_geronimo_spec_jta_1_0_1B_rc4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__javassist_javassist_3_4_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__javax_activation_activation_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__javax_mail_mail_1_4_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__javax_persistence_persistence_api_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__javax_transaction_jta_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__joda_time_joda_time_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__jtidy_jtidy_4aug2000r7_dev.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__junit_junit_4_11.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__log4j_log4j_1_2_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__lt_node_gedcom_gedcom_spa_1_0_SNAPSHOT.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__mysql_mysql_connector_java_5_1_21.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftmodules_lift_jquery_module_2_5_2_10_2_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_actor_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_actor_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_common_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_common_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_db_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_jpa_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_json_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_json_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_mapper_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_proto_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_textile_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_util_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_util_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_webkit_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_webkit_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_widgets_2_9_1_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__net_liftweb_lift_wizard_2_10_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__nu_validator_htmlparser_htmlparser_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_commons_commons_compress_1_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_commons_commons_exec_1_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_commons_commons_lang3_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_derby_derby_10_4_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_0_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_core_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_decoration_model_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_integration_tools_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_logging_api_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_module_apt_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_module_fml_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_module_markdown_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_module_xdoc_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_module_xhtml_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_sink_api_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_doxia_doxia_site_renderer_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_archiver_2_4_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_monitor_2_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_settings_2_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_settings_builder_3_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugin_tools_maven_plugin_annotations_3_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_clean_plugin_2_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_3_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_deploy_plugin_2_8_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_idea_plugin_2_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_install_plugin_2_5_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_resources_plugin_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_site_plugin_3_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_surefire_plugin_2_18_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_plugins_maven_war_plugin_2_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_reporting_maven_reporting_api_2_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_reporting_maven_reporting_exec_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_shared_maven_dependency_tree_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_shared_maven_filtering_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_shared_maven_invoker_2_0_11.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_shared_maven_mapping_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_shared_maven_shared_incremental_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_shared_maven_shared_utils_0_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_surefire_maven_surefire_common_2_18_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_surefire_surefire_api_2_18_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_surefire_surefire_booter_2_18_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_file_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_http_lightweight_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_http_shared_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_alpha_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_ssh_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_ssh_common_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_maven_wagon_wagon_ssh_external_1_0_beta_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_struts_struts_core_1_3_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_struts_struts_taglib_1_3_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_struts_struts_tiles_1_3_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_velocity_velocity_1_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_velocity_velocity_tools_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_apache_xbean_xbean_reflect_3_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_beanshell_bsh_2_0b4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_jackson_jackson_core_asl_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_jackson_jackson_mapper_asl_1_6_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_mojo_build_helper_maven_plugin_1_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_archiver_2_4_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_classworlds_2_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_2_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_component_annotations_1_5_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_container_default_1_0_alpha_9_stable_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_container_default_1_5_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_i18n_1_0_beta_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_interactivity_api_1_0_alpha_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_interpolation_1_19.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_io_2_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_utils_1_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_utils_1_5_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_codehaus_plexus_plexus_velocity_1_1_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_aether_aether_util_0_9_0_M2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_continuation_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_http_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_io_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_security_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_server_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_servlet_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_util_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_webapp_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_jetty_xml_8_1_10_v20130312.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_eclipse_jetty_orbit_javax_servlet_3_0_0_v201112011016.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_hibernate_ejb3_persistence_1_0_2_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_hibernate_hibernate_annotations_3_4_0_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_hibernate_hibernate_commons_annotations_3_1_0_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_hibernate_hibernate_core_3_3_0_SP1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_hibernate_hibernate_entitymanager_3_4_0_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_jasypt_jasypt_1_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_joda_joda_convert_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_mortbay_jetty_jetty_6_1_25.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_mortbay_jetty_jetty_util_6_1_25.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_mortbay_jetty_servlet_api_2_5_20081211.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_ow2_asm_asm_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_ow2_asm_asm_analysis_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_ow2_asm_asm_tree_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_ow2_asm_asm_util_4_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_parboiled_parboiled_core_1_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_parboiled_parboiled_java_1_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_pegdown_pegdown_1_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_actors_2_10_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_compiler_2_10_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_compiler_bundle_2_10.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_compiler_bundle_2_10_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_compiler_bundle_2_10_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_compiler_bundle_2_9_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_compiler_bundle_2_9_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_library_2_10_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scala_reflect_2_10_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_lang_scalap_2_10_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_libs_scalajpa_2_10_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_libs_scalajpa_2_9_2_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_tools_maven_scala_plugin_2_15_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scala_tools_testing_specs_2_8_1_1_6_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scalaz_scalaz_concurrent_2_10_7_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scalaz_scalaz_core_2_10_7_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_scalaz_scalaz_effect_2_10_7_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_sonatype_aether_aether_util_1_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_sonatype_plexus_plexus_build_api_0_0_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_sonatype_plexus_plexus_cipher_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_sonatype_plexus_plexus_sec_dispatcher_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_specs2_specs2_2_10_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_tukaani_xz_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_yaml_snakeyaml_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__org_zeroturnaround_jrebel_maven_plugin_1_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__oro_oro_2_0_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__sslext_sslext_1_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__xerces_xercesImpl_2_9_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__xmlpull_xmlpull_1_1_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__xmlunit_xmlunit_1_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/libraries/Maven__xpp3_xpp3_min_1_1_4c.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/rebel_project.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/scala_compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/scala_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/scopes/scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/uiDesigner.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../._idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../HandyInfoFreda.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/bootstrap/liftweb/AccessControl.scala" afterPath="$PROJECT_DIR$/src/main/scala/bootstrap/liftweb/AccessControl.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/JSDialog.scala" afterPath="$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/JSDialog.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/gedcom/forest.html" afterPath="$PROJECT_DIR$/src/main/webapp/gedcom/forest.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../gedcom-gate/gedcom-gate.iml" afterPath="$PROJECT_DIR$/../gedcom-gate/gedcom-gate.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/scripts/raphael/gedcom.js" afterPath="$PROJECT_DIR$/src/main/webapp/scripts/raphael/gedcom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/prod-resources/logback.xml" afterPath="$PROJECT_DIR$/src/main/resources/prod-resources/logback.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/PersonView.scala" afterPath="$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/PersonView.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../gedcom-gate/pom.xml" afterPath="$PROJECT_DIR$/../gedcom-gate/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../gedcom-spa/pom.xml" afterPath="$PROJECT_DIR$/../gedcom-spa/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/prod-resources/production.default.log4j.xml" afterPath="$PROJECT_DIR$/src/main/resources/prod-resources/production.default.log4j.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/scala_compiler.xml" afterPath="$PROJECT_DIR$/../.idea/scala_compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/templates-hidden/template-forest.html" afterPath="$PROJECT_DIR$/src/main/webapp/templates-hidden/template-forest.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/vcs.xml" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b7c66b8c-6f1a-43be-abbf-a9f0e424a6a9" name="Rejected commit: Default" comment="the location of the arrows go{up,right,down,left} is changed" />
@@ -288,12 +47,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="717" column="29" selection-start-line="717" selection-start-column="29" selection-end-line="717" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.67408586">
+              <caret line="734" column="28" selection-start-line="734" selection-start-column="28" selection-end-line="734" selection-end-column="28" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="locTexts4XSL.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/xsl/locTexts4XSL.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonView.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/PersonView.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.178572">
+              <caret line="19" column="106" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="106" />
+              <folding>
+                <element signature="e#32#65#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -308,10 +89,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccessControl.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AccessControl.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/bootstrap/liftweb/AccessControl.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3607306">
+            <state vertical-scroll-proportion="0.0">
               <caret line="157" column="20" selection-start-line="157" selection-start-column="20" selection-end-line="157" selection-end-column="20" />
               <folding />
             </state>
@@ -344,8 +125,9 @@
         <option value="$PROJECT_DIR$/src/main/scala/bootstrap/liftweb/StaxLiftFilter.scala" />
         <option value="$PROJECT_DIR$/src/main/resources/props/default.props" />
         <option value="$PROJECT_DIR$/src/main/resources/prod-resources/logback.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/scala/bootstrap/liftweb/AccessControl.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/PersonView.scala" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -389,7 +171,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1280" />
-    <option name="width" value="1278" />
+    <option name="width" value="1266" />
     <option name="height" value="1024" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -415,13 +197,56 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="gedcom" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Maven: lt.node.gedcom:gedcom-spa:1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom-spa-1.0.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="META-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Maven: lt.node.gedcom:gedcom-spa:1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom-spa-1.0.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -535,6 +360,40 @@
               <option name="myItemId" value="scala" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gedcom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="snippet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -560,66 +419,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="liftweb" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gedcom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gedcom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liftweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Boot.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gedcom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gedcom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="liftweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AccessControl.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -724,8 +523,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -953,7 +753,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1280" y="0" width="1278" height="1024" extended-state="4" />
+    <frame x="1280" y="0" width="1266" height="1024" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -961,6 +761,7 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32858709" sideWeight="0.49353796" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32858709" sideWeight="0.50646204" order="7" side_tool="true" content_ui="tabs" />
@@ -970,15 +771,14 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21753247" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21721311" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22808442" sideWeight="0.8215103" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24503312" sideWeight="0.49675325" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22704919" sideWeight="0.8215103" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24503312" sideWeight="0.49675325" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="JRebel remote servers log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32858709" sideWeight="0.50646204" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32858709" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1041,27 +841,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/scripts/raphael/gedcom.js_old">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1476" column="19" selection-start-line="1476" selection-start-column="12" selection-end-line="1476" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/scripts/raphael/gedcom.js_old">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/scripts/raphael/gedcom.js_old">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/main.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1277,19 +1056,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/xsl/locTexts4XSL.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-7-openjdk-i386/jre/lib/rt.jar!/java/lang/System.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.084650114">
           <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1297,7 +1067,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="73" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1305,7 +1074,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="910" column="25" selection-start-line="910" selection-start-column="13" selection-end-line="910" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1313,7 +1081,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33789954">
           <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1321,7 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1329,7 +1095,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1337,7 +1102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1345,7 +1109,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="94" selection-start-line="2" selection-start-column="94" selection-end-line="2" selection-end-column="94" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1353,7 +1116,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1361,7 +1123,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1369,15 +1130,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="80" column="7" selection-start-line="80" selection-start-column="7" selection-end-line="80" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="717" column="29" selection-start-line="717" selection-start-column="29" selection-end-line="717" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1407,8 +1159,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/bootstrap/liftweb/AccessControl.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3607306">
+        <state vertical-scroll-proportion="0.0">
           <caret line="157" column="20" selection-start-line="157" selection-start-column="20" selection-end-line="157" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/xsl/person.xsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2013652">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/xsl/locTexts4XSL.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/lt/node/gedcom/snippet/PersonView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.178572">
+          <caret line="19" column="106" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="106" />
+          <folding>
+            <element signature="e#32#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/lt/node/gedcom/gedcom-spa/1.0/gedcom-spa-1.0.jar!/META-INF/persistence.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67408586">
+          <caret line="734" column="28" selection-start-line="734" selection-start-column="28" selection-end-line="734" selection-end-column="28" />
           <folding />
         </state>
       </provider>

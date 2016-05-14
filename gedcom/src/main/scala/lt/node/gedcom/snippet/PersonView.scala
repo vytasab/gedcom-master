@@ -1,18 +1,13 @@
 package lt.node.gedcom.snippet
 
-import _root_.scala._
-import xml._
-
-import _root_.net.liftweb._
-import http._
-import provider.servlet.HTTPServletContext
-import common._
-import _root_.net.liftweb.util.Props
-import _root_.net.liftweb.util.Helpers._
-
 import _root_.bootstrap.liftweb._
 import _root_.lt.node.gedcom.model._
-import java.io.File
+import _root_.net.liftweb.util.Helpers._
+import _root_.net.liftweb.util.Props
+import net.liftweb.common._
+import net.liftweb.http._
+
+import scala.xml._
 
 //{Model, Person, PersonEvent, PersonAttrib, Family, FamilyEvent, EventDetail}
 import _root_.lt.node.gedcom.util._  //XslTransformer
@@ -403,6 +398,8 @@ class PersonView {
   }
 
 
+
+/*// 16511-3/vsh An error appears: java.lang.NullPointerException when use OpenShift
   def getBaseApplicationPath: Box[String] = {
     LiftRules.context match {
       case context: HTTPServletContext => {
@@ -414,11 +411,16 @@ class PersonView {
       case _ => Empty
     }
   }
+*/
 
   def renderPerson(): net.liftweb.util.CssSel = {
     log.debug("renderPerson []...")
+
+/*// 16511-3/vsh An error appears: java.lang.NullPointerException  hen use OpenShift
     log.debug("/ path =|" + getBaseApplicationPath.openOr("___no_path_for_/_") + "|")
     println("/ path =|" + getBaseApplicationPath.openOr("___no_path_for_/_") + "|")
+*/
+
     log.debug("/ path =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").openOr("___no_path_for_/_") + "|")
     println("/ path =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").openOr("___no_path_for_/_") + "|")
     log.debug("LiftRules.getResource.getContent =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getContent + "|")

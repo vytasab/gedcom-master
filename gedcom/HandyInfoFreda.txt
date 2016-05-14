@@ -1,0 +1,921 @@
+Ec01-1/vsh ==============================================================================
+    Pradedama kraustytis į Nexus Linux Mint!
+
+F213-5/vsh ==============================================================================
+    Freda's MySQL DB
+    root / sh...is
+    sh...isgedcom / {e3}{pi3    }log
+
+F218-3/vsh ==============================================================================
+    JRebel configuration:
+
+   - open
+        https://my.jrebel.com/account/how-to-activate  via Twitter account: vytasab / fredafreda
+
+   - read
+        /home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/readme.txt:
+                ---------------------------------------------------------------
+                The ZIP distrubution is to be used without the IDE
+                Activating a JRebel license
+                ===========================
+                To activate a JRebel license from the command line, run:
+                bin/activate.{cmd|sh} <ACTIVATION_KEY_OR_PATH_TO_LICENSE_FILE>
+
+                To activate a JRebel license using a GUI activation wizard, run:
+                bin/activate-gui.{cmd|sh}
+
+                Enabling JRebel for your server
+                ===============================
+                To enable JRebel for your server container, run:
+                bin/setup.{cmd|sh}
+
+                and follow the instructions displayed in the Usage.
+                For the simplest case (enabling JRebel for Tomcat for example), run:
+
+                bin/setup.{cmd|sh} -r "path/to/tomcat/installation/directory"
+                ./bin/setup/sh -r /opt/apache-tomcat-8.0.15
+                ---------------------------------------------------------------
+
+   - run
+        /home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/bin/activate-gui.sh
+
+   - read
+        http://zeroturnaround.com/software/jrebel/learn/remoting/setting-up-jrebel-remoting-with-intellij-idea-and-tomcat/
+
+Win XP rebel.xml:
+---------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+    <classpath>
+        <dir name="c:/Scala/gedcom/gedcom-web/target/classes">
+        </dir>
+    </classpath>
+    <web>
+        <link target="/">
+            <dir name="c:/Scala/gedcom/gedcom-web/src/main/webapp">
+            </dir>
+        </link>
+    </web>
+</application>
+---------------------------------------
+
+Config Log:
+
+Freda bin # ./setup.sh  --?
+The Utility to tune server containers to work with JRebel.
+Copyright (C) 2013 ZeroTurnaround AS (http://www.zeroturnaround.com)
+All questions and bugs please send to support@zeroturnaround.com
+
+usage: Options:
+ -all,--alldomains      Process all domains of a server
+ -D <property=value>    Set value to the given JVM property
+ -d,--domains <arg>     List of domains to be processed to be used with
+                        JRebel, use ',' as the name separator
+ -dr,--dryrun           Write list of possible changed files for the
+                        container without any real writing operation
+ -h,--?                 This list of options
+ -jh,--javahome <arg>   The java home to be used to start external java
+                        based processes
+ -jr <arg>              Path to the jrebel.jar (by default the path is
+                        ../jrebel.jar)
+ -nb,--nobackup         Disable backup of changed files
+ -r,--root <arg>        The Server or Domain root folder
+ -rb,--rollback         Rollback changes in server configuration
+ -rt,--remoting         Prepare container for remote work
+ -v,--verbose           Verbose
+ -y,--yes               Positive acknowledgement for all questions
+Freda bin # ./activate-gui.sh
+Created new window in existing browser session.
+
+Freda bin # ./setup.sh -r /opt/apache-tomcat-8.0.15
+Preparing to do modification
+The Path to jrebel.jar: /home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/jrebel.jar
+os.name is Linux
+UsingNativeAgent (1st): true, useNativeAgent()=true, JavaVM2=true
+UsingNativeAgent (2st): osArch=i386
+check DLL for OS with hasNativeAgentFor(i386): vm64bit=false, hasLibFolder[/home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/lib]=true, hasDLLForOS=true
+UsingNativeAgent (3st): hasNativeAgentForOS=true
+UsingNativeAgent (Final): true
+Detected container : Tomcat 8.0.15
+Is the server container correct? (Y/N): Y
+
+ List of new files or modified files
+----------------------------------------
+1:      /opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+----------------------------------------
+Do you agree the changes? (Y/N): Y
+Can't make backup for file:     /opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+Saved new file: /opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+Executing the command:  chmod +x/opt/apache-tomcat-8.0.15/bin/startup-jrebel.sh
+
+Freda bin #
+Freda bin # ./shutdown.sh
+Using CATALINA_BASE:   /opt/apache-tomcat-8.0.15
+Using CATALINA_HOME:   /opt/apache-tomcat-8.0.15
+Using CATALINA_TMPDIR: /opt/apache-tomcat-8.0.15/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /opt/apache-tomcat-8.0.15/bin/bootstrap.jar:/opt/apache-tomcat-8.0.15/bin/tomcat-juli.jar
+
+Freda bin # ./startup-jrebel.sh
+Using CATALINA_BASE:   /opt/apache-tomcat-8.0.15
+Using CATALINA_HOME:   /opt/apache-tomcat-8.0.15
+Using CATALINA_TMPDIR: /opt/apache-tomcat-8.0.15/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /opt/apache-tomcat-8.0.15/bin/bootstrap.jar:/opt/apache-tomcat-8.0.15/bin/tomcat-juli.jar
+Usage: catalina.sh ( commands ... )
+commands:
+  debug             Start Catalina in a debugger
+  debug -security   Debug Catalina with a security manager
+  jpda start        Start Catalina under JPDA debugger
+  run               Start Catalina in the current window
+  run -security     Start in the current window with security manager
+  start             Start Catalina in a separate window
+  start -security   Start in a separate window with security manager
+  stop              Stop Catalina, waiting up to 5 seconds for the process to end
+  stop n            Stop Catalina, waiting up to n seconds for the process to end
+  stop -force       Stop Catalina, wait up to 5 seconds and then use kill -KILL if still running
+  stop n -force     Stop Catalina, wait up to n seconds and then use kill -KILL if still running
+  configtest        Run a basic syntax check on server.xml - check exit code for result
+  version           What version of tomcat are you running?
+Note: Waiting for the process to end and use of the -force option require that $CATALINA_PID is defined
+
+
+
+
+
+F324-2/vsh ==============================================================================
+
+Freda gedcom #
+git --help
+git --version  ==> 1.9.1
+git hlp config
+git config --global user.email "vytasab@gmail.com"
+git config --global push.default simple
+
+git commit -a -m "išpreęstas neleistinas http naudojimas"
+git push
+Warning: Permanently added the RSA host key for IP address '192.30.252.131' to the list of known hosts.
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Freda gedcom #
+
+F325-3/vsh  ==============================================================================
+
+https://github.com/settings/ssh  ==> Need help?
+        Check out our guide to [generating SSH keys] or troubleshoot [common SSH Problems]
+
+Freda gedcom # git push
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # git config --global user.name "vshgit"
+Freda gedcom # ssh -T -p 443 git@ssh.github.com
+The authenticity of host '[ssh.github.com]:443 ([192.30.252.149]:443)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)? no
+Host key verification failed.
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -vT git@github.com
+OpenSSH_6.6.1, OpenSSL 1.0.1f 6 Jan 2014
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: Applying options for *
+debug1: Connecting to github.com [192.30.252.129] port 22.
+debug1: Connection established.
+debug1: permanently_set_uid: 0/0
+debug1: identity file /root/.ssh/id_rsa type -1
+debug1: identity file /root/.ssh/id_rsa-cert type -1
+debug1: identity file /root/.ssh/id_dsa type -1
+debug1: identity file /root/.ssh/id_dsa-cert type -1
+debug1: identity file /root/.ssh/id_ecdsa type -1
+debug1: identity file /root/.ssh/id_ecdsa-cert type -1
+debug1: identity file /root/.ssh/id_ed25519 type -1
+debug1: identity file /root/.ssh/id_ed25519-cert type -1
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+debug1: Remote protocol version 2.0, remote software version libssh-0.6.0
+debug1: no match: libssh-0.6.0
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: server->client aes128-ctr hmac-sha1 none
+debug1: kex: client->server aes128-ctr hmac-sha1 none
+debug1: sending SSH2_MSG_KEX_ECDH_INIT
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: RSA 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+debug1: Host 'github.com' is known and matches the RSA host key.
+debug1: Found key in /root/.ssh/known_hosts:1
+debug1: ssh_rsa_verify: signature correct
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: Roaming not allowed by server
+debug1: SSH2_MSG_SERVICE_REQUEST sent
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Trying private key: /root/.ssh/id_rsa
+debug1: Trying private key: /root/.ssh/id_dsa
+debug1: Trying private key: /root/.ssh/id_ecdsa
+debug1: Trying private key: /root/.ssh/id_ed25519
+debug1: No more authentication methods to try.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -T -p 443 git@ssh.github.com
+The authenticity of host '[ssh.github.com]:443 ([192.30.252.151]:443)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '[ssh.github.com]:443,[192.30.252.151]:443' (RSA) to the list of known hosts.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -T -p 443 git@ssh.github.com
+Warning: Permanently added the RSA host key for IP address '[192.30.252.150]:443' to the list of known hosts.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -vT git@github.com
+OpenSSH_6.6.1, OpenSSL 1.0.1f 6 Jan 2014
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: Applying options for *
+debug1: Connecting to github.com [192.30.252.129] port 22.
+debug1: Connection established.
+debug1: permanently_set_uid: 0/0
+debug1: identity file /root/.ssh/id_rsa type -1
+debug1: identity file /root/.ssh/id_rsa-cert type -1
+debug1: identity file /root/.ssh/id_dsa type -1
+debug1: identity file /root/.ssh/id_dsa-cert type -1
+debug1: identity file /root/.ssh/id_ecdsa type -1
+debug1: identity file /root/.ssh/id_ecdsa-cert type -1
+debug1: identity file /root/.ssh/id_ed25519 type -1
+debug1: identity file /root/.ssh/id_ed25519-cert type -1
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+debug1: Remote protocol version 2.0, remote software version libssh-0.6.0
+debug1: no match: libssh-0.6.0
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: server->client aes128-ctr hmac-sha1 none
+debug1: kex: client->server aes128-ctr hmac-sha1 none
+debug1: sending SSH2_MSG_KEX_ECDH_INIT
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: RSA 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+debug1: Host 'github.com' is known and matches the RSA host key.
+debug1: Found key in /root/.ssh/known_hosts:1
+debug1: ssh_rsa_verify: signature correct
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: Roaming not allowed by server
+debug1: SSH2_MSG_SERVICE_REQUEST sent
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Trying private key: /root/.ssh/id_rsa
+debug1: Trying private key: /root/.ssh/id_dsa
+debug1: Trying private key: /root/.ssh/id_ecdsa
+debug1: Trying private key: /root/.ssh/id_ed25519
+debug1: No more authentication methods to try.
+Permission denied (publickey).
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ls -al ~/.ssh
+total 12
+drwx------  2 root root 4096 Sau 10 15:29 .
+drwx------ 28 root root 4096 Kov 26 00:44 ..
+-rw-r--r--  1 root root 3536 Kov 26 00:52 known_hosts
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh-keygen -t rsa -C "vytasab@gmail.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+c6:c4:f9:27:be:af:84:be:87:72:cc:e8:42:d5:5d:58 vytasab@gmail.com
+The key's randomart image is:
++--[ RSA 2048]----+
+|           oE    |
+|       . .. .    |
+|       .+. .     |
+|      .o...      |
+|     .  S o .    |
+|    .  . o o     |
+|   .   +..o      |
+|    . o.=...     |
+|     o.ooooo.    |
++-----------------+
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # eval "$(ssh-agent -s)"
+Agent pid 4018
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh-add ~/.ssh/id_rsa
+Enter passphrase for /root/.ssh/id_rsa:
+Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # sudo apt-get install xclip
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  xclip
+0 upgraded, 1 newly installed, 0 to remove and 29 not upgraded.
+Need to get 16,5 kB of archives.
+After this operation, 67,6 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty/universe xclip i386 0.12+svn84-4 [16,5 kB]
+Fetched 16,5 kB in 0s (42,0 kB/s)
+Selecting previously unselected package xclip.
+(Reading database ... 174169 files and directories currently installed.)
+Preparing to unpack .../xclip_0.12+svn84-4_i386.deb ...
+Unpacking xclip (0.12+svn84-4) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up xclip (0.12+svn84-4) ...
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # xclip -sel clip < ~/.ssh/id_rsa.pub
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # ssh -T git@github.com
+Hi vytasab! You've successfully authenticated, but GitHub does not provide shell access.
+Freda gedcom #
+Freda gedcom #
+Freda gedcom # git push
+Counting objects: 659, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (351/351), done.
+Writing objects: 100% (379/379), 185.53 KiB | 0 bytes/s, done.
+Total 379 (delta 271), reused 0 (delta 0)
+To git@github.com:vytasab/gedcom.git
+   60737e5..5fa0c5a  master -> master
+Freda gedcom #    ======> pavyko !!!
+
+
+F505-2/vsh ==============================================================================
+
+{/home/vsh/Projects/gedcom/}gedcom-web #
+    mvn -Pprod -Dmaven.test.skip=true clean install
+    mvn -Pdev -Dmaven.test.skip=true clean install
+
+{/home/vsh/Projects/gedcom/}gedcom-spa #
+    mvn -Pspa_prodNexus -Dmaven.test.skip=true clean install
+    mvn -Pspa_prodAosvu -Dmaven.test.skip=true clean install
+    mvn -Pspa_dev -Dmaven.test.skip=true clean install
+
+
+F506-3/vsh ==============================================================================
+
+startup-jrebel.sh
+-----------------
+#!/bin/bash
+export JAVA_OPTS="-agentpath:/home/vsh/.IdeaIC14/config/plugins/jr-ide-idea/lib/jrebel6/lib/libjrebel32.so $JAVA_OPTS \
+-Drebel.remoting_plugin=false -Drebel.log=true"
+sh `dirname $0`/catalina.sh $@
+# Usage: catalina.sh ( commands ... )
+# commands:
+#   debug             Start Catalina in a debugger
+#   debug -security   Debug Catalina with a security manager
+#   jpda start        Start Catalina under JPDA debugger
+#   run               Start Catalina in the current window
+#   run -security     Start in the current window with security manager
+#   start             Start Catalina in a separate window
+#   start -security   Start in a separate window with security manager
+#   stop              Stop Catalina, waiting up to 5 seconds for the process to end
+#   stop n            Stop Catalina, waiting up to n seconds for the process to end
+#   stop -force       Stop Catalina, wait up to 5 seconds and then use kill -KILL if still running
+#   stop n -force     Stop Catalina, wait up to n seconds and then use kill -KILL if still running
+#   configtest        Run a basic syntax check on server.xml - check exit code for result
+#   version           What version of tomcat are you running?
+
+rebel.xml
+---------
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.zeroturnaround.com"
+             xsi:schemaLocation="http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+	<classpath>
+		<dir name="/home/vsh/Projects/gedcom/gedcom-web/target/classes"/>
+		<dir name="/home/vsh/Projects/gedcom/gedcom-web/src/main/resources"/>
+	</classpath>
+    <web>
+        <link target="/">
+            <dir name="/home/vsh/Projects/gedcom/gedcom-web/src/main/webapp"/>
+        </link>
+    </web>
+</application>
+
+
+16413-3/vsh ==============================================================================
+            Raphael SVG save as PNG problem:
+
+Export Raphael Graphic to Image
+    http://www.phpepe.com/2012/07/export-raphael-graphic-to-image.html
+Raphael сохранение в JPG/GIF/PNG
+    http://www.cyberforum.ru/javascript/thread805155.html
+Export Raphaël paper objects to SVG.  <-----
+    https://github.com/AliasIO/Raphael.Export
+Convert Raphael canvas inside div to PNG
+    http://quabr.com/24389318/convert-raphael-canvas-inside-div-to-png
+
+
+16418-1/vsh ==============================================================================
+            Resource binding WinXP war & tomcat
+    web.xml:
+        ...
+        <resource-ref>
+                <res-ref-name>jdbc/datasource-gedcom</res-ref-name>
+                <res-type>javax.sql.DataSource</res-type>
+                <res-auth>Container</res-auth>
+        </resource-ref>
+        ...
+
+    tomcat/conf/server.xml:
+        ...
+        <Host name="localhost" autoDeploy="true" unpackWARs="true" appBase="webapps">
+            <Context reloadable="true" path="/gedcom" docBase="gedcom" displayName="Lift Web App gedcom">
+                <Resource type="javax.sql.DataSource" auth="Container" name="jdbc/datasource-gedcom"
+                    driverClassName="com.mysql.jdbc.Driver" maxWait="10000" maxIdle="30" maxActive="100"/>
+            </Context>
+        ...
+
+
+16418-1/vsh ==============================================================================
+            automysqlbackup - Daily, weekly and monthly backup for your mysql database
+
+usr/share/doc/automysqlbackup
+/usr/sbin/automysqlbackup
+/var/lib/automysqlbackup
+/etc/automysqlbackup
+/etc/default/automysqlbackup
+/etc/cron.daily/automysqlbackup
+
+!!! nebaigiau konfiguruoti ir nepalaidau naudoti.
+-------------------------------------------------
+
+Google search: [mysql workbench rename database]
+
+
+Freda vsh # mysqldump -ushaknisgedcom -p  'datasource-gedcom' > /home/vsh/DailyEvents/DB_backups/local_gedcom_dev.sql
+Enter password:{password}
+Freda vsh # ==> OK!
+
+http://www.rndblog.com/how-to-rename-a-database-in-mysql/
+
+#---------------------------------------------
+#!/bin/bash
+
+mysqlconn="mysql -u xxxx -pxxxx -S /var/lib/mysql/mysql.sock -h localhost"
+olddb=xxxx
+newdb=xxxx
+
+#$mysqlconn -e "CREATE DATABASE $newdb"
+params=$($mysqlconn -N -e "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE table_schema='$olddb'")
+
+for name in $params; do
+      $mysqlconn -e "RENAME TABLE $olddb.$name to $newdb.$name";
+done;
+
+#$mysqlconn -e "DROP DATABASE $olddb"
+#---------------------------------------------
+    ==>  nėra pas mane  [/var/lib/mysql/mysql.sock],
+    todėl bandysiu visa tai padaryti rytoj per MySQL Workbench
+
+
+16420.3/vsh ==============================================================================
+	    DB: datasource-gedcom ==> ds-gedcom-dev (vykdyta po vieną eilutę atskirai)
+
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE table_schema='datasource-gedcom';
+SELECT * FROM `datasource-gedcom`.person;
+CREATE DATABASE `ds-gedcom-dev`;
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE table_schema='ds-gedcom-dev';
+show databases;
+RENAME TABLE `datasource-gedcom`.audit TO `ds-gedcom-dev`.audit;
+RENAME TABLE `datasource-gedcom`.eventdetail TO `ds-gedcom-dev`.eventdetail;
+RENAME TABLE `datasource-gedcom`.family TO `ds-gedcom-dev`.family;
+RENAME TABLE `datasource-gedcom`.familyevent TO `ds-gedcom-dev`.familyevent;
+RENAME TABLE `datasource-gedcom`.multimedia TO `ds-gedcom-dev`.multimedia;
+RENAME TABLE `datasource-gedcom`.person TO `ds-gedcom-dev`.person;
+RENAME TABLE `datasource-gedcom`.personattrib TO `ds-gedcom-dev`.personattrib;
+RENAME TABLE `datasource-gedcom`.personevent TO `ds-gedcom-dev`.personevent;
+RENAME TABLE `datasource-gedcom`.tstaddress TO `ds-gedcom-dev`.tstaddress;
+RENAME TABLE `datasource-gedcom`.tstperson TO `ds-gedcom-dev`.tstperson;
+RENAME TABLE `datasource-gedcom`.users TO `ds-gedcom-dev`.users;
+DROP DATABASE `datasource-gedcom`;
+
+Freda vsh # mysqldump -ushaknisgedcom -p  'ds-gedcom-dev' > /home/vsh/DailyEvents/DB_backups/ds-gedcom-dev.sql
+Enter password:{password}
+Freda vsh # ==> OK!
+
+16422-5/vsh ==============================================================================
+            DB: gedcom db table size:
+
+select count(*) as `person-kiekis` from `person`;
+select count(*) as `personevent-kiekis` from `personevent`;
+select count(*) as `personattrib-kiekis` from `personattrib`;
+select count(*) as `family-kiekis` from `family`;
+select count(*) as `familyevent-kiekis` from `familyevent`;
+select count(*) as `eventdetail-kiekis` from `eventdetail`;
+select count(*) as `multimedia` from `multimedia`;
+select count(*) as `audit-kiekis` from `audit`;
+select count(*) as `users-kiekis` from `users`;
+
+16MDD-d/vsh ==============================================================================
+            OpenShift
+MySQL 5.5 database added.  Please make note of these credentials:
+
+       Root User: adminQPkaxE4
+   Root Password: Erq94VU7IT8y
+   Database Name: jbossews
+
+Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
+
+You can manage your new MySQL database by also embedding phpmyadmin.
+The phpmyadmin username and password will be the same as the MySQL credentials above.
+
+Cartridges
+
+ Tomcat 7 (JBoss EWS 2.0)      Status       Gears       Storage
+                               Started      1 small     1 GB
+ MySQL 5.5	    Database: jbossews  User: adminQPkaxE4  Password: show
+
+Source Code
+
+ssh://571bc2eb89f5cf3d33000047@jbossews-gedcom.rhcloud.com/~/git/jbossews.git/
+
+Pass this URL to 'git clone' to copy the repository locally.
+
+Remote Access
+Want to log in to your application?
+
+
+16426-2/vsh ==============================================================================
+            OpenShift priemonių instaliavimas
+
+Freda vsh #   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Freda vsh # sudo gem install rhc
+Fetching: net-ssh-2.9.2.gem (100%)
+Fetching: net-scp-1.2.1.gem (100%)
+Fetching: net-ssh-gateway-1.2.0.gem (100%)
+Fetching: net-ssh-multi-1.2.1.gem (100%)
+Fetching: archive-tar-minitar-0.5.2.gem (100%)
+Fetching: highline-1.6.21.gem (100%)
+Fetching: commander-4.2.1.gem (100%)
+Fetching: httpclient-2.8.0.gem (100%)
+Fetching: open4-1.3.4.gem (100%)
+Fetching: rhc-1.38.4.gem (100%)
+===========================================================================
+
+If this is your first time installing the RHC tools, please run 'rhc setup'
+
+===========================================================================
+Successfully installed net-ssh-2.9.2
+Successfully installed net-scp-1.2.1
+Successfully installed net-ssh-gateway-1.2.0
+Successfully installed net-ssh-multi-1.2.1
+Successfully installed archive-tar-minitar-0.5.2
+Successfully installed highline-1.6.21
+Successfully installed commander-4.2.1
+Successfully installed httpclient-2.8.0
+Successfully installed open4-1.3.4
+Successfully installed rhc-1.38.4
+10 gems installed
+Installing ri documentation for net-ssh-2.9.2...
+Installing ri documentation for net-scp-1.2.1...
+Installing ri documentation for net-ssh-gateway-1.2.0...
+Installing ri documentation for net-ssh-multi-1.2.1...
+Installing ri documentation for archive-tar-minitar-0.5.2...
+Installing ri documentation for highline-1.6.21...
+Installing ri documentation for commander-4.2.1...
+Installing ri documentation for httpclient-2.8.0...
+Installing ri documentation for open4-1.3.4...
+Installing ri documentation for rhc-1.38.4...
+Installing RDoc documentation for net-ssh-2.9.2...
+Installing RDoc documentation for net-scp-1.2.1...
+Installing RDoc documentation for net-ssh-gateway-1.2.0...
+Installing RDoc documentation for net-ssh-multi-1.2.1...
+Installing RDoc documentation for archive-tar-minitar-0.5.2...
+Installing RDoc documentation for highline-1.6.21...
+Installing RDoc documentation for commander-4.2.1...
+Installing RDoc documentation for httpclient-2.8.0...
+Installing RDoc documentation for open4-1.3.4...
+Installing RDoc documentation for rhc-1.38.4...
+
+Freda vsh #   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Freda vsh # rhc setup
+OpenShift Client Tools (RHC) Setup Wizard
+
+This wizard will help you upload your SSH keys, set your application namespace, and check that other programs like Git are properly installed.
+
+If you have your own OpenShift server, you can specify it now. Just hit enter to use the server for OpenShift Online: openshift.redhat.com.
+Enter the server hostname: |openshift.redhat.com|
+
+You can add more servers later using 'rhc server'.
+
+Login to openshift.redhat.com:
+Login to openshift.redhat.com: vytasab@gmail.com
+Password: *******
+
+OpenShift can create and store a token on disk which allows to you to access the server without using your password. The key is stored in your home directory and should be kept
+secret.  You can delete the key at any time by running 'rhc logout'.
+Generate a token now? (yes|no) yes
+Generating an authorization token for this client ... lasts about 1 month
+
+Saving configuration to /root/.openshift/express.conf ... done
+
+Checking for git ... found git version 1.9.1
+
+Checking common problems .. done
+
+Checking for a domain ... vytasab
+
+Checking for applications ... none
+
+Run 'rhc create-app' to create your first application.
+
+  Do-It-Yourself 0.1                      rhc create-app <app name> diy-0.1
+  JBoss Application Server 7              rhc create-app <app name> jbossas-7
+  JBoss Data Virtualization 6             rhc create-app <app name> jboss-dv-6.1.0
+  JBoss Enterprise Application Platform 6 rhc create-app <app name> jbosseap-6
+  JBoss Unified Push Server 1.0.0.Beta1   rhc create-app <app name> jboss-unified-push-1
+  JBoss Unified Push Server 1.0.0.Beta2   rhc create-app <app name> jboss-unified-push-2
+  Jenkins Server                          rhc create-app <app name> jenkins-1
+  Node.js 0.10                            rhc create-app <app name> nodejs-0.10
+  PHP 5.3                                 rhc create-app <app name> php-5.3
+  PHP 5.4                                 rhc create-app <app name> php-5.4
+  PHP 5.4 with Zend Server 6.1            rhc create-app <app name> zend-6.1
+  Perl 5.10                               rhc create-app <app name> perl-5.10
+  Python 2.6                              rhc create-app <app name> python-2.6
+  Python 2.7                              rhc create-app <app name> python-2.7
+  Python 3.3                              rhc create-app <app name> python-3.3
+  Ruby 1.8                                rhc create-app <app name> ruby-1.8
+  Ruby 1.9                                rhc create-app <app name> ruby-1.9
+  Ruby 2.0                                rhc create-app <app name> ruby-2.0
+  Tomcat 6 (JBoss EWS 1.0)                rhc create-app <app name> jbossews-1.0
+  Tomcat 7 (JBoss EWS 2.0)                rhc create-app <app name> jbossews-2.0
+  Vert.x 2.1                              rhc create-app <app name> jboss-vertx-2.1
+  WildFly Application Server 10           rhc create-app <app name> jboss-wildfly-10
+  WildFly Application Server 8.2.1.Final  rhc create-app <app name> jboss-wildfly-8
+  WildFly Application Server 9            rhc create-app <app name> jboss-wildfly-9
+
+  You are using 0 of 3 total gears
+  The following gear sizes are available to you: small
+
+Your client tools are now configured.
+
+Freda vsh #   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Freda apt # rhc help
+Usage: rhc [--help] [--version] [--debug] <command> [<args>]
+
+Command line interface for OpenShift.
+
+Getting started:
+  setup              Connects to OpenShift and sets up your keys and domain
+  create-app         Create an application
+  apps               List all your applications
+  cartridges         List available cartridges
+  add-cartridge      Add a cartridge to your application
+  set-env            Set one or more environment variable(s) to your application
+  logout             End the current session
+
+Working with apps:
+  tail               Tail the logs of an application
+  port-forward       Forward remote ports to the workstation
+  threaddump         Trigger a thread dump for JBoss and Ruby apps
+  snapshot           Save the current state of your application locally
+  git-clone          Clone and configure an application's repository locally
+
+Management commands:
+  account            Display details about your OpenShift account
+  alias              Add or remove a custom domain name for an app
+  app                Commands for creating and managing applications
+  authorization      Manage your authorization tokens
+  cartridge          Manage your application cartridges
+  deployment         Commands for deploying and managing deployments of an application
+  domain             Add or rename the container for your apps
+  env                Manages user-defined environment variables set on a given application
+  member             Manage membership on domains and teams
+  region             Display the regions and zones available on the OpenShift server
+  scp                SCP a file to or from your application
+  server             Manage your configured servers and check the status of services
+  ssh                SSH into the specified application
+  sshkey             Add and remove keys for Git and SSH
+  team               Create or delete a team
+
+  Some management commands have nested actions - run 'rhc help <command>' for more info.
+
+See 'rhc help <command>' for more information on a specific command.  You can see a list of all commands with 'rhc help commands'. See 'rhc help options' for a list of global
+command-line options and information about the config file.
+Freda apt #
+Freda vsh #   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+n
+
+16427-3/vsh ==============================================================================
+            http://www.cyberciti.biz/faq/how-to-set-up-ssh-keys-on-linux-unix/
+
+Freda vsh #
+Freda vsh # mkdir /home/vsh/.ssh
+Freda vsh # chmod 0700 /home/vsh/.ssh
+Freda vsh # ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): /home/vsh/.ssh/id_rsa
+Enter passphrase (empty for no passphrase): {k..g....a}
+Enter same passphrase again:
+Your identification has been saved in /home/vsh/.ssh/id_rsa.
+Your public key has been saved in /home/vsh/.ssh/id_rsa.pub.
+The key fingerprint is:
+6b:c8:ca:3a:dc:02:b6:b3:30:d4:21:1d:79:2d:97:b2 root@Freda
+The key's randomart image is:
++--[ RSA 2048]----+
+|   .. . .        |
+|  ...+ +         |
+| . o. =          |
+|  o .E           |
+| . .    S        |
+|o.   . . .       |
+|+o..  o o        |
+|.++... .         |
+| .++o            |
++-----------------+
+Freda vsh #
+Freda vsh #   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Freda vsh # rhc app-create appDiy diy-0.1
+Application Options
+-------------------
+Domain:     vytasab
+Cartridges: diy-0.1
+Gear Size:  default
+Scaling:    no
+
+Creating application 'appDiy' ... done
+
+  Disclaimer: This is an experimental cartridge that provides a way to try unsupported languages, frameworks, and middleware on OpenShift.
+
+Your public SSH key must be uploaded to the OpenShift server to access code.  Upload now? (yes|no) yes
+
+  default (type: ssh-rsa)
+  -----------------------
+    Fingerprint: c6:c4:f9:27:be:af:84:be:87:72:cc:e8:42:d5:5d:58
+
+You can enter a name for your key, or leave it blank to use the default name. Using the same name as an existing key will overwrite the old key.
+
+Provide a name for this key: |vytasabFreda|
+
+Uploading key 'vytasabFreda' ... done
+
+Waiting for your DNS name to be available ... done
+
+Cloning into 'appdiy'...
+Warning: Permanently added the RSA host key for IP address '54.175.88.31' to the list of known hosts.
+Enter passphrase for key '/root/.ssh/id_rsa':
+
+Your application 'appdiy' is now available.
+
+  URL:        http://appdiy-vytasab.rhcloud.com/
+  SSH to:     5720caef0c1e663e010001d5@appdiy-vytasab.rhcloud.com
+  Git remote: ssh://5720caef0c1e663e010001d5@appdiy-vytasab.rhcloud.com/~/git/appdiy.git/
+  Cloned to:  /home/vsh/appdiy
+
+Run 'rhc show-app appDiy' for more details about your app.
+Freda vsh # rhc show-app appDiy
+appdiy @ http://appdiy-vytasab.rhcloud.com/ (uuid: 5720caef0c1e663e010001d5)
+----------------------------------------------------------------------------
+  Domain:     vytasab
+  Created:    5:21 PM
+  Gears:      1 (defaults to small)
+  Git URL:    ssh://5720caef0c1e663e010001d5@appdiy-vytasab.rhcloud.com/~/git/appdiy.git/
+  SSH:        5720caef0c1e663e010001d5@appdiy-vytasab.rhcloud.com
+  Deployment: auto (on git push)
+
+  diy-0.1 (Do-It-Yourself 0.1)
+  ----------------------------
+    Gears: 1 small
+Freda vsh #
+
+
+16506-5/vsh ==============================================================================
+            http://www.samael.me.uk/2015/01/how-to-deploy-java-war-file-to-openshift.html
+
+Freda vsh # rhc app-create gedcom jbossews-2.0
+Application Options
+-------------------
+Domain:     vytasab
+Cartridges: jbossews-2.0
+Gear Size:  default
+Scaling:    no
+
+Creating application 'gedcom' ... done
+
+
+Waiting for your DNS name to be available ... done
+
+Cloning into 'gedcom'...
+The authenticity of host 'gedcom-vytasab.rhcloud.com (52.2.131.109)' can't be established.
+RSA key fingerprint is cf:ee:77:cb:0e:fc:02:d7:72:7e:ae:80:c0:90:88:a7.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'gedcom-vytasab.rhcloud.com,52.2.131.109' (RSA) to the list of known hosts.
+Enter passphrase for key '/root/.ssh/id_rsa':
+
+Your application 'gedcom' is now available.
+
+  URL:        http://gedcom-vytasab.rhcloud.com/
+  SSH to:     572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com
+  Git remote: ssh://572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com/~/git/gedcom.git/
+  Cloned to:  /home/vsh/gedcom
+
+Freda vsh # cd gedcom
+Freda gedcom # git rm pom.xml
+rm 'pom.xml'
+Freda gedcom # git rm -r src/
+rm 'src/main/java/.gitkeep'
+rm 'src/main/resources/.gitkeep'
+rm 'src/main/webapp/WEB-INF/web.xml'
+rm 'src/main/webapp/images/jbosscorp_logo.png'
+rm 'src/main/webapp/index.html'
+rm 'src/main/webapp/snoop.jsp'
+Freda gedcom # git rm README.md
+rm 'README.md'
+Freda gedcom # git add webapps/ROOT.war
+Freda gedcom # git commit -am "deploy ROOT.war to cloud"
+[master a9a1a80] deploy ROOT.war to cloud
+ 9 files changed, 660 deletions(-)
+ delete mode 100644 README.md
+ delete mode 100755 pom.xml
+ delete mode 100644 src/main/java/.gitkeep
+ delete mode 100644 src/main/resources/.gitkeep
+ delete mode 100755 src/main/webapp/WEB-INF/web.xml
+ delete mode 100644 src/main/webapp/images/jbosscorp_logo.png
+ delete mode 100755 src/main/webapp/index.html
+ delete mode 100644 src/main/webapp/snoop.jsp
+ create mode 100644 webapps/ROOT.war
+Freda gedcom # git push
+Enter passphrase for key '/root/.ssh/id_rsa':
+Counting objects: 6, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 30.43 MiB | 2.46 MiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+remote: Stopping jbossews cartridge
+remote: Sending SIGTERM to jboss:394331 ...
+remote: Building git ref 'master', commit a9a1a80
+remote: Skipping Maven build due to absence of pom.xml
+remote: Preparing build for deployment
+remote: Deployment id is d5e7ee28
+remote: Activating deployment
+remote: Starting jbossews cartridge
+remote: Found 127.12.182.129:8080 listening port
+remote: -------------------------
+remote: Git Post-Receive Result: success
+remote: Activation status: success
+remote: Deployment completed with status: success
+To ssh://572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com/~/git/gedcom.git/
+   226ac95..a9a1a80  master -> master
+Freda gedcom # rhc tail gedcom
+Enter passphrase for /root/.ssh/id_rsa:
+May 06, 2016 3:04:22 PM org.apache.catalina.core.StandardContext startInternal
+SEVERE: Context [] startup failed due to previous errors
+May 06, 2016 3:04:22 PM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [] created a ThreadLocal with key of type [scala.util.DynamicVariable$$anon$1] (value [scala.util.DynamicVariable$$anon$1@1a9fd8e]) and a value of type [org.apache.tomcat.util.log.SystemLogHandler] (value [org.apache.tomcat.util.log.SystemLogHandler@145974f]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+May 06, 2016 3:04:22 PM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deployment of web application archive /var/lib/openshift/572ce2c47628e13029000074/app-root/runtime/dependencies/jbossews/webapps/ROOT.war has finished in 30,885 ms
+May 06, 2016 3:04:22 PM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-127.12.182.129-8080"]
+May 06, 2016 3:04:22 PM org.apache.catalina.startup.Catalina start
+
+
+==>
+MySQL 5.5 database added.  Please make note of these credentials:
+
+       Root User: adminl8hhbmy
+   Root Password: sGGbni1RAMII
+   Database Name: gedcom
+
+Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
+
+You can manage your new MySQL database by also embedding phpmyadmin.
+The phpmyadmin username and password will be the same as the MySQL credentials above.
+
+==>
+Please make note of these MySQL credentials again:
+  Root User: adminl8hhbmy
+  Root Password: sGGbni1RAMII
+URL: https://gedcom-vytasab.rhcloud.com/phpmyadmin/
+
+
+
+
+16MDD-d/vsh ==============================================================================
+16MDD-d/vsh ==============================================================================
+16MDD-d/vsh ==============================================================================
+16MDD-d/vsh ==============================================================================
