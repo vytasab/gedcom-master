@@ -840,8 +840,7 @@ rm 'pom.xml'
 Freda gedcom # git rm -r src/
 rm 'src/main/java/.gitkeep'
 rm 'src/main/resources/.gitkeep'
-rm 'src/main/webapp/WEB-INF/web.xml'
-rm 'src/main/webapp/images/jbosscorp_logo.png'
+rm 'src/main/webapp/WEB-INF/web.xml'rm 'src/main/webapp/images/jbosscorp_logo.png'
 rm 'src/main/webapp/index.html'
 rm 'src/main/webapp/snoop.jsp'
 Freda gedcom # git rm README.md
@@ -916,6 +915,104 @@ URL: https://gedcom-vytasab.rhcloud.com/phpmyadmin/
 
 
 16MDD-d/vsh ==============================================================================
+
+SELECT id FROM  `users` WHERE id = ( SELECT MAX( id ) FROM  `users` )
+SELECT COUNT( * ) FROM  `users`
+
+16610-5/vsh ==============================================================================
+
+Kintamieji ->
+  character set connection:  latin1 --> utf8
+
+
+
+16615-3vsh ==============================================================================
+
+SHOW VARIABLES LIKE 'collation%';
+SET GLOBAL collation_connection=utf8_general_ci, GLOBAL collation_database=utf8_general_ci, GLOBAL collation_server=utf8_general_ci;
+=====
+SET LOCAL collation_connection=utf8_general_ci, LOCAL collation_database=utf8_general_ci, LOCAL collation_server=utf8_general_ci;
+-----
+SET collation_connection=utf8_general_ci, collation_database=utf8_general_ci, collation_server=utf8_general_ci;
+
+SHOW VARIABLES LIKE 'character_set%';
+SET GLOBAL character_set_client=utf8,  GLOBAL character_set_connection=utf8, GLOBAL character_set_database=utf8;
+SET GLOBAL character_set_results=utf8, GLOBAL character_set_server=utf8,     GLOBAL character_set_system=utf8;
+=====
+SET LOCAL character_set_client=utf8,  LOCAL character_set_connection=utf8, LOCAL character_set_database=utf8;
+SET LOCAL character_set_results=utf8, LOCAL character_set_server=utf8,     LOCAL character_set_system=utf8;
+-----
+SET character_set_client=utf8,  character_set_connection=utf8, character_set_database=utf8;
+SET character_set_results=utf8, character_set_server=utf8,     character_set_system=utf8;
+java.sql.SQLException: Unsupported character encoding 'utf8;'.
+
+
+
+
+16MDD-d/vsh ==============================================================================
+
+gedcom-spa: <hibernate.connection.url>
+gedcom:     <db_url>
+result
+
+jdbc:mysql://localhost:3306/datasource-gedcom
+jdbc:mysql://localhost:3306/datasource-gedcom
+nerašo LT raidžių
+
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8
+ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML:
+        ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML: XML InputStream(6)
+        The reference to entity "characterEncoding" must end with the ';' delimiter.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
+        java.sql.SQLException: Unsupported character encoding 'utf8;'.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8
+        ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML: XML InputStream(6)
+        The reference to entity "characterEncoding" must end with the ';' delimiter.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
+        java.sql.SQLException: Unsupported character encoding 'utf8;'.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true
+jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true
+nerašo LT raidžių
+
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8&amp;useUnicode=true
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8&amp;useUnicode=true
+        ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML: XML InputStream(6)
+        The reference to entity "useUnicode" must end with the ';' delimiter.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8&amp;useUnicode=true;
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8&amp;useUnicode=true;
+        java.sql.SQLException: The connection property 'useUnicode' only accepts values of the form:
+        'true', 'false', 'yes' or 'no'. The value 'true;' is not in this set.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode="true";
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode="true";
+``      java.sql.SQLException: The connection property 'useUnicode' only accepts values of the form:
+        'true', 'false', 'yes' or 'no'. The value '"true";' is not in this set.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode="true"
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode="true"
+        java.sql.SQLException: The connection property 'useUnicode' only accepts values of the form:
+        'true', 'false', 'yes' or 'no'. The value '"true"' is not in this set.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode=true
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode=true
+        java.sql.SQLException: Unsupported character encoding '"utf8"'.
+
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8
+jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8
+        PAVYKO ! Pagaliau rašo visas LT raides
+
 16MDD-d/vsh ==============================================================================
 16MDD-d/vsh ==============================================================================
 16MDD-d/vsh ==============================================================================
+16MDD-d/vsh ==============================================================================
+16MDD-d/vsh ==============================================================================
+

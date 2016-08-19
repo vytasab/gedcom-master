@@ -49,6 +49,7 @@ object DBVendor extends ConnectionManager {
 
       println("DBVendor Props.get(\"__app\") = " + Props.get("__app").openOr("/gedcom/") + "|");
       println("DBVendor Props.get(\"db.driver\") = " + Props.get("db.driver").openOr("test---Driver") + "|");
+      println("DBVendor Props.get(\"db.url\") = " + Props.get("db.url").openOr("test---jdbc:xxx") + "|");
 
 
       val dm = (Props.get("db.user"), Props.get("db.password")) match {

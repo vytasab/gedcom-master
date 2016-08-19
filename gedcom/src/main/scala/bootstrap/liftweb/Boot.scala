@@ -134,6 +134,10 @@ class Boot /*extends Logger*/ extends Loggable {
       case _ => true                // D615-6/vsh this line is necessary !!!
      }
 
+    // 16623-4
+    // set character encoding
+    LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
+
     // Force the request to be UTF-8
     LiftRules.early.append(r = (req: HTTPRequest) => {
       req.setCharacterEncoding("UTF-8")

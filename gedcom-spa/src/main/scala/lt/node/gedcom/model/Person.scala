@@ -124,6 +124,15 @@ class Person  {
   }
 
 
+  /**
+   * The table size is returned
+   */
+  def getTableSizeAndMaxId(em: EntityManager): Tuple2[Int, Int] = {
+    val resList = em.createNamedQuery("findAllPersons").getResultList().asInstanceOf[java.util.List[Person]]
+    new Tuple2 (resList.size, resList.last.id.asInstanceOf[Int])
+  }
+
+
   def toString(em: EntityManager) = "person:[" + id + "] " + nameGivn + " " + nameSurn + " " + gender +
     " events # " + personevents.size +
     " attribs # " + personattribs.size +

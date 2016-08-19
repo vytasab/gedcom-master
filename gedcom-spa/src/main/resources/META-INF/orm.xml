@@ -19,6 +19,12 @@
         <named-query name="findAllUsers">
             <query><![CDATA[from User x order by x.id]]></query>
         </named-query>
+        <!--<named-query name="maxIdInUsers">
+            <query><![CDATA[from User x order by x.id]]></query>
+        </named-query>
+        <named-query name="countOfUsers">
+            <query><![CDATA[from User x order by x.id]]></query>
+        </named-query>-->
     </entity>
 
     <entity class="Person">

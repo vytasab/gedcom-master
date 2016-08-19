@@ -487,7 +487,7 @@
         <!--  mvn -Pdev -Dmaven.test.skip=true clean install  -->
         <profile>
             <id>dev</id>
-            <!--<activation><property><name>dev-on</name></property></activation>-->
+            <activation><property><name>dev-on</name></property></activation>
             <!-- http://www.manydesigns.com/en/portofino/portofino3/tutorials/using-maven-profiles-and-resource-filtering -->
             <properties>
                 <db_driver>com.mysql.jdbc.Driver</db_driver>
@@ -623,7 +623,26 @@
             <activation><property><name>prod-on</name></property></activation>
             <properties>
                 <db_driver>com.mysql.jdbc.Driver</db_driver>
-                <db_url>jdbc:mysql://localhost:3306/datasource-gedcom</db_url>
+
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom</db_url>-->
+                <!-- ąčęėįšųūžĄČĘĖĮŠŲŪŽ > ?????š??ž?????Š??Ž -->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8</db_url>-->
+                <!-- ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML:
+                     XML InputStream(6) The reference to entity "characterEncoding" must end with the ';' delimiter. -->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;</db_url>-->
+                <!-- java.sql.SQLException: Unsupported character encoding 'utf8;'. -->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8</db_url>-->
+                <!-- ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML: XML InputStream(6) The reference to entity "characterEncoding" must end with the ';' delimiter. -->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;</db_url>-->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true</db_url>-->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8&amp;useUnicode=true;</db_url>-->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding="utf8"&amp;useUnicode=true</db_url>-->
+                <db_url>jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8</db_url>
+                <!--  -->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=UTF-8</db_url>-->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true</db_url>-->
+                <!--<db_url>jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=UTF-8</db_url>-->
+
                 <db_user>shaknisgedcom</db_user>
                 <db_password>271314log</db_password>
                 <__app>/gedcom/</__app>
@@ -712,9 +731,10 @@
             <activation><property><name>prod-rhc-on</name></property></activation>
             <properties>
                 <db_driver>com.mysql.jdbc.Driver</db_driver>
-                <db_url>jdbc:mysql://127.12.182.130:3306/gedcom</db_url>    <!-- jdbc:mysql://localhost:3306/datasource-gedcom -->
-                <db_user>adminl8hhbmy</db_user>                             <!-- shaknisgedcom -->
-                <db_password>sGGbni1RAMII</db_password>                     <!-- 271314log -->
+                <!--<db_url>jdbc:mysql://127.12.182.130:3306/gedcom</db_url>-->
+                <db_url>jdbc:mysql://127.12.182.130:3306/gedcom?characterEncoding=utf8</db_url>
+                <db_user>adminl8hhbmy</db_user>
+                <db_password>sGGbni1RAMII</db_password>
                 <__app>/gedcom/</__app>
                 <!--16511-3/vsh deprecated <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>-->
             </properties>
@@ -769,7 +789,7 @@
                         <configuration>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>
                             <useSystemClassLoader>false</useSystemClassLoader>
-                            <argLine>-Xmx512m</argLine>
+                            <argLine>-Xmx640m</argLine>
                             <includes>
                                 <include>**/*Unit.java</include>
                                 <include>**/*Spec.java</include>
@@ -793,7 +813,6 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 
     <reporting>
