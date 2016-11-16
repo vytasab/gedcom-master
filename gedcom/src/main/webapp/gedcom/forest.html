@@ -2,21 +2,16 @@
     <head>
         <title>GedCom Forest</title>
         <style type="text/css">
-            #canvas { width:600px; height:600px;}
+            #canvas { width:800px; height:600px;}
         </style>
     </head>
-    <div id="imageFiller"></div>
     <div id="logger"></div>  <!-- develomnebt time log -->
     <div id="jsondiv"></div>
     <div id="svg"></div>
+    <canvas style="border-width:2px;border-style:solid;color:black;display:none" ondblclick="location.assign('./forest');" id="html_canvas"/>
+    <!--<div><input type="button" style="display:none" value=" Back " onclick="location.assign('./forest');" id="back2actions"/></div>-->
     <div id="canvas"></div>
     <span class="lift:Forest">
         <span id="jsraw">see Forest.render</span>
     </span>
-    <br/><br/><br/><br/><br/><br/><br/>
-        <canvas id="html_canvas"></canvas>
-        <!--<canvas id="html_canvas" overflow="visible"></canvas>-->
-        <!--<canvas id="html_canvas" width="550px" height="550px" style="overflow:visible"></canvas>-->
-        <!--<canvas id="html_canvas" width="250px" height="250px"></canvas>-->
-        <!--<div id="html_canvas" width="250px" height="250px"></div>-->
 </lift:surround>

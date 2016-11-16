@@ -1,28 +1,19 @@
 package lt.node.gedcom.snippet
 
-import _root_.scala._
-import _root_.scala.xml.Text
-
-import _root_.net.liftweb._
-import http._
-import SHtml._
-import js._
-import JsCmds._
-import common._
+import _root_.bootstrap.liftweb.{AccessControl, CurrentUser, ErrorXmlMsg, RequestedURL}
+import _root_.lt.node.gedcom.util.{GedcomDate, GedcomDateOptions, PaTags, PeTags}
 import _root_.net.liftweb.util.Helpers._
+import lt.node.gedcom.model._
+import net.liftweb.common._
+import net.liftweb.http.SHtml._
+import net.liftweb.http.js.JsCmds._
+import net.liftweb.http.{S, SHtml, SessionVar}
 
-import http.{SessionVar, S, SHtml}
-
-
-import _root_.bootstrap.liftweb.{ErrorXmlMsg, AccessControl, RequestedURL, CurrentUser}
-
-import _root_.lt.node.gedcom._
-import model._  //{Model, Audit, Person, PersonEvent, PersonAttrib, EventDetail, Family}
-import _root_.lt.node.gedcom.util.{GedcomDateOptions,PeTags,PaTags,GedcomDate}
+import _root_.scala.xml.Text
 
 class PersonUpdate {
 
-  val log = Logger("PersonUpdate");
+  val log = Logger("PersonUpdate")
 
   object personVar extends /*Request*/ SessionVar[Box[Person]](Empty)
 
@@ -44,13 +35,13 @@ class PersonUpdate {
     var selectedPaTag: String = ""
 
     def addPe(): Unit = {
-      log.debug(<_>selectedPeTag={selectedPeTag}</_>.text);
-      S.redirectTo(<_>/rest/person/{personVar.is.open_!.id}/event/{selectedPeTag}</_>.text)
+      log.debug(<_>selectedPeTag={selectedPeTag}</_>.text)
+      S.redirectTo(<_>/rest/person/{personVar.is./*open_!*/openOrThrowException("def addPe").id}/event/{selectedPeTag}</_>.text)
     }
 
     def addPa(): Unit = {
-      log.debug(<_>selectedPaTag={selectedPaTag}</_>.text);
-      S.redirectTo(<_>/rest/person/{personVar.is.open_!.id}/attrib/{selectedPaTag}</_>.text)
+      log.debug(<_>selectedPaTag={selectedPaTag}</_>.text)
+      S.redirectTo(<_>/rest/person/{personVar.is./*open_!*/openOrThrowException("def addPa()").id}/attrib/{selectedPaTag}</_>.text)
     }
 
     "#pelist" #> FocusOnLoad(SHtml.select(/*("","-- events --")::*/PeTags.tags, Empty, {
@@ -79,14 +70,14 @@ class PersonUpdate {
     RequestedURL(Full(S.referer.openOr("/")))
     log.debug("addEdit: S.referer= " + S.referer)
     log.debug("addEdit: S.getSessionAttribute('role').openOr('')= " + S.getSessionAttribute("role").openOr("-negerai-"))
-    var person: Person = null;
+    var person: Person = null
     var personClone: Box[PersonClone] = Empty
     S.getSessionAttribute("role") match {
       case Full("upd") =>
         //val person: Person = Model.find(classOf[Person], S.getSessionAttribute("personId").get.toLong).get
         person = Model.find(classOf[Person], S.getSessionAttribute("personId").get.toLong).get
         assert (person != null, {log.error("addedit: No person for " + S.getSessionAttribute("personId").get)})
-        personClone = Full(person.getClone/*.asInstanceOf[Person]*/)
+        personClone = Full(person.getClone()/*.asInstanceOf[Person]*/)
         S.setSessionAttribute("aNameGivn", person.nameGivn)
         S.setSessionAttribute("aNameSurn", person.nameSurn)
         S.setSessionAttribute("aGender", person.gender)
@@ -120,7 +111,7 @@ class PersonUpdate {
 
     def doAddEdit(): Unit = {
       log.debug("[doAddEdit]...")
-      if (AccessControl.isAuthenticated_?) {// person.setSubmitter(CurrentUser.is.open_!)
+      if (AccessControl.isAuthenticated_?()) {// person.setSubmitter(CurrentUser.is.open_!)
         var validResult = true
         S.setSessionAttribute("aNameGivn", aNameGivn)
         S.setSessionAttribute("aNameSurn", aNameSurn)
@@ -151,7 +142,7 @@ class PersonUpdate {
             case Full("newAlone") =>
               person = new Person
             case _ =>
-              val msg = ("doAddEdit: invalid 'role' = |" +  S.getSessionAttribute("role").openOr("no-role") + "|")
+              val msg = "doAddEdit: invalid 'role' = |" +  S.getSessionAttribute("role").openOr("no-role") + "|"
               log.debug(msg)
               S.redirectTo("/errorPage", () => {
                 ErrorXmlMsg.set(Some(Map(
@@ -161,14 +152,14 @@ class PersonUpdate {
             person.nameGivn = aNameGivn
             person.nameSurn = aNameSurn
             person.gender = aGender
-            person.setSubmitter(CurrentUser.is.open_!)
+            person.setSubmitter(CurrentUser.is./*open_!*/openOrThrowException("person.setSubmitter CurrentUser"))
             person = Model.merge(person)
             var audit = new Audit
-            audit.setFields(CurrentUser.is.open_!, "Pe", person.id,
+            audit.setFields(CurrentUser.is./*open_!*/openOrThrowException("audit.setFields"), "Pe", person.id,
               personClone match{case Full(x) => "upd"; case _ => "add";},
               person.getAuditRec(personClone))
             audit = Model.merge(audit)
-            Model.flush
+            Model.flush()
             S.notice(person.toString(Model.getUnderlying) + "  " + S.?("person.added.updated"))
             S.getSessionAttribute("role") match {
               case Full("upd") =>
@@ -176,7 +167,7 @@ class PersonUpdate {
                    Full("sH")|Full("sW")|Full("sF") |
                    Full("cB")|Full("cS") |
                    Full("fSon")|Full("fDaughter") =>
-                val aPersonSnips = new PersonSnips;
+                val aPersonSnips = new PersonSnips
                 aPersonSnips.completeQuery(person.id)
               case _ =>
                 S.unsetSessionAttribute("aNameGivn")
@@ -191,7 +182,7 @@ class PersonUpdate {
         }
         log.debug("...[doAddEdit]")
       } else {
-        val msg = ("addEdit:doAddEdit: You are not logged in")
+        val msg = "addEdit:doAddEdit: You are not logged in"
         log.debug(msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map(
@@ -537,7 +528,7 @@ class PersonUpdate {
                   case 1 =>
                     detailVar(Full(pe.eventdetails.iterator.next))
                   case n: Int =>
-                    val msg = ("addEvent: No EventDetail for PersonEvent = " + eventId)
+                    val msg = "addEvent: No EventDetail for PersonEvent = " + eventId
                     log.debug(msg)
                     S.redirectTo("/errorPage", () => {
                       ErrorXmlMsg.set(Some(Map(
@@ -546,7 +537,7 @@ class PersonUpdate {
                     })
                 }
               case _ =>
-                val msg = ("addEvent: No PersonEvent for person = " + person.id.toString)
+                val msg = "addEvent: No PersonEvent for person = " + person.id.toString
                 log.debug(msg)
                 S.redirectTo("/errorPage", () => {
                   ErrorXmlMsg.set(Some(Map(
@@ -556,7 +547,7 @@ class PersonUpdate {
             }
             personVar.set(Full(person))
           case _ =>
-            val msg = ("addEvent: No Session Attributes: 'eventTag' and 'eventId'")
+            val msg = "addEvent: No Session Attributes: 'eventTag' and 'eventId'"
             log.debug(msg)
             S.redirectTo("/errorPage", () => {
               ErrorXmlMsg.set(Some(Map(
@@ -605,9 +596,9 @@ class PersonUpdate {
         //        person.nameSurn = aNameSurn
         //        person.gender = aGender
 
-        if (AccessControl.isAuthenticated_?) {
-          aPE.setSubmitter(CurrentUser.is.open_!)
-          aED.setSubmitter(CurrentUser.is.open_!)
+        if (AccessControl.isAuthenticated_?()) {
+          aPE.setSubmitter(CurrentUser.is./*open_!*/openOrThrowException("aPE.setSubmitter"))
+          aED.setSubmitter(CurrentUser.is./*open_!*/openOrThrowException("aED.setSubmitter"))
         }
 
         aPE = Model.mergeAndFlush(aPE)
@@ -679,7 +670,7 @@ class PersonUpdate {
 // TODO start solving L12 of textual fields
     var adoptedBy = ""
     var descriptor = ""
-    var dateValue = ""
+    //var dateValue = ""
     var place = ""
     var ageAtEvent = ""
     var cause = ""

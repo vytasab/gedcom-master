@@ -1,8 +1,9 @@
 // a family tree drawing
+// 16B14-1/vsh  SVG ==> png picture and vice versa implemented
 // 16402-6/vsh  the arrows go{up,right,down,left} location is changed
-// 16330-3/vsh [Family-box] and [child-box] connection mode is changed "leaf-rake" to "garden-rake"
-// E121-2/vsh  pe : fa <-=-> 1:n is implemented, code has been cleaned
-// B104-2/vsh started from gedcomLoader.js
+// 16330-3/vsh  [Family-box] and [child-box] connection mode is changed "leaf-rake" to "garden-rake"
+// E121-2/vsh   pe : fa <-=-> 1:n is implemented, code has been cleaned
+// B104-2/vsh   started from gedcomLoader.js
 /* naming conventions for assoc arrays:
 G - global parameters,
 g - gedcom Entities: g['x'+id] - x ={p-Person, f-family, pe- , pa- , fe- , ed- }}
@@ -543,7 +544,7 @@ Raphael.fn.drawPersonDefault = function(personId) { //====================   d_r
 
         var rect1 = this.rect(p.x - G.margin, p.y - G.margin, p.w + 2*G.margin,
                 p.h*nLines + G.margin, 5).attr((p.gender=='M') ? CSS.male : CSS.female)
-        p.r[0] = rect1;
+        p.r[/*0*/p.r.length] = rect1;
         var text1 = this.text(p.x, p.y, gender+' '+p.nameGivn).attr(CSS.font).attr(CSS.text)
         p.r[p.r.length] = text1;   //logD("p.r[p.r.length] = " + p.r[p.r.length-1]);
         var text2 = this.text(p.x, p.y + textLineHeight, p.nameSurn).attr(CSS.font).attr(CSS.text)
@@ -1563,6 +1564,29 @@ Raphael.fn.translteForest = function(deltaX, deltaY) {
     G.diwe=G.diwe_;
 };
 
+Raphael.fn.hideForest = function() {
+    G.diwe_=G.diwe;  //G.diwe='D';
+    for (var i in R) {
+        logD('i = ' + i);
+        var x = R[i]
+        for (var j in x) { x[j].hide() }
+    }
+    for (var i in g) {
+        logD('i = ' + i);
+        var x = g[i]
+        for (var j in x.r) { x.r[j].hide()}
+    }
+    G.topRect.hide()
+    go2TopLeft.hide(); goUp.hide(); goRight.hide(); goLeft.hide(); goDown.hide();
+    centras.hide(); go2BottomRight.hide();
+    var elemHtmlCanvas = document.getElementById("html_canvas");
+    elemHtmlCanvas.style.display="";
+    elemHtmlCanvas.setAttribute('title', L.js_png2svg);
+    //document.getElementsByTagName('html_canvas').setAttribute('title', 'ddd'
+    document.getElementById("back2actions").style.display="";
+    G.diwe=G.diwe_;
+};
+
 
 // -----------------------------------------------------------------------------
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -2119,6 +2143,8 @@ Raphael.fn.bindPersons = function() { //========================================
 ////paper.setViewBox(300, 300, 400, 400);
 ///*============================================================*/
 
+
+// =====================================================================================================================
 // =====================================================================================================================
 // =====================================================================================================================
 //alert("G.initX = "+G.initX);
@@ -2308,6 +2334,24 @@ Raphael.fn.bindPersons = function() { //========================================
         go2TopLeft.hide(); goUp.hide(); goRight.hide(); goLeft.hide(); goDown.hide();
         centras.hide(); go2BottomRight.hide();
 
+
+
+/*
+        //-------------------------------------------
+        G.diwe_=G.diwe;
+        G.diwe='D';
+        //rect1.hide();
+        for (var i in g) {
+            logD('i = ' + i);
+            var x = g[i]
+            for (var j in x.r) { x.r[j].hide()}
+        }
+        G.diwe=G.diwe_;
+        //-------------------------------------------
+*/
+
+
+
         var wh = getGlobWH();
         G.wMin = wh.wMin;
         G.wMax = wh.wMax;
@@ -2395,9 +2439,17 @@ Raphael.fn.bindPersons = function() { //========================================
         //saveAs(content, "example.zip");
         //// ...[]
 
+        paper.hideForest();
+//        G.topRect.hide()
+//        go2TopLeft.hide(); goUp.hide(); goRight.hide(); goLeft.hide(); goDown.hide();
+//        centras.hide(); go2BottomRight.hide();
+//        var elemHtmlCanvas = document.getElementById("html_canvas");
+//        elemHtmlCanvas.style.display="";
+
+
     };
     go2BottomRight.node.onmouseover = function() {
-         goDown.attr("title", localeString("js_goInit"));
+         go2BottomRight.attr("title", localeString("js_svg2png"));
     };
 
     //logger('Logger Logger Logger Logger Logger  ')

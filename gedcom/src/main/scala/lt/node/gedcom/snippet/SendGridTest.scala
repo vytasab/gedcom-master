@@ -28,7 +28,7 @@ class SendGridTest {
     props.put("mail.smtp.port", "587")
     props.put("mail.smtp.auth", "true")
     props.put("mail.debug", "true")
-    true
+    // 16825-4 true
 
     val auth: Authenticator = new /*SendGridTest#*/SMTPAuthenticator
     val mailSession: Session = Session.getDefaultInstance(props, auth)

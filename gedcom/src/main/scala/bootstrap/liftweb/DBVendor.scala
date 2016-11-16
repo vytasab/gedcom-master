@@ -76,14 +76,14 @@ object DBVendor extends ConnectionManager {
           x.setAutoCommit(false)
           Full(x)
         } catch {
-          case e => try
+          case e: Throwable => try
           {
             pool = xs
             poolSize = poolSize - 1
             x.close
             newConnection(name)
           } catch {
-            case e => newConnection(name)
+            case e: Throwable => newConnection(name)
           }
         }
       }

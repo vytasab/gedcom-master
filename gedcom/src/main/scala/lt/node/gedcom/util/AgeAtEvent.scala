@@ -162,11 +162,14 @@ object AgeAtEvent {
 
 
 //-- http://stackoverflow.com/questions/970675/scala-modifying-nested-elements-in-xml
+//-- http://www.codecommit.com/blog/scala/working-with-scalas-xml-support
 
 object RRaaei extends RewriteRule {
   override def transform(n: Node): Seq[Node] = n match {
     case Elem(prefix, "ageAtEvent", attribs, scope, aaeText)  =>
-      Elem(prefix, "ageAtEvent", attribs, scope, new Text(AgeAtEvent.doLocaleAgeAtEvent(aaeText.toString)))
+      // 16B07-1/vsh
+      // Elem(prefix, "ageAtEvent", attribs, scope, new Text(AgeAtEvent.doLocaleAgeAtEvent(aaeText.toString)))
+      Elem(prefix, "ageAtEvent", attribs, scope, true, new Text(AgeAtEvent.doLocaleAgeAtEvent(aaeText.toString)))
     case other => other
   }
 }

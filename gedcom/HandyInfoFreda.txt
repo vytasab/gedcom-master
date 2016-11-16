@@ -4,7 +4,7 @@ Ec01-1/vsh =====================================================================
 F213-5/vsh ==============================================================================
     Freda's MySQL DB
     root / sh...is
-    sh...isgedcom / {e3}{pi3    }log
+    sh...isgedcom / {e3}{pi3}log
 
 F218-3/vsh ==============================================================================
     JRebel configuration:
@@ -967,7 +967,7 @@ ERROR o.h.e.packaging.PersistenceXmlLoader - Error parsing XML:
 
 jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
 jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
-        java.sql.SQLException: Unsupported character encoding 'utf8;'.
+        java.sql.SQLException: Unsupported character encoding 'utf8;'.Skip OpenShift git repository
 
 jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8;
 jdbc:mysql://localhost:3306/datasource-gedcom?useUnicode=true&amp;characterEncoding=utf8
@@ -1010,7 +1010,61 @@ jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8
 jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8
         PAVYKO ! Pagaliau rašo visas LT raides
 
-16MDD-d/vsh ==============================================================================
+
+16822-1/vsh ==============================================================================
+
+    Web app update using .war file
+    ====> http://blog.anthavio.net/2014/01/deploy-to-openshift-from-github.html
+    Deploy pre-built war
+
+#------------------------------------------------
+# build war localy
+git clone git@github.com:anthavio/disquo.git /tmp/disquo.git
+cd /tmp/disquo.git
+mvn clean package -Dmaven.test.skip=true
+
+# upload assembled war
+scp disquo-web/target/disquo-web-1.0.0-SNAPSHOT.war 52d184e45973ca0bc0000088@wotan-anthavio.rhcloud.com:~/app-root/repo/webapps/disquo.war
+ssh 52d184e45973ca0bc0000088@wotan-anthavio.rhcloud.com
+# stop tomcat & deploy webapp & start tomcat
+ctl_app stop jbossews
+cp app-root/repo/webapps/disquo.war jbossews/webapps
+ctl_app start jbossews
+
+# Check Tomcat log file
+tail -f jbossews/logs/catalina.out
+#------------------------------------------------
+
+
+#--------------------------------------------------------------------
+#------------------------------------------------------- gedcom case:
+# ----- BUILD .war LOCALLY ------------------------------------------
+# for gedcom-spa
+mvn -Pspa_prod-rhc -Dmaven.test.skip=true clean install
+# for gedcom
+mvn -Pprod-rhc -Dmaven.test.skip=true clean install
+# rename:  gedcom-1.0.war ==> gecdom.war
+
+# upload assembled war
+scp /home/vsh/Projects/gedcom-master/gedcom/target/gedcom.war 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com:~/app-root/repo/webapps/gedcom.war
+
+# connect to my part in OpenShift
+ssh 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com
+
+# stop tomcat & deploy webapp & start tomcat
+    gear stop jbossews
+    cp app-root/repo/webapps/gedcom.war jbossews/webapps
+    gear start jbossews
+# Check Tomcat log file
+    tail -f jbossews/logs/catalina.out
+
+# -----DEVELOPMENT PHASE WEB APP BUILD ------------------------------
+# for gedcom-spa
+mvn -Pspa_dev -Dmaven.test.skip=true clean install
+# for gedcom
+mvn -Pdev -Dmaven.test.skip=true clean install
+
+
 16MDD-d/vsh ==============================================================================
 16MDD-d/vsh ==============================================================================
 16MDD-d/vsh ==============================================================================

@@ -24,7 +24,7 @@ class Forest extends Loggable {
     //val rootId = S.getSessionAttribute("personId").openOr("1").trim.toLong
     val rootId = S.getSessionAttribute("personId") match {
       case Full(personId) => personId.trim.toLong
-      case _ => 0; S.redirectTo("/loginFSB")
+      case _ => /* 16825-4  0.toLong;*/ S.redirectTo("/loginFSB")
     }
     GedcomRest.getPersonJS(
       (S.get("ancestNum").getOrElse("1").toInt,

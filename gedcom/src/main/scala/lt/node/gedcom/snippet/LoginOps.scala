@@ -677,7 +677,7 @@ object UserEdit extends UberScreen {
   val reqScheme = CurrentReq.value.request.scheme
   log.debug("UserEdit: CurrentReq.value.request.scheme |" + reqScheme + "|")
 
-  val user: User = Model.find(classOf[User], CurrentUserId.is.openTheBox).get
+  val user: User = Model.find(classOf[User], CurrentUserId.is.openOrThrowException("UserEdit user")/*.openTheBox*/).get
   val firstName = field(S ? "firstName", user.firstName,
     notNull, trim,
     valMinLen(2, S ? "flName.too.short"),

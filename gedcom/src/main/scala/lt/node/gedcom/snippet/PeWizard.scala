@@ -826,7 +826,8 @@ class PeWizard extends Wizard with Loggable {
               var peClone: Box[PersonEventClone] = Empty
               var ed: EventDetail = new EventDetail
               var edClone: Box[EventDetailClone] = Empty
-              pe.personevent = wvBoxPerson.is.open_!
+              //pe.personevent = wvBoxPerson.is.open_!
+              pe.personevent = wvBoxPerson.is.openOrThrowException("PeWizard.finish pe.tag = wvEvenDat4Pe.get._1")
               pe.tag = wvEvenDat4Pe.get._1
               pe.tag match {
                 case "ADOP" =>
@@ -849,20 +850,24 @@ class PeWizard extends Wizard with Loggable {
               log.debug("PeWizard.finish wvBoxCU.is CurrentUser |" + CurrentUser.is + "|")
               log.debug("PeWizard.finish wvBoxCU.is wvBoxCU |" + wvBoxCU.is + "|")
 
-              pe.setSubmitter(wvBoxCU.is.open_!)
+              //pe.setSubmitter(wvBoxCU.is.open_!)
+              pe.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish pe = Model.merge(pe)"))
               pe = Model.merge(pe)
 
               var pea = new Audit
-              pea.setFields(wvBoxCU.is.open_!, "PE", pe.id, "add", pe.getAuditRec(peClone))
+              //pea.setFields(wvBoxCU.is.open_!, "PE", pe.id, "add", pe.getAuditRec(peClone))
+              pea.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish PE add"), "PE", pe.id, "add", pe.getAuditRec(peClone))
               pea = Model.merge(pea)
 
               ed.personevent = pe
-              ed.setSubmitter(wvBoxCU.is.open_!)
+              //ed.setSubmitter(wvBoxCU.is.open_!)
+              ed.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish ed.personevent = pe"))
               log.debug("PeWizard.finish ed.dateValue |" + ed.dateValue + "|")
               ed = Model.merge(ed)
 
               var eda = new Audit
-              eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "add", ed.getAuditRec(edClone))
+              //eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "add", ed.getAuditRec(edClone))
+              eda.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish `ED add"), "ED", ed.id, "add", ed.getAuditRec(edClone))
               eda = Model.merge(eda)
               Model.flush()
             case "U" => // ----------------------------------------------------
@@ -878,7 +883,8 @@ class PeWizard extends Wizard with Loggable {
                 (if (ed.personevent==null) "0" else ed.personevent.id.toString),
                 (if (ed.personattrib==null) "0" else ed.personattrib.id.toString),
                 (if (ed.familyevent==null) "0" else ed.familyevent.id.toString) ))
-              pe.personevent = wvBoxPerson.is.open_!
+              //pe.personevent = wvBoxPerson.is.open_!
+              pe.personevent = wvBoxPerson.is.openOrThrowException("PeWizard.finish pe.tag = wvEvenDat4Pe.get._1")
               pe.tag = wvEvenDat4Pe.get._1
               pe.tag match {
                 case "ADOP" =>
@@ -900,19 +906,23 @@ class PeWizard extends Wizard with Loggable {
               log.debug("PeWizard.finish wvBoxCU.is CurrentUser |" + CurrentUser.is + "|")
               log.debug("PeWizard.finish wvBoxCU.is wvBoxCU |" + wvBoxCU.is + "|")
 
-              pe.setSubmitter(wvBoxCU.is.open_!)
+              //pe.setSubmitter(wvBoxCU.is.open_!)
+              pe.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish pe = Model.merge(pe)"))
               pe = Model.merge(pe)
 
               var pea = new Audit
-              pea.setFields(wvBoxCU.is.open_!, "PE", pe.id, "upd", pe.getAuditRec(peClone))
+              //pea.setFields(wvBoxCU.is.open_!, "PE", pe.id, "upd", pe.getAuditRec(peClone))
+              pea.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish PE upd"), "PE", pe.id, "upd", pe.getAuditRec(peClone))
               pea = Model.merge(pea)
 
               ed.personevent = pe
-              ed.setSubmitter(wvBoxCU.is.open_!)
+              //ed.setSubmitter(wvBoxCU.is.open_!)
+              ed.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish ed.personevent = pe"))
               ed = Model.merge(ed)
 
               var eda = new Audit
-              eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "upd", ed.getAuditRec(edClone))
+              //eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "upd", ed.getAuditRec(edClone))
+              eda.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish ED upd"), "ED", ed.id, "upd", ed.getAuditRec(edClone))
               eda = Model.merge(eda)
               Model.flush()
             case _ =>
@@ -951,7 +961,8 @@ class PeWizard extends Wizard with Loggable {
               var paClone: Box[PersonAttribClone] = Empty
               var ed: EventDetail = new EventDetail
               var edClone: Box[EventDetailClone] = Empty
-                pa.personattrib = wvBoxPerson.is.open_!
+                //pa.personattrib = wvBoxPerson.is.open_!
+                pa.personattrib = wvBoxPerson.is.openOrThrowException("PeWizard.finish pa.tag = wvAttrDat4Pe.get._1")
                 pa.tag = wvAttrDat4Pe.get._1
                 pa.tag match {
                   case "RESI" =>
@@ -965,19 +976,23 @@ class PeWizard extends Wizard with Loggable {
               ed.note = wvEDMLT.get._6.addupdLangMsg(wvDPAS.get._5)      //log.debug("PeWizard.finish wvBoxCU.is CurrentUser |" + CurrentUser.is + "|")
               //log.debug("PeWizard.finish wvBoxCU.is wvBoxCU |" + wvBoxCU.is + "|")
 
-              pa.setSubmitter(wvBoxCU.is.open_!)
+              //pa.setSubmitter(wvBoxCU.is.open_!)
+              pa.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish pa = Model.merge(pa)"))
               pa = Model.merge(pa)
 
               var paa = new Audit
-              paa.setFields(wvBoxCU.is.open_!, "PA", pa.id, "add", pa.getAuditRec(paClone))
+              //paa.setFields(wvBoxCU.is.open_!, "PA", pa.id, "add", pa.getAuditRec(paClone))
+              paa.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish PA add"), "PA", pa.id, "add", pa.getAuditRec(paClone))
               paa = Model.merge(paa)
 
               ed.personattrib = pa
-              ed.setSubmitter(wvBoxCU.is.open_!)
+              //ed.setSubmitter(wvBoxCU.is.open_!)
+              ed.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish ed.personattrib = pa"))
               ed = Model.merge(ed)
 
               var eda = new Audit
-              eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "add", ed.getAuditRec(edClone))
+              //eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "add", ed.getAuditRec(edClone))
+              eda.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish ED add"), "ED", ed.id, "add", ed.getAuditRec(edClone))
               eda = Model.merge(eda)
               Model.flush()
             case "U" =>
@@ -992,7 +1007,8 @@ class PeWizard extends Wizard with Loggable {
                 (if (ed.personevent==null) "0" else ed.personevent.id.toString),
                 (if (ed.personattrib==null) "0" else ed.personattrib.id.toString),
                 (if (ed.familyevent==null) "0" else ed.familyevent.id.toString) ))
-              pa.personattrib = wvBoxPerson.is.open_!
+              //pa.personattrib = wvBoxPerson.is.open_!
+              pa.personattrib = wvBoxPerson.is.openOrThrowException("PeWizard.finish pa.tag = wvAttrDat4Pe.get._1")/*.open_!*/
               pa.tag = wvAttrDat4Pe.get._1
               pa.tag match {
                 case "RESI" =>
@@ -1007,19 +1023,23 @@ class PeWizard extends Wizard with Loggable {
               //log.debug("PeWizard.finish wvBoxCU.is CurrentUser |" + CurrentUser.is + "|")
               //log.debug("PeWizard.finish wvBoxCU.is wvBoxCU |" + wvBoxCU.is + "|")
 
-              pa.setSubmitter(wvBoxCU.is.open_!)
+              //pa.setSubmitter(wvBoxCU.is.open_!)
+              pa.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish pa = Model.merge(pa)")/*.open_!*/)
               pa = Model.merge(pa)
 
               var paa = new Audit
-              paa.setFields(wvBoxCU.is.open_!, "PA", pa.id, "upd", pa.getAuditRec(paClone))
+              //paa.setFields(wvBoxCU.is.open_!, "PA", pa.id, "upd", pa.getAuditRec(paClone))
+              paa.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish PA upd")/*.open_!*/, "PA", pa.id, "upd", pa.getAuditRec(paClone))
               paa = Model.merge(paa)
 
               ed.personattrib = pa
-              ed.setSubmitter(wvBoxCU.is.open_!)
+              //ed.setSubmitter(wvBoxCU.is.open_!)
+              ed.setSubmitter(wvBoxCU.is.openOrThrowException("PeWizard.finish ed.personattrib = pa")/*.open_!*/)
               ed = Model.merge(ed)
 
               var eda = new Audit
-              eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "upd", ed.getAuditRec(edClone))
+              //eda.setFields(wvBoxCU.is. open_!, "ED", ed.id, "upd", ed.getAuditRec(edClone))
+              eda.setFields(wvBoxCU.is.openOrThrowException("PeWizard.finish ED upd")/*.open_!*/, "ED", ed.id, "upd", ed.getAuditRec(edClone))
               eda = Model.merge(eda)
               Model.flush()
             case _ =>
@@ -1039,8 +1059,8 @@ class PeWizard extends Wizard with Loggable {
     wvPE.remove()
     wvPA.remove()
     wvED.remove()
-    log.debug("/rest/personView/" + wvBoxPerson.get.open_!.id)
-    S.redirectTo("/rest/personView/" + wvBoxPerson.get.open_!.id) //})
+    log.debug("/rest/personView/" + wvBoxPerson.get.openOrThrowException("PeWizard.finish /rest/personView/")/*.open_!*/.id)
+    S.redirectTo("/rest/personView/" + wvBoxPerson.get.openOrThrowException("PeWizard.finish /rest/personView/")/*.open_!*/.id) //})
   }
 
   //def ajaxRender = "* [onclick]" #> SHtml.ajaxInvoke(() =>

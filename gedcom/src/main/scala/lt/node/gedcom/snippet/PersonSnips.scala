@@ -1,28 +1,19 @@
 package lt.node.gedcom.snippet
 
 //import _root_.scala.util._
-import _root_.scala._
+import javax.persistence.NoResultException
 
-import _root_.net.liftweb._
-import http._
-import common._
-import /*net.liftweb.*/widgets.autocomplete.AutoComplete
 import _root_.net.liftweb.util.Helpers._
-import http.js.JsCmds.FocusOnLoad
-import http.{RequestVar, S, SHtml}
 import bootstrap.liftweb._
 import lt.node.gedcom.model._
-import net.liftweb.common.Full
-import scala.Some
-import scala.collection.JavaConverters._
 import lt.node.gedcom.util.GedcomUtil
-import net.liftweb.util.Props
-import net.liftweb.common.Full
-import scala.Some
-import javax.persistence.NoResultException
+import net.liftweb.common.{Full, _}
+import net.liftweb.http.js.JsCmds.FocusOnLoad
+import net.liftweb.http.{S, SHtml, _}
+import net.liftweb.widgets.autocomplete.AutoComplete
+
+import scala.collection.JavaConverters._
 import scala.xml.NodeSeq
-import net.liftweb.common.Full
-import scala.Some
 
 class PersonSnips {
   val log = Logger("PersonSnips");
@@ -327,17 +318,17 @@ class PersonSnips {
       S.getSessionAttribute("gender").isDefined &&
       S.getSessionAttribute("role").isDefined match {
       case true =>
-        bindPerson(S.getSessionAttribute("personId").open_!.toLong,
+        bindPerson(S.getSessionAttribute("personId")./*open_!*/openOrThrowException("case true personId").toLong,
           foundPersonId,
-          S.getSessionAttribute("role").open_!,
-          S.getSessionAttribute("familyId").open_!.toLong)
-        S.redirectTo("/rest/person/" + S.getSessionAttribute("personId").open_!)
+          S.getSessionAttribute("role")./*open_!*/openOrThrowException("case true role"),
+          S.getSessionAttribute("familyId")./*open_!*/openOrThrowException("case true familyId").toLong)
+        S.redirectTo("/rest/person/" + S.getSessionAttribute("personId")./*open_!*/openOrThrowException("case true personId"))
       case _ =>
-        val msg = ("completeQuery: Some params are wrong " +
+        val msg = "completeQuery: Some params are wrong " +
           <_>personId={S.getSessionAttribute("personId").toString}; </_>.text +
           <_>familyId={S.getSessionAttribute("familyId").toString}; </_>.text +
           <_>gender={S.getSessionAttribute("gender").toString}; </_>.text +
-          <_>role={S.getSessionAttribute("role").toString};</_>.text)
+          <_>role={S.getSessionAttribute("role").toString};</_>.text
         log.debug(msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map(
@@ -377,7 +368,8 @@ class PersonSnips {
                 family match {
                   case Some(y) =>
                     x.family = y
-                    if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.open_!)
+                    //if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.open_!)
+                    if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.openOrThrowException("case sd -fSonfDaughter existingId"))
                     Model.merge(x)
                   case _ =>
                     val msg = "bindPerson: There is no Family for id = " + existingId
@@ -421,7 +413,8 @@ class PersonSnips {
               //S.setSessionAttribute("appError", msg)
             })
         }
-        if (AccessControl.isAuthenticated_?) fam.setSubmitter(CurrentUser.is.open_!)
+        //if (AccessControl.isAuthenticated_?) fam.setSubmitter(CurrentUser.is.open_!)
+        if (AccessControl.isAuthenticated_?) fam.setSubmitter(CurrentUser.is.openOrThrowException("case fSpouse"))
         Model.merge(fam)
       case "sF" =>
         val bindingPerson = Model.find(classOf[Person], bindingPersonId).get
@@ -430,13 +423,15 @@ class PersonSnips {
             val newFam = new Family();
             newFam.husbandId = bindingPersonId
             newFam.wifeId = toBeBoundPersonId
-            if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.open_!)
+            //if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.open_!)
+            if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.openOrThrowException("case sF M"))
             Model.merge(newFam)
           case "F" =>
             val newFam = new Family();
             newFam.husbandId = toBeBoundPersonId
             newFam.wifeId = bindingPersonId
-            if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.open_!)
+            //if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.open_!)
+            if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.openOrThrowException("case sF F"))
             Model.merge(newFam)
           case _ =>
             val msg = <_>bindPerson: role={role} illegal gender: person={bindingPersonId} gender={bindingPerson.gender}</_>.text
@@ -469,7 +464,8 @@ class PersonSnips {
                 family match {
                   case Some(y) =>
                     x.family = y
-                    if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.open_!)
+                    //if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.open_!)
+                    if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.openOrThrowException("case parentC -cBcS"))
                     Model.merge(x)
                   case _ =>
                     val msg = ("bindPerson: There is no Family for id = " + existingId)
@@ -503,10 +499,11 @@ class PersonSnips {
             bindingPerson match {
               case Some(x) =>
                 x.family = newFam
-                if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.open_!)
+                //if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.open_!)
+                if (AccessControl.isAuthenticated_?) x.setSubmitter(CurrentUser.is.openOrThrowException("case parent if -pFpM"))
                 Model.merge(x)
               case _ =>
-                val msg = ("bindPerson: There is no Person for id = " + bindingPersonId)
+                val msg = "bindPerson: There is no Person for id = " + bindingPersonId
                 log.debug(msg)
                 S.redirectTo("/errorPage", () => {
                   ErrorXmlMsg.set(Some(Map(
@@ -528,10 +525,11 @@ class PersonSnips {
                     f.wifeId = toBeBoundPersonId
                 }
                 log.debug("bindPerson: pFpM: " + f.toString(Model.getUnderlying))
-                if (AccessControl.isAuthenticated_?) f.setSubmitter(CurrentUser.is.open_!)
+                //if (AccessControl.isAuthenticated_?) f.setSubmitter(CurrentUser.is.open_!)
+                if (AccessControl.isAuthenticated_?) f.setSubmitter(CurrentUser.is.openOrThrowException("bindPerson: pFpM"))
                 Model.merge(f)
               case _ =>
-                val msg = ("bindPerson: There is no Family for id = " + existingId)
+                val msg = "bindPerson: There is no Family for id = " + existingId
                 log.debug(msg)
                 S.redirectTo("/errorPage", () => {
                   ErrorXmlMsg.set(Some(Map(
@@ -555,10 +553,11 @@ class PersonSnips {
               case "sW" => newFam.husbandId = x.id
               case _ =>
             }
-            if (AccessControl.isAuthenticated_?) newFam.setSubmitter(CurrentUser.is.open_!)
+            //if (AccessControl.isAuthenticated_?()) newFam.setSubmitter(CurrentUser.is.open_!)
+            if (AccessControl.isAuthenticated_?()) newFam.setSubmitter(CurrentUser.is.openOrThrowException("case spouse -sHsW"))
             Model.merge(newFam)
           case _ =>
-            val msg = ("bindPerson: There is no Person for id = " + bindingPersonId)
+            val msg = "bindPerson: There is no Person for id = " + bindingPersonId
             log.debug(msg)
             S.redirectTo("/errorPage", () => {
               ErrorXmlMsg.set(Some(Map(

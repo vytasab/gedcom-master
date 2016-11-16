@@ -75,8 +75,8 @@ object MultiLangText {
 
   def hasLang(dbFieldXml: NodeSeq, lang: String): Boolean =
     dbFieldXml match {
-      case x if ((x \\ lang).size == 1) => true
-      case x if ((x \\ lang).size == 0) => false
+      case x if (x \\ lang).size == 1 => true
+      case x if (x \\ lang).isEmpty/*size == 0*/ => false
       case _ => true
     }
 
@@ -107,7 +107,7 @@ trait MultiLang/*Text*/ {
       case _ =>
         val dl = (tmpXml \ "@d").text
         (tmpXml \\ dl).text match {
-          case txt if txt.size == 0 => NodeSeq.Empty  // MultiLangText.wrapText("", lang)
+          case txt if txt.isEmpty/*size == 0*/ => NodeSeq.Empty  // MultiLangText.wrapText("", lang)
           case txt => MultiLangText.wrapText("["+dl+"]: "+txt, dl)
         }
     }
@@ -126,7 +126,7 @@ trait MultiLang/*Text*/ {
           case _ =>
             val dl = (tmpXml \ "@d").text
             (tmpXml \\ dl).text match {
-              case txt if txt.size == 0 => NodeSeq.Empty  // MultiLangText.wrapText("", lang)
+              case txt if txt.isEmpty/*size == 0*/ => NodeSeq.Empty  // MultiLangText.wrapText("", lang)
               case txt => /*NodeSeq.Empty*/ MultiLangText.wrapText("["+dl+"]: "+txt, dl)
             }
         }
@@ -165,7 +165,9 @@ trait MultiLang/*Text*/ {
     }
     dbFieldXml match {
       case  Elem(prefix, label, attribs, scope, child @ _*) =>
-        Elem(prefix, label, attribs, scope, /*child ++ newLangMsg*/delLangMsgInternal(dbFieldXml, lang):_*)
+     // 16B07-1/vsh
+     // Elem(prefix, label, attribs, scope,       /*child ++ newLangMsg*/delLangMsgInternal(dbFieldXml, lang):_*)
+        Elem(prefix, label, attribs, scope, true, /*child ++ newLangMsg*/delLangMsgInternal(dbFieldXml, lang):_*)
       case _ => sys.error("Can only del children to elements!")
     }
   }
@@ -221,8 +223,11 @@ trait MultiLang/*Text*/ {
 
   def addLangMsg(n: Node, newLangMsg: Elem/*Node*/): Node/*Elem*/ = newLangMsg match {
     case nlm if nlm.text.length > 0 => n match {
+      // 16B07-1/vsh
+      //case Elem(prefix, label, attribs, scope, child @ _*) =>
+      //  Elem(prefix, label, attribs, scope, child ++ nlm: _*)
       case Elem(prefix, label, attribs, scope, child @ _*) =>
-        Elem(prefix, label, attribs, scope, child ++ nlm: _*)
+        Elem(prefix, label, attribs, scope, true, child ++ nlm: _*)
       case _ => sys.error("Can only add children to elements!")
     }
     case _ => n

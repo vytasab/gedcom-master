@@ -24,7 +24,8 @@ object GedcomRest extends XMLApiHelper with Loggable {
     "js_add_son",     "js_add_daughter",
     "js_full_info",   "js_cancel",   /*"js_go_home",*/
     "js_go2PeData",   "js_go2ChgPe",   "js_go2FaAct",
-    "js_goUp", "js_goRight", "js_goLeft", "js_goDown", "js_goInit", "js_canvas_center" )
+    "js_goUp", "js_goRight", "js_goLeft", "js_goDown", "js_goInit", "js_canvas_center",
+    "js_svg2png", "js_png2svg", "js_goLeft", "js_goDown", "js_goInit", "js_canvas_center" )
   /*
   js_goInit=restore init view
 js_canvas_center=Your mouse click position in canvas will be moved here
@@ -36,7 +37,8 @@ js_canvas_center=Your mouse click position in canvas will be moved here
 
 
   def xIsNotYetInJS(xIds: SessionVar [List[Long]], xId: Long): Boolean = {
-    val result = xIds.get.exists(id => id == xId)
+    //val result = xIds.get.exists(id => id == xId)
+    val result = xIds.get.contains(xId)
     log.debug(<_>xIsNotYetInJS={xIds.get.toString()} xId={xId} result={result}</_>.text)
     if (!result) xIds.set(xId :: xIds.get)
     log.debug(<_>xIsNotYetInJS={xIds.get.toString()}</_>.text)

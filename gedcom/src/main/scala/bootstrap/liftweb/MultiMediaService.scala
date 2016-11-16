@@ -30,7 +30,7 @@ object MultiMediaService extends MultiLang {
   def serveImage: LiftRules.DispatchPF = {
     case req@Req(List("images", _), _, GetRequest) if findFromRequest(req).isDefined =>
       () => {
-        val info = findFromRequest(req).open_!
+        val info = findFromRequest(req)./*open_!*/openOrThrowException("openOrThrowException.serveImage")
         // open is valid here because we just tested in the guard
 
         // Test for expiration

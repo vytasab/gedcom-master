@@ -2,19 +2,16 @@ package lt.node.gedcom.util
 
 import _root_.java.text.SimpleDateFormat
 
-import _root_.net.liftweb._
-import http._
-import common._
-import util.Helpers._
+import net.liftweb.common._
+import net.liftweb.http._
+import net.liftweb.util.Helpers._
 
 //import js.JsCmd
 //import js.JE.{Str, Call, AnonFunc}
 
-import _root_.scala._
-import scala.List
-import xml.{NodeSeq, Group}
-
 import _root_.java.text.MessageFormat
+
+import scala.xml.{Group, NodeSeq}
 
 //{ModelMovedTospaSpa,Classifiers,ClassifierAttribs}
 
@@ -60,7 +57,7 @@ object Utilits {
       S.param(name).map(_.toInt) openOr default
     }
     catch {
-      case e => default // Should log something in this case
+      case e: Throwable => default // Should log something in this case
     }
   };
 
@@ -159,8 +156,8 @@ object Utilits {
   def gedcomTRLR(): String = "0 TRLR\n"
 
   def getTimeStr(dateFormat: String): String = {
-    import java.util.Date
     import java.text.FieldPosition
+    import java.util.Date
     val sdf = new java.text.SimpleDateFormat(dateFormat)
     sdf.format(new Date, new StringBuffer(), new FieldPosition(0)).toString
   }

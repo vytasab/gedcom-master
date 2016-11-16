@@ -400,7 +400,7 @@ class FaWizard extends Wizard with Loggable {
           var feClone: Box[FamilyEventClone] = Empty
           var ed: EventDetail = new EventDetail
           var edClone: Box[EventDetailClone] = Empty
-          fe.familyevent = wvBoxFamily.is.open_! // DC19-4/vsh  error occurs here
+          fe.familyevent = wvBoxFamily.is.openOrThrowException("FaWizard.finish familyevent")/*.open_!*/ // DC19-4/vsh  error occurs here
           fe.tag = wvEvenDat4Fa.get._1
           fe.tag match {
             case "EVEN" =>
@@ -417,19 +417,19 @@ class FaWizard extends Wizard with Loggable {
           log.debug("FaWizard.finish wvBoxCU.is CurrentUser |" + CurrentUser.is + "|")
           log.debug("FaWizard.finish wvBoxCU.is wvBoxCU |" + wvBoxCU.is + "|")
 
-          fe.setSubmitter(wvBoxCU.is.open_!)
+          fe.setSubmitter(wvBoxCU.is.openOrThrowException("FaWizard.finish C fe.setSubmitter")/*.open_!*/)
           fe = Model.merge(fe)
 
           var fea = new Audit
-          fea.setFields(wvBoxCU.is.open_!, "FE", fe.id, "add", fe.getAuditRec(feClone))
+          fea.setFields(wvBoxCU.is.openOrThrowException("FaWizard.finish C fea.setFields")/*.open_!*/, "FE", fe.id, "add", fe.getAuditRec(feClone))
           fea = Model.merge(fea)
 
           ed.familyevent = fe
-          ed.setSubmitter(wvBoxCU.is.open_!)
+          ed.setSubmitter(wvBoxCU.is.openOrThrowException("FaWizard.finish C ed.setSubmitter")/*.open_!*/)
           ed = Model.merge(ed)
 
           var eda = new Audit
-          eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "add", ed.getAuditRec(edClone))
+          eda.setFields(wvBoxCU.is.openOrThrowException("FaWizard.finish C eda.setFields")/*.open_!*/, "ED", ed.id, "add", ed.getAuditRec(edClone))
           eda = Model.merge(eda)
           Model.flush
 
@@ -484,19 +484,19 @@ class FaWizard extends Wizard with Loggable {
           log.debug("FaWizard.finish wvBoxCU.is CurrentUser |" + CurrentUser.is + "|")
           log.debug("FaWizard.finish wvBoxCU.is wvBoxCU |" + wvBoxCU.is + "|")
 
-          fe.setSubmitter(wvBoxCU.is.open_!)
+          fe.setSubmitter(wvBoxCU.is.openOrThrowException("FaWizard.finish U fe.setSubmitter")/*.open_!*/)
           fe = Model.merge(fe)
 
           var fea = new Audit
-          fea.setFields(wvBoxCU.is.open_!, "FE", fe.id, "upd", fe.getAuditRec(feClone))
+          fea.setFields(wvBoxCU.is.openOrThrowException("FaWizard.finish U fea.setFields")/*.open_!*/, "FE", fe.id, "upd", fe.getAuditRec(feClone))
           fea = Model.merge(fea)
 
           ed.familyevent = fe
-          ed.setSubmitter(wvBoxCU.is.open_!)
+          ed.setSubmitter(wvBoxCU.is.openOrThrowException("FaWizard.finish U ed.setSubmitter")/*.open_!*/)
           ed = Model.merge(ed)
 
           var eda = new Audit
-          eda.setFields(wvBoxCU.is.open_!, "ED", ed.id, "upd", ed.getAuditRec(edClone))
+          eda.setFields(wvBoxCU.is.openOrThrowException("FaWizard.finish U eda.setFields")/*.open_!*/, "ED", ed.id, "upd", ed.getAuditRec(edClone))
           eda = Model.merge(eda)
           Model.flush()
         case _ =>

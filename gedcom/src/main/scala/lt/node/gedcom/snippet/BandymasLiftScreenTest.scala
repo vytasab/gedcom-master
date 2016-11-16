@@ -30,41 +30,41 @@ object BandymasUberScreenTest extends /*Application with*/ UberScreen {
 
       val nameAndAge = new Screen {
         val name = field(S ? "First Name", "",
-          valMinLen(2, S ?? "Name Too Short"))
+          valMinLen(2, S ? "Name Too Short"))
         val age = field(S ? "Age", 0,
-          minVal(5, S ?? "Too young"),
-          maxVal(120, S ?? "You should be dead"))
+          minVal(5, S ? "Too young"),
+          maxVal(120, S ? "You should be dead"))
 
         override def nextScreen = if (age.is < 18) parentName else favoritePet
       }
       val parentName = new Screen {
         val parentName = field(S ? "Mom or Dad's name", "",
-          valMinLen(2, S ?? "Name Too Short"),
-          valMaxLen(40, S ?? "Name Too Long"))
+          valMinLen(2, S ? "Name Too Short"),
+          valMaxLen(40, S ? "Name Too Long"))
       }
       val favoritePet = new Screen {
         val petName = field(S ? "Pet's name", "",
-          valMinLen(2, S ?? "Name Too Short"),
-          valMaxLen(40, S ?? "Name Too Long"))
+          valMinLen(2, S ? "Name Too Short"),
+          valMaxLen(40, S ? "Name Too Long"))
       }
       // ---------------------------------------------------------------------------------------------------------------------
     }
-    MyWizard.currentScreen.open_! // must_== MyWizard.nameAndAge
+    MyWizard.currentScreen.openOrThrowException("MyWizard.currentScreen.0")/*.open_!*/ // must_== MyWizard.nameAndAge
     // validate that we don't go forward unless we've got a name and age
     MyWizard.nextScreen
-    MyWizard.currentScreen.open_! //must_== MyWizard.nameAndAge
+    MyWizard.currentScreen.openOrThrowException("MyWizard.currentScreen.1")/*.open_!*/ //must_== MyWizard.nameAndAge
     MyWizard.nameAndAge.name.set("David")
     MyWizard.nameAndAge.age.set(14)
     MyWizard.nextScreen
     // we get to the parentName field because the age is < 18
-    MyWizard.currentScreen.open_! //must_== MyWizard.parentName
+    MyWizard.currentScreen.openOrThrowException("MyWizard.currentScreen.2")/*.open_!*/ //must_== MyWizard.parentName
     // go back and change age
     MyWizard.prevScreen
-    MyWizard.currentScreen.open_! //must_== MyWizard.nameAndAge
+    MyWizard.currentScreen.openOrThrowException("MyWizard.currentScreen.3")/*.open_!*/ //must_== MyWizard.nameAndAge
     MyWizard.nameAndAge.age.set(45)
     MyWizard.nextScreen
     // 45 year olds get right to the favorite pet page
-    MyWizard.currentScreen.open_! //must_== MyWizard.favoritePet
+    MyWizard.currentScreen.openOrThrowException("MyWizard.currentScreen.4")/*.open_!*/ //must_== MyWizard.favoritePet
     S.clearCurrentNotices
     MyWizard.favoritePet.petName.set("Elwood")
     MyWizard.nextScreen

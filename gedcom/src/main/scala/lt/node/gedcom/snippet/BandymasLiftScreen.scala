@@ -26,8 +26,8 @@ object BandymasUberScreen extends UberScreen {
   override def finish() {
     S.notice("I like " + flavor.is + " too!")
     S.notice("notice " + ilgasTekstas.is)
-    S.notice("lokale " + lokale.is.open_!)
-    S.notice("tinezona " + tinezona.is.open_!)
+    S.notice("lokale " + lokale.is./*open_!*/openOrThrowException("BandymasUberScreen.finish locale"))
+    S.notice("tinezona " + tinezona.is./*open_!*/openOrThrowException("BandymasUberScreen.finish timezona"))
     //    RedirectTo("/books/list")
   }
 
@@ -47,22 +47,22 @@ object BandymasUberScreen extends UberScreen {
 
     val nameAndAge = new Screen {
       val name = field(S ? "First Name", "",
-        valMinLen(2, S ?? "Name Too Short"))
+        valMinLen(2, S ? "Name Too Short"))
       val age = field(S ? "Age", 0,
-        minVal(5, S ?? "Too young"),
-        maxVal(120, S ?? "You should be dead"))
+        minVal(5, S ? "Too young"),
+        maxVal(120, S ? "You should be dead"))
 
       override def nextScreen = if (age.is < 18) parentName else favoritePet
     }
     val parentName = new Screen {
       val parentName = field(S ? "Mom or Dad's name", "",
-        valMinLen(2, S ?? "Name Too Short"),
-        valMaxLen(40, S ?? "Name Too Long"))
+        valMinLen(2, S ? "Name Too Short"),
+        valMaxLen(40, S ? "Name Too Long"))
     }
     val favoritePet = new Screen {
       val petName = field(S ? "Pet's name", "",
-        valMinLen(2, S ?? "Name Too Short"),
-        valMaxLen(40, S ?? "Name Too Long"))
+        valMinLen(2, S ? "Name Too Short"),
+        valMaxLen(40, S ? "Name Too Long"))
     }
     // ---------------------------------------------------------------------------------------------------------------------
   }

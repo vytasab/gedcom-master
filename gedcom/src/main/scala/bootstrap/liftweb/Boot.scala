@@ -25,6 +25,7 @@ import ch.qos.logback.core.util.StatusPrinter
 import lt.node.gedcom.model._
 import net.liftweb.common._
 import net.liftweb.http.provider._
+import _root_.net.liftweb.http.LiftRules
 import net.liftweb.http.{ParsePath, RewriteRequest, _}
 import net.liftweb.mapper._
 import net.liftweb.sitemap._

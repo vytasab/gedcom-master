@@ -1,14 +1,10 @@
 package lt.node.gedcom.snippet
 
-import lt.node.gedcom.model
-import model._
-import scala.Some
-import bootstrap.liftweb.ErrorXmlMsg
-
-import _root_.net.liftweb._
-import http._
-import common._
 import _root_.net.liftweb.util.Helpers._
+import bootstrap.liftweb.ErrorXmlMsg
+import lt.node.gedcom.model._
+import net.liftweb.common._
+import net.liftweb.http._
 
 /**
  * Created with IntelliJ IDEA.
@@ -86,16 +82,24 @@ object PeReading4MM extends Loggable {
     personVar4MM.is match {
       case Full(p) => Full(p)
       case _ =>
-        val person: Option[Person] = Model.find(classOf[Person], S.getSessionAttribute("personId").open_!/*.openOr("1")*/.toLong)
-        person match {
-          case Some(p) =>
-            /*val fams: Map[Int, Family] = p.families(Model.getUnderlying).zipWithIndex.map((kv) =>(kv._2+1, kv._1)).toMap
-            log.debug("fams: Map [Int, Family] " + fams.toString)
-            familyReqVar.set(fams)*/
-            personVar4MM.set(Full(p))
-          case _ =>
-            Empty
+        S.getSessionAttribute("personId").toOption.map{_.toLong} match {
+          case Some(peId) =>
+            Model.find(classOf[Person], peId) match {
+              case Some(pe) => personVar4MM.set(Full(pe))
+              case None => Empty
+            }
+          case _ => Empty
         }
+        //val person: Option[Person] = Model.find(classOf[Person], S.getSessionAttribute("personId").open_!/*.openOr("1")*/.toLong)
+        //person match {
+        //  case Some(p) =>
+        //    /*val fams: Map[Int, Family] = p.families(Model.getUnderlying).zipWithIndex.map((kv) =>(kv._2+1, kv._1)).toMap
+        //    log.debug("fams: Map [Int, Family] " + fams.toString)
+        //    familyReqVar.set(fams)*/
+        //    personVar4MM.set(Full(p))
+        //  case _ =>
+        //    Empty
+        //}
     }
   }
 }
@@ -106,13 +110,21 @@ object FaReading4MM extends Loggable {
     familyVar4MM.is match {
       case Full(p) => Full(p)
       case _ =>
-        val family: Option[Family] = Model.find(classOf[Family], S.getSessionAttribute("familyId").open_!/*.openOr("1")*/.toLong)
-        family match {
-          case Some(p) =>
-            familyVar4MM.set(Full(p))
-          case _ =>
-            Empty
+        S.getSessionAttribute("familyId").toOption.map{_.toLong} match {
+          case Some(faId) =>
+            Model.find(classOf[Family], faId) match {
+              case Some(fa) => familyVar4MM.set(Full(fa))
+              case None => Empty
+            }
+          case _ => Empty
         }
+      //  val family: Option[Family] = Model.find(classOf[Family], S.getSessionAttribute("familyId").open_!/*.openOr("1")*/.toLong)
+      //  family match {
+      //    case Some(p) =>
+      //      familyVar4MM.set(Full(p))
+      //    case _ =>
+      //      Empty
+      //  }
     }
   }
 }
@@ -125,113 +137,105 @@ object EDReading4MM extends Loggable {
         eventDetailVar4MM.is match {
           case Full(i) => Full(i)
           case _ =>
-            val item: Option[PersonEvent] = Model.find(classOf[PersonEvent], S.getSessionAttribute("idParentED").open_!/*.openOr("1")*/.toLong)
-            item match {
-              case Some(ii) =>
-                ii.getEventDetail(Model.getUnderlying)
-                ii.eventdetails.size() match {
-                  case 0 =>
-                    val place = "EDReading4MM"
-                    val msg = ("EDReading4MM: There is no EventDetail for PersonEvent id = " + S.getSessionAttribute("idParentED").open_!)
-                    log.error(place+"; "+msg)
-                    S.redirectTo("/errorPage", () => {
-                      ErrorXmlMsg.set(Some(Map(
-                        "location" -> <p>{place}</p>,
-                        "message" -> <p>{msg}</p>)))
-                    })
-                    Empty
-                  //case 1 => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
-                  case _ => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
+            //val item: Option[PersonEvent] = Model.find(classOf[PersonEvent], S.getSessionAttribute("idParentED").open_!/*.openOr("1")*/.toLong)
+            S.getSessionAttribute("idParentED").toOption.map{_.toLong} match {
+              case Some(xId) =>
+                Model.find(classOf[PersonEvent], xId) match {
+                  case Some(ii) =>
+                    ii.getEventDetail(Model.getUnderlying)
+                    ii.eventdetails.size() match {
+                      case 0 =>
+                        val place = "EDReading4MM"
+                        //val msg = ("EDReading4MM: There is no EventDetail for PersonEvent id = " + S.getSessionAttribute("idParentED").open_!)
+                        val msg = ("EDReading4MM: There is no EventDetail for PersonEvent id = " + S.getSessionAttribute("idParentED").openOr("No idParentED"))
+                        log.error(place+"; "+msg)
+                        S.redirectTo("/errorPage", () => {
+                          ErrorXmlMsg.set(Some(Map( "location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
+                        Empty
+                        //case 1 => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
+                      case _ => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
+                    }
+                  case _ => None
                 }
               case _ =>
                 val place = "EDReading4MM"
-                val msg = ("EDReading4MM: There is no PersonEvent for PersonEvent id = " + S.getSessionAttribute("idParentED").open_!)
+                //val msg = ("EDReading4MM: There is no PersonEvent for PersonEvent id = " + S.getSessionAttribute("idParentED").open_!)
+                val msg = ("EDReading4MM: There is no PersonEvent for PersonEvent id = " + S.getSessionAttribute("idParentED").openOr("No idParentED"))
                 log.error(place+"; "+msg)
-                S.redirectTo("/errorPage", () => {
-                  ErrorXmlMsg.set(Some(Map(
-                    "location" -> <p>{place}</p>,
-                    "message" -> <p>{msg}</p>)))
-                })
+                //S.redirectTo("/errorPage", () => {ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
                 Empty
+              }
             }
-        }
       case "PA" =>
         eventDetailVar4MM.is match {
           case Full(i) => Full(i)
           case _ =>
-            val item: Option[PersonAttrib] = Model.find(classOf[PersonAttrib], S.getSessionAttribute("idParentED").open_!/*.openOr("1")*/.toLong)
-            item match {
-              case Some(ii) =>
-                ii.getAttribDetail(Model.getUnderlying)
-                ii.attribdetails.size() match {
-                  case 0 =>
-                    val place = "EDReading4MM"
-                    val msg = ("EDReading4MM: There is no EventDetail for PersonAttrib id = " + S.getSessionAttribute("idParentED").open_!)
-                    log.error(place+"; "+msg)
-                    S.redirectTo("/errorPage", () => {
-                      ErrorXmlMsg.set(Some(Map(
-                        "location" -> <p>{place}</p>,
-                        "message" -> <p>{msg}</p>)))
-                    })
-                    Empty
-                  //case 1 => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
-                  case _ => eventDetailVar4MM.set(Full(ii.attribdetails.iterator().next()))
+            //val item: Option[PersonAttrib] = Model.find(classOf[PersonAttrib], S.getSessionAttribute("idParentED").open_!/*.openOr("1")*/.toLong)
+            S.getSessionAttribute("idParentED").toOption.map{_.toLong} match {
+              case Some(xId) =>
+                Model.find(classOf[PersonAttrib], xId) match {
+                  case Some(ii) =>
+                    ii.getAttribDetail(Model.getUnderlying)
+                    ii.attribdetails.size() match {
+                     case 0 =>
+                        val place = "EDReading4MM"
+                        //val msg = ("EDReading4MM: There is no EventDetail for PersonAttrib id = " + S.getSessionAttribute("idParentED").open_!)
+                        val msg = ("EDReading4MM: There is no EventDetail for PersonAttrib id = " + S.getSessionAttribute("idParentED").openOr("No idParentED"))
+                        log.error(place+"; "+msg)
+                        S.redirectTo("/errorPage", () => {ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
+                        Empty
+                        //case 1 => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
+                    case _ => eventDetailVar4MM.set(Full(ii.attribdetails.iterator().next()))
+                  }
+                  case _ => None
                 }
               case _ =>
                 val place = "EDReading4MM"
-                val msg = ("EDReading4MM: There is no PersonAttrib for PersonAttrib id = " + S.getSessionAttribute("idParentED").open_!)
+                //val msg = ("EDReading4MM: There is no PersonAttrib for PersonAttrib id = " + S.getSessionAttribute("idParentED").open_!)
+                val msg = ("EDReading4MM: There is no PersonAttrib for PersonAttrib id = " + S.getSessionAttribute("idParentED").openOr("No idParentED"))
                 log.error(place+"; "+msg)
-                S.redirectTo("/errorPage", () => {
-                  ErrorXmlMsg.set(Some(Map(
-                    "location" -> <p>{place}</p>,
-                    "message" -> <p>{msg}</p>)))
-                })
+                S.redirectTo("/errorPage", () => {ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
                 Empty
+              }
             }
-        }
       case "FE" =>
         eventDetailVar4MM.is match {
           case Full(i) => Full(i)
           case _ =>
-            val item: Option[FamilyEvent] = Model.find(classOf[FamilyEvent], S.getSessionAttribute("idParentED").open_!/*.openOr("1")*/.toLong)
-            item match {
-              case Some(ii) =>
-                ii.getEventDetail(Model.getUnderlying)
-                ii.familydetails.size() match {
-                  case 0 =>
-                    val place = "EDReading4MM"
-                    val msg = ("EDReading4MM: There is no EventDetail for FamilyEvent id = " + S.getSessionAttribute("idParentED").open_!)
-                    log.error(place+"; "+msg)
-                    S.redirectTo("/errorPage", () => {
-                      ErrorXmlMsg.set(Some(Map(
-                        "location" -> <p>{place}</p>,
-                        "message" -> <p>{msg}</p>)))
-                    })
-                    Empty
-                  //case 1 => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
-                  case _ => eventDetailVar4MM.set(Full(ii.familydetails.iterator().next()))
+            //val item: Option[FamilyEvent] = Model.find(classOf[FamilyEvent], S.getSessionAttribute("idParentED").open_!/*.openOr("1")*/.toLong)
+            S.getSessionAttribute("idParentED").toOption.map{_.toLong} match {
+              case Some(xId) =>
+                Model.find(classOf[FamilyEvent], xId) match {
+                  case Some(ii) =>
+                    ii.getEventDetail(Model.getUnderlying)
+                    ii.familydetails.size() match {
+                      case 0 =>
+                        val place = "EDReading4MM"
+                        //val msg = ("EDReading4MM: There is no EventDetail for FamilyEvent id = " + S.getSessionAttribute("idParentED").open_!)
+                        val msg = ("EDReading4MM: There is no EventDetail for FamilyEvent id = " + S.getSessionAttribute("idParentED").openOr("No idParentED"))
+                        log.error(place+"; "+msg)
+                        S.redirectTo("/errorPage", () => {ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
+                        Empty
+                        //case 1 => eventDetailVar4MM.set(Full(ii.eventdetails.iterator().next()))
+                      case _ => eventDetailVar4MM.set(Full(ii.familydetails.iterator().next()))
+                    }
+                  case _ => None
                 }
               case _ =>
                 val place = "EDReading4MM"
-                val msg = ("EDReading4MM: There is no FamilyEvent for FamilyEvent id = " + S.getSessionAttribute("idParentED").open_!)
+                //val msg = ("EDReading4MM: There is no FamilyEvent for FamilyEvent id = " + S.getSessionAttribute("idParentED").open_!)
+                val msg = ("EDReading4MM: There is no FamilyEvent for FamilyEvent id = " + S.getSessionAttribute("idParentED").openOr("No idParentED"))
                 log.error(place+"; "+msg)
-                S.redirectTo("/errorPage", () => {
-                  ErrorXmlMsg.set(Some(Map(
-                    "location" -> <p>{place}</p>,
-                    "message" -> <p>{msg}</p>)))
-                })
+                S.redirectTo("/errorPage", () => {ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
                 Empty
+              }
             }
-        }
       case _ =>
         val place = "EDReading4MM"
-        val msg = ("EDReading4MM: Unexpected role " + S.getSessionAttribute("role").open_!)
+        //val msg = ("EDReading4MM: Unexpected role " + S.getSessionAttribute("role").open_!)
+        val msg = ("EDReading4MM: Unexpected role " + S.getSessionAttribute("role").openOr("No role"))
         log.error(place+"; "+msg)
-        S.redirectTo("/errorPage", () => {
-          ErrorXmlMsg.set(Some(Map(
-            "location" -> <p>{place}</p>,
-            "message" -> <p>{msg}</p>)))
-        })
+        S.redirectTo("/errorPage", () => {ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))})
         Empty
     }
   }

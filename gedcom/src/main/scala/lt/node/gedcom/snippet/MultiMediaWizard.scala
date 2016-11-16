@@ -1,18 +1,16 @@
 package lt.node.gedcom.snippet
 
-import org.slf4j.{LoggerFactory, Logger}
-
-import _root_.net.liftweb._
-import http._
-import js.JE.JsObj
-import js.jquery.JqJsCmds._
-import util.FieldError
-import wizard._
-import common._
-import _root_.net.liftweb.util.Helpers._
-import _root_.lt.node.gedcom.model._
-import bootstrap.liftweb.{ErrorXmlMsg, AccessControl, CurrentUser}
 import javax.persistence.EntityTransaction
+
+import _root_.lt.node.gedcom.model._
+import _root_.net.liftweb.util.Helpers._
+import bootstrap.liftweb.{AccessControl, CurrentUser, ErrorXmlMsg}
+import net.liftweb.common._
+import net.liftweb.http._
+import net.liftweb.http.js.jquery.JqJsCmds._
+import net.liftweb.util.FieldError
+import net.liftweb.wizard._
+import org.slf4j.{Logger, LoggerFactory}
 
 //import _root_.bootstrap.liftweb.CurrentUser
 //import _root_.bootstrap.liftweb._
@@ -117,7 +115,7 @@ class MultiMediaWizard extends Wizard with Loggable {
       /*case Full(x) if x.mimeType == "image/gif" => Nil
       case Full(x) if x.mimeType == "image/png" => Nil
       case Full(x) if x.mimeType == "image/jpeg" => Nil*/
-      case _ => S.?("wizmm.false.mime") + ": " + wvInt._1.toString //.open_!.mimeType
+      case _ => S.?("wizmm.false.mime") + ": " + wvInt._1.toString
     }
     def isValidTitle(s: String): List[FieldError] = {
       s match {
@@ -195,12 +193,12 @@ class MultiMediaWizard extends Wizard with Loggable {
 
     def isValidSize(s: Array[Byte]): List[FieldError] = wvInt._1 match {
       case Full(x) if x.length < maxFileSize => Nil
-      case _ => S.?("wizmm.file.toBig") + ": " + wvInt._1.toString //.open_!.mimeType
+      case _ => S.?("wizmm.file.toBig") + ": " + wvInt._1.toString
       //case _ => "???"
     }
     def isValidMime(s: Array[Byte]): List[FieldError] = wvInt._1 match {
       case Full(x) if mimes.exists(/*m => m*/ _ == x.mimeType) => Nil
-      case _ => S.?("wizmm.false.mime") + ": " + wvInt._1.toString //.open_!.mimeType
+      case _ => S.?("wizmm.false.mime") + ": " + wvInt._1.toString
     }
     def isValidTitle(s: String): List[FieldError] = {
       s match {
@@ -255,7 +253,7 @@ class MultiMediaWizard extends Wizard with Loggable {
     def isValidMime(s: Array[Byte]): List[FieldError] = wvInt._1 match {
       //case Full(x) if (mimes.exists(m => m == x.mimeType)) => Nil
       case Full(x) if (mimes.exists(_ == x.mimeType)) => Nil
-      case _ => S.?("wizmm.false.mime") + ": " + wvInt._1.toString //.open_!.mimeType
+      case _ => S.?("wizmm.false.mime") + ": " + wvInt._1.toString
     }
 
   }
@@ -304,6 +302,7 @@ class MultiMediaWizard extends Wizard with Loggable {
 
   def finish() {
     log.debug("[finish]...")
+    require(CurrentUser.isDefined /*,message:  => Any*/)
     val entityTransaction: EntityTransaction = Model.getTransaction()
     try {
       /*S.notice("Thanks for uploading a file")
@@ -329,7 +328,7 @@ class MultiMediaWizard extends Wizard with Loggable {
           mm.mimeType = wvDb._2
           mm.title = wvDb._3
           mm.blobas = wvDb._1.get.file
-          S.getSessionAttribute("role").open_! match {
+          S.getSessionAttribute("role").openOrThrowException("MultiMediaWizard.finish no role is defined for C")/*.open_!*/ match {
             case "Pe" =>
               val person: Person = Model.find(classOf[Person], S.getSessionAttribute("personId").get.toLong).get
               mm.personmultimedia = person
@@ -354,7 +353,7 @@ class MultiMediaWizard extends Wizard with Loggable {
               mm.eventdetailmultimedia = ed
               S.unsetSessionAttribute("idParentED")
           }
-          mm.setSubmitter(CurrentUser.open_!)
+          mm.setSubmitter(CurrentUser.openOrThrowException("MultiMediaWizard.finish no CurrentUser is defined for C")/*.open_!*/)
           mm = Model.merge(mm)
           logMmRecord(mm)
           Model.flush()
@@ -370,7 +369,7 @@ class MultiMediaWizard extends Wizard with Loggable {
           mmNew.personmultimedia = mmOld.personmultimedia
           mmNew.familymultimedia= mmOld.familymultimedia
           mmNew.eventdetailmultimedia = mmOld.eventdetailmultimedia
-          mmNew.setSubmitter(CurrentUser.open_!)
+          mmNew.setSubmitter(CurrentUser.openOrThrowException("MultiMediaWizard.finish no CurrentUser is defined for U")/*.open_!*/)
           editCase.get match {
             case "mm" => //edit Mm
               val msg = "U: uploading MM only" + " | " + <_>MIME:({wvDb._2})</_>.text
@@ -383,7 +382,8 @@ class MultiMediaWizard extends Wizard with Loggable {
               logMmRecord(mmNew)
               //--v create audit record from former one
               mmOld.idRoot = mmNew.id
-              mmOld.setModifier(CurrentUser.open_!)
+              //mmOld.setModifier(CurrentUser.open_!)
+              mmOld.setModifier(CurrentUser.openOrThrowException("MultiMediaWizard.finish no CurrentUser is defined for U mm")/*.open_!*/)
               mmOld = Model.merge(mmOld)
             case "title" => //edit title
               val msg = "U: editing title only: ("+{wvDb._3}+")"
@@ -397,7 +397,8 @@ class MultiMediaWizard extends Wizard with Loggable {
               //--v create audit record from former one
               mmOld.idRoot = mmNew.id
               mmOld.blobas = null
-              mmOld.setModifier(CurrentUser.open_!)
+              //mmOld.setModifier(CurrentUser.open_!)
+              mmOld.setModifier(CurrentUser.openOrThrowException("MultiMediaWizard.finish no CurrentUser is defined for U title ")/*.open_!*/)
               mmOld = Model.merge(mmOld)
             case "mm_title" => //edit MmTitle
               val msg = "U: uploading MM and title" + " | " + <_>MIME:({wvDb._2})</_>.text + " | " + "title:("+{wvDb._3}+")"
@@ -410,15 +411,14 @@ class MultiMediaWizard extends Wizard with Loggable {
               logMmRecord(mmNew)
               //--v create audit record from former one
               mmOld.idRoot = mmNew.id
-              mmOld.setSubmitter(CurrentUser.open_!)
+              //mmOld.setSubmitter(CurrentUser.open_!)
+              mmOld.setSubmitter(CurrentUser.openOrThrowException("MultiMediaWizard.finish no CurrentUser is defined for U mm_title ")/*.open_!*/)
               mmOld = Model.merge(mmOld)
             case _ =>
               val place = "MultiMediaWizard finish"
               val msg = "An editCase is unexpected |"+ editCase + "|"
               log.error(place+": "+msg)
-              S.redirectTo("/errorPage", () =>
-                ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
-              )
+              S.redirectTo("/errorPage", () => ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>))))
           }
           Model.flush()
           entityTransaction.commit()

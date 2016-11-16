@@ -423,14 +423,14 @@ class PersonView {
 
     log.debug("/ path =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").openOr("___no_path_for_/_") + "|")
     println("/ path =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").openOr("___no_path_for_/_") + "|")
-    log.debug("LiftRules.getResource.getContent =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getContent + "|")
-    log.debug("LiftRules.getResource.getProtocol =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getProtocol + "|")
-    log.debug("LiftRules.getResource.getFile =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getFile + "|")
-    log.debug("LiftRules.getResource.getPath =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getPath + "|")
-    println("LiftRules.getResource.getContent =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getContent + "|")
-    println("LiftRules.getResource.getProtocol =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getProtocol + "|")
-    println("LiftRules.getResource.getFile =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getFile + "|")
-    println("LiftRules.getResource.getPath =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml").open_!.getPath + "|")
+    log.debug("LiftRules.getResource.getContent =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getContent").getContent + "|")
+    log.debug("LiftRules.getResource.getProtocol =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getProtocol").getProtocol + "|")
+    log.debug("LiftRules.getResource.getFile =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getFile").getFile + "|")
+    log.debug("LiftRules.getResource.getPath =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getPath").getPath + "|")
+    println("LiftRules.getResource.getContent =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getContent").getContent + "|")
+    println("LiftRules.getResource.getProtocol =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getProtocol").getProtocol + "|")
+    println("LiftRules.getResource.getFile =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getFile").getFile + "|")
+    println("LiftRules.getResource.getPath =|" + LiftRules.getResource("/xsl/locTexts4XSL.xml")./*open_!*/openOrThrowException("getResource.getPath").getPath + "|")
 
     // TODO D922-7/vsh ar reikalinga kita eilutė ?
     PersonReading
@@ -490,15 +490,15 @@ class PersonView {
     def renderSpouseAndChildren: net.liftweb.util.CssSel = {
       personVar.is match {
         case Full(p) =>
-          val resXml = p.toXmlFamilies(Model.getUnderlying).toString
+          val resXml = p.toXmlFamilies(Model.getUnderlying).toString()
           log.debug("renderSpouseAndChildren resXml |" + resXml + "|")
-          var resHtml =
+          val resHtml =
             XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl"/*"/xsl/family.xsl"*/,
               Map( "userIs"->AccessControl.userIs(),
                 "locTexts4XSL"->locTexts4XSLfilePathReqVar.is,
                 "lang"->S.locale.getLanguage.toLowerCase,
-                "personId"->p.id.toString(),
-                "app"->Props.get("__app").openOr("/gedcom/"))).toString()
+                "personId"->p.id.toString,
+                "app"->Props.get("__app").openOr("/gedcom/"))).toString
           log.debug("resHtml |" + resHtml + "|")
           "#childreninfo" #> Unparsed(Localizer.tagMsg("Fe", "fe", "_", resHtml))
         case _ =>
@@ -552,7 +552,7 @@ class PersonView {
               case id: Long =>
                 Model.find(classOf[Person], id) match {
                   case Some(p) =>
-                    val resXml = p.toXml(Model.getUnderlying).toString
+                    val resXml = p.toXml(Model.getUnderlying).toString()
                     log.debug("renderParent resXml |" + resXml + "|")
                     val resHtml =
                       XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
@@ -611,7 +611,7 @@ class PersonView {
   }
 
 
-  def deletePerson: net.liftweb.util.CssSel = {
+  def deletePerson(): net.liftweb.util.CssSel = {
     RequestedURL(Full(S.referer.openOr("/")))
     println("deletePerson: S.referer= " + S.referer)
     log.debug("deletePerson: S.referer= " + S.referer)
@@ -619,7 +619,7 @@ class PersonView {
     PersonReading()
     val person: Person = personVar.get.get
     //person.getPersonEvents(Model.getUnderlying)
-    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
     log.debug("deletePerson resXml |" + resXml + "|")
     val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
       Map( "userIs"->AccessControl.userIs(),
@@ -631,7 +631,7 @@ class PersonView {
 
     def doDeletePerson() = {
       log.debug("[doDeletePerson]...")
-      if (AccessControl.isAuthenticated_?) {
+      if (AccessControl.isAuthenticated_?()) {
         //pe.getEventDetail(Model.getUnderlying)
         //val ed: EventDetail = pe.eventdetails.iterator.next()
         var pea = new Audit
@@ -640,13 +640,13 @@ class PersonView {
         Model.remove(Model.getReference(classOf[Person],
           S.getSessionAttribute("personId").get.toLong))
         pea = Model.merge(pea)
-        Model.flush
+        Model.flush()
         S.unsetSessionAttribute("personId")
         log.debug("...[doDeletePerson]")
         S.redirectTo(RequestedURL.is.openOr("/"))
       } else {
         val place = "PersonView.deletePerson.doDeletePerson"
-        val msg = ("You are not logged in")
+        val msg = "You are not logged in"
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -670,7 +670,7 @@ class PersonView {
     PersonReading()
     val person: Person = personVar.get.get
     //person.getPersonEvents(Model.getUnderlying)
-    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
     log.debug("familyChildDelete resXml |" + resXml + "|")
     val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
       Map( "userIs"->AccessControl.userIs(),
@@ -684,7 +684,7 @@ class PersonView {
 
     def doFamilyChildDelete(): Unit = {
       log.debug("[doFamilyChildDelete]...")
-      if (AccessControl.isAuthenticated_?) {
+      if (AccessControl.isAuthenticated_?()) {
         val childOption: Option[Person] = Model.find(classOf[Person], S.getSessionAttribute("childId").openOr("0").toLong)
         childOption match {
           case Some(p) =>
@@ -694,7 +694,7 @@ class PersonView {
             p.family = null
             /*p = */Model.merge(p)
             pea = Model.merge(pea)
-            Model.flush
+            Model.flush()
             S.unsetSessionAttribute("personId")
             S.unsetSessionAttribute("childId")
             log.debug("...[doFamilyChildDelete]")
@@ -709,7 +709,7 @@ class PersonView {
         }
       } else {
         val place = "PersonView.familyChildDelete.doFamilyChildDelete"
-        val msg = ("You are not logged in")
+        val msg = "You are not logged in"
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -734,7 +734,7 @@ class PersonView {
 
     PersonReading()
     val person: Person = personVar.get.get
-    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
     log.debug("familyDelete resXml |" + resXml + "|")
     val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
       Map( "userIs"->AccessControl.userIs(),
@@ -748,7 +748,7 @@ class PersonView {
 
     def doFamilyDelete(): Unit = {
       log.debug("[doFamilyDelete]...")
-      if (AccessControl.isAuthenticated_?) {
+      if (AccessControl.isAuthenticated_?()) {
         val familyOption: Option[Family] = Model.find(classOf[Family], S.getSessionAttribute("familyId").openOr("0").toLong)
         familyOption match {
           case Some(f) =>
@@ -758,7 +758,7 @@ class PersonView {
             Model.remove(Model.getReference(classOf[Family],
               S.getSessionAttribute("familyId").get.toLong))
             pea = Model.merge(pea)
-            Model.flush
+            Model.flush()
             S.unsetSessionAttribute("personId")
             S.unsetSessionAttribute("familyId")
             log.debug("...[doFamilyDelete]")
@@ -773,7 +773,7 @@ class PersonView {
         }
       } else {
         val place = "PersonView.familyDelete.doFamilyDelete"
-        val msg = ("You are not logged in")
+        val msg = "You are not logged in"
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map( "location" -> <p>{place}</p>,"message" -> <p>{msg}</p>)))
@@ -801,7 +801,7 @@ class PersonView {
     }
 
 
-    def deletePe: net.liftweb.util.CssSel = {
+    def deletePe(): net.liftweb.util.CssSel = {
       RequestedURL(Full(S.referer.openOr("/")))
       println("deletePe: S.referer= " + S.referer)
       log.debug("deletePe: S.referer= " + S.referer)
@@ -809,7 +809,7 @@ class PersonView {
       PersonReading()
       val person: Person = personVar.get.get
       person.getPersonEvents(Model.getUnderlying)
-      val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+      val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
       log.debug("deletePe resXml |" + resXml + "|")
       val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
         Map(  "userIs"->AccessControl.userIs(),
@@ -828,7 +828,7 @@ class PersonView {
           pe = per
         case _ =>
           val place = "PersonView.deletePe"
-          val msg = ("No PersonEvent for id="+ S.getSessionAttribute("personEventId").get)
+          val msg = "No PersonEvent for id="+ S.getSessionAttribute("personEventId").get
           log.debug(place+": "+msg)
           S.redirectTo("/errorPage", () => {
             ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -836,13 +836,13 @@ class PersonView {
       }
       def doDelete(): Unit = {
         log.debug("[doDelete]...")
-        if (AccessControl.isAuthenticated_?) {
+        if (AccessControl.isAuthenticated_?()) {
           pe.getEventDetail(Model.getUnderlying)
 // TODO B414-4/vsh patikrinti kiek ED yra!
           log.debug("[doDelete] pe.eventdetails.size ="+ pe.eventdetails.size)
           val ed: EventDetail = pe.eventdetails.iterator.next()
           log.debug("[doDelete] ed: EventDetail ="+ ed.toString)
-          log.debug("[doDelete] ed: EventDetail ="+ ed.toXml.toString)
+          log.debug("[doDelete] ed: EventDetail ="+ ed.toXml().toString)
           var pea = new Audit
           val peClone: Box[PersonEventClone] = Empty
           pea.setFields(CurrentUser.get.get, "PE", pe.id, "del", pe.getAuditRec(peClone))
@@ -858,13 +858,13 @@ class PersonView {
             S.getSessionAttribute("personEventId").get.toLong))
           pea = Model.merge(pea)
           eda = Model.merge(eda)
-          Model.flush
+          Model.flush()
           S.unsetSessionAttribute("personEventId")
           log.debug("...[doDelete]")
           S.redirectTo(RequestedURL.is.openOr("/"))
         } else {
           val place = "PersonView.deletePe.doDelete"
-          val msg = ("You are not logged in")
+          val msg = "You are not logged in"
           log.debug(place+": "+msg)
           S.redirectTo("/errorPage", () => {
             ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -893,7 +893,7 @@ class PersonView {
     }
 
 
-    def deletePa: net.liftweb.util.CssSel = {
+    def deletePa(): net.liftweb.util.CssSel = {
       RequestedURL(Full(S.referer.openOr("/")))
       println("deletePa: S.referer= " + S.referer)
       log.debug("deletePa: S.referer= " + S.referer)
@@ -901,7 +901,7 @@ class PersonView {
       PersonReading()
       val person: Person = personVar.get.get
       person.getPersonEvents(Model.getUnderlying)
-      val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+      val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
       log.debug("deletePa resXml |" + resXml + "|")
       val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
         Map(  "userIs"->AccessControl.userIs(),
@@ -919,7 +919,7 @@ class PersonView {
           pa = par
         case _ =>
           val place = "PersonView.deletePe"
-          val msg = ("No PersonAttrib for id="+ S.getSessionAttribute("personAttribId").get)
+          val msg = "No PersonAttrib for id="+ S.getSessionAttribute("personAttribId").get
           log.debug(place+": "+msg)
           S.redirectTo("/errorPage", () => {
             ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -927,7 +927,7 @@ class PersonView {
       }
       def doDelete(): Unit = {
         log.debug("[doDelete]...")
-        if (AccessControl.isAuthenticated_?) {
+        if (AccessControl.isAuthenticated_?()) {
           pa.getAttribDetail(Model.getUnderlying)
 // TODO B414-4/vsh patikrinti kiek ED yra!
           val ed: EventDetail = pa.attribdetails.iterator.next()
@@ -944,13 +944,13 @@ class PersonView {
             S.getSessionAttribute("personAttribId").get.toLong))
           paa = Model.merge(paa)
           eda = Model.merge(eda)
-          Model.flush
+          Model.flush()
           S.unsetSessionAttribute("personAttribId")
           log.debug("...[doDelete]")
           S.redirectTo(RequestedURL.is.openOr("/"))
         } else {
           val place = "PersonView.deletePa.doDelete"
-          val msg = ("You are not logged in")
+          val msg = "You are not logged in"
           log.debug(place+": "+msg)
           S.redirectTo("/errorPage", () => {
             ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -978,7 +978,7 @@ class PersonView {
     }
 
 
-  def deleteFe: net.liftweb.util.CssSel = {
+  def deleteFe(): net.liftweb.util.CssSel = {
     RequestedURL(Full(S.referer.openOr("/")))
     println("deleteFe: S.referer= " + S.referer)
     log.debug("deleteFe: S.referer= " + S.referer)
@@ -986,7 +986,7 @@ class PersonView {
     PersonReading()
     val person: Person = personVar.get.get
     person.getPersonEvents(Model.getUnderlying)
-    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
     log.debug("deleteFe resXml |" + resXml + "|")
     val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
       Map( "userIs"->AccessControl.userIs(),
@@ -1004,7 +1004,7 @@ class PersonView {
         fe = fer
       case _ =>
         val place = "PersonView.deleteFe"
-        val msg = ("No FamilyEvent for id="+ S.getSessionAttribute("familyEventId").get)
+        val msg = "No FamilyEvent for id="+ S.getSessionAttribute("familyEventId").get
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -1012,7 +1012,7 @@ class PersonView {
     }
     def doDelete(): Unit = {
       log.debug("[doDelete]...")
-      if (AccessControl.isAuthenticated_?) {
+      if (AccessControl.isAuthenticated_?()) {
         fe.getEventDetail(Model.getUnderlying)
 // TODO B414-4/vsh patikrinti kiek ED yra!
         val ed: EventDetail = fe.familydetails.iterator.next()
@@ -1029,13 +1029,13 @@ class PersonView {
           S.getSessionAttribute("familyEventId").get.toLong))
         fea = Model.merge(fea)
         eda = Model.merge(eda)
-        Model.flush
+        Model.flush()
         S.unsetSessionAttribute("familyEventId")
         log.debug("...[doDelete]")
         S.redirectTo(RequestedURL.is.openOr("/"))
       } else {
         val place = "PersonView.deleteFe.doDelete"
-        val msg = ("You are not logged in")
+        val msg = "You are not logged in"
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -1051,7 +1051,7 @@ class PersonView {
   }
 
 
-  def deleteMultiMedia: net.liftweb.util.CssSel = {
+  def deleteMultiMedia(): net.liftweb.util.CssSel = {
     RequestedURL(Full(S.referer.openOr("/")))
     println("deleteMultiMedia: S.referer= " + S.referer)
     log.debug("deleteMultiMedia: S.referer= " + S.referer)
@@ -1059,7 +1059,7 @@ class PersonView {
     PersonReading()
     val person: Person = personVar.get.get
     person.getPersonEvents(Model.getUnderlying)
-    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString
+    val resXml = person.toXmlGeneral(Model.getUnderlying, true).toString()
     log.debug("deleteMultiMedia resXml |" + resXml + "|")
     val resHtml = XslTransformer(GedcomUtil.i18nizeXmlDateValues(resXml), "/xsl/person.xsl",
       Map( "userIs"->AccessControl.userIs(),
@@ -1078,7 +1078,7 @@ class PersonView {
         mm = mmr
       case _ =>
         val place = "PersonView.deleteMultiMedia"
-        val msg = ("No MultiMedia for id="+ S.getSessionAttribute("mmId").get)
+        val msg = "No MultiMedia for id="+ S.getSessionAttribute("mmId").get
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () =>
           ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
@@ -1087,17 +1087,17 @@ class PersonView {
 
     def doDelete(): Unit = {
       log.debug("[doDelete-mm]...")
-      if (AccessControl.isAuthenticated_?) {
+      if (AccessControl.isAuthenticated_?()) {
         mm.idRoot = mm.id
         mm.setModifier(CurrentUser.get.get)
         Model.merge(mm)
-        Model.flush
+        Model.flush()
         S.unsetSessionAttribute("mmId")
         log.debug("...[doDelete-mm]")
         S.redirectTo(RequestedURL.is.openOr("/"))
       } else {
         val place = "PersonView.deleteMultiMedia.doDelete"
-        val msg = ("You are not logged in")
+        val msg = "You are not logged in"
         log.debug(place+": "+msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))

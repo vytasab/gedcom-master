@@ -491,7 +491,7 @@
             <!-- http://www.manydesigns.com/en/portofino/portofino3/tutorials/using-maven-profiles-and-resource-filtering -->
             <properties>
                 <db_driver>com.mysql.jdbc.Driver</db_driver>
-                <db_url>jdbc:mysql://localhost:3306/ds-gedcom-dev</db_url>
+                <db_url>jdbc:mysql://localhost:3306/ds-gedcom-dev?characterEncoding=utf8</db_url>
                 <db_user>shaknisgedcom</db_user>
                 <db_password>271314log</db_password>
                 <__app>/gedcom/</__app>
@@ -824,7 +824,8 @@
                 <configuration>
                     <charset>${project.build.sourceEncoding}</charset>
                     <jvmArgs>
-                        <jvmArg>-Xmx1024m</jvmArg>
+                        <!--<jvmArg>-Xmx1024m</jvmArg>-->
+                        <jvmArg>-Xmx1280m</jvmArg>
                         <jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
                     </jvmArgs>
                 </configuration>
