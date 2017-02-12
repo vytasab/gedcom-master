@@ -1,4 +1,6 @@
 // a family tree drawing
+// 17129-7/vsh  ignore the error message:
+//       logE('drawFamilies: no spouse for person id='+ person.id + '; in family id=' + family.id);
 // 16B14-1/vsh  SVG ==> png picture and vice versa implemented
 // 16402-6/vsh  the arrows go{up,right,down,left} location is changed
 // 16330-3/vsh  [Family-box] and [child-box] connection mode is changed "leaf-rake" to "garden-rake"
@@ -1483,7 +1485,7 @@ Raphael.fn.createSpouseBox = function(key, spIndex, deltaX, deltaY) {
     var spouse = getPersonSpouseInFamily(person, family)
 
     if (Object.keys(spouse).length == 0) {
-        logE('drawFamilies: no spouse for person id='+ person.id + '; in family id=' + family.id);
+        // 17129-7/vsh -- logE('drawFamilies: no spouse for person id='+ person.id + '; in family id=' + family.id);
         return false;
     }
     var spouseId = spouse.id

@@ -13,6 +13,7 @@ import bootstrap.liftweb.{ErrorXmlMsg, PersonIds, FamilyIds}
 object GedcomRest extends XMLApiHelper with Loggable {
 
   val rootId = S.getSessionAttribute("personId").openOr("1").toLong
+  val rootIdDescFamIds: String = S.getSessionAttribute("rootIdDescFamIds").openOr("")
 
   val log: Logger = LoggerFactory.getLogger("GedcomRest")
 
@@ -353,35 +354,49 @@ js_canvas_center=Your mouse click position in canvas will be moved here
    * _3: true -> show siblings, false - no
    */
   def getPersonJS(area: Tuple3[Int, Int, Boolean], id: Long, generation: Int, jsText: StringBuffer, sbIdGen: StringBuffer): Unit = {
-    log.debug("getPersonJS []... id=" + id.toString);
+    log.debug("getPersonJS []... id=" + id.toString)
+    log.debug(<_>GedcomRest S.getSessionAttribute("showPersonDescendAncest")={S.getSessionAttribute("showPersonDescendAncest").toString}</_>.text);
+    log.debug(<_>GedcomRest S.get("showPersonDescendAncest")={S.get("showPersonDescendAncest").toString}</_>.text);
     Model.find(classOf[Person], id) match {
-      case Some(z) if this.pIsNotYetInJS(z.id) => {
+      case Some(z) if this.pIsNotYetInJS(z.id) =>
         (-area._1 <= generation, area._2 >= generation) match {
-          case (true, true) /*if rootId == id*/ => {
+          case (true, true) /*if rootId == id*/ =>
             //if (!(id != rootId && generation == 0)) {
-            log.debug("getPersonJS case true true " + z.toString(Model.getUnderlying));
+            log.debug("getPersonJS case true true " + z.toString(Model.getUnderlying))
             // show
             val familyIdPart = z.family match {
               case null => ""
               case _ => <_>p.familyId={z.family.id};</_>.text
-            };
+            }
             val familyPart = z.family match {
               case null => ""
-              case _ => {
-                val sbf: StringBuffer = new StringBuffer("");
+              /*case _ =>
+                val sbf: StringBuffer = new StringBuffer("")
+                getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
+                sbf.toString*/
+              case _ if S.getSessionAttribute("showPersonDescendAncest").openOr("0").toInt.equals(0) && generation <= 0 =>
+                val sbf: StringBuffer = new StringBuffer("")
                 getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
                 sbf.toString
-              }
-            };
-            val fams = z.families(Model.getUnderlying);
-            val fdIds = new StringBuffer("");
-            val sbFams = new StringBuffer("");
+              case _ if S.getSessionAttribute("showPersonDescendAncest").openOr("0").toInt.equals(1) =>
+                val sbf: StringBuffer = new StringBuffer("")
+                getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
+                sbf.toString
+//              case _ if generation > 0 /*&& S.getSessionAttribute("rootIdDescFamIds").toString.contains(z.family.id)*/ =>
+//                val sbf: StringBuffer = new StringBuffer("")
+//                getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
+//                sbf.toString
+              case _ => ""
+            }
+            val fams = z.families(Model.getUnderlying)
+            val fdIds = new StringBuffer("")
+            val sbFams = new StringBuffer("")
             fams match {
-              case x :: xs => {
+              case x :: xs =>
                 log.debug("getPersonJS families =" + x.toString(Model.getUnderlying));
-                val sbFam = new StringBuffer("");
+                val sbFam = new StringBuffer("")
                 fdIds.append("p.fd='")
-                var s = "";
+                var s = ""
                 fams.foreach(fam => {
                   fdIds.append(s + fam.id)
                   getFamilyJS((area._1, area._2, area._3, 0L), fam, generation, sbFams, sbIdGen)
@@ -389,7 +404,6 @@ js_canvas_center=Your mouse click position in canvas will be moved here
                   s = ","
                 })
                 fdIds.append("';")
-              }
               case Nil =>
             }
             val birtDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "BIRT")
@@ -406,7 +420,6 @@ js_canvas_center=Your mouse click position in canvas will be moved here
               (if (deatDatePlace._2.replaceAll("'", "").size>0) <_>p.dp='{deatDatePlace._2.replaceAll("'", "")}';</_>.text else "" ) +
               familyIdPart + fdIds + sbFams + familyPart);
             //}
-          }
           case _ =>
             log.debug("getPersonJS case "+ (-area._1 <= generation).toString+" "+(area._2 >= generation).toString+" "+z.toString(Model.getUnderlying));
           /*
@@ -418,40 +431,12 @@ js_canvas_center=Your mouse click position in canvas will be moved here
                       log.debug("getPersonJS case true false " + z.toString(Model.getUnderlying));
           */
         }
-      }
       case None => {
         jsText.append("\nvar p={};var r=[];p.r=r;" + <_>p.id={id};g['p'+p.id]=p;p.errmsg='{S.?("no.person.for.this.id")}';</_>.text)
       }
       case _ => {
         log.warn("getPersonJS Model.find(classOf[Person], id) match case _");
       }
-    }
-  }
-
-  def getPeEvent(pe: Person, evenTag: String): Tuple2 [String/*date*/, String/*place*/] = {
-    log.debug("getPeEvent []... ");
-    val aList: List[PersonEvent] = pe.personevents.toArray.toList.asInstanceOf[List[PersonEvent]]
-    aList.find(pe => pe.tag == evenTag) match {
-      case Some(x) =>
-        val ed: EventDetail = x.eventdetails.iterator.next
-        //(ed.dateValue, (new MultiLangText("place", ed.place)).getLangMsg())
-        //log.debug("getPeEvent ###########################|" + ed.place + "|");
-        (GedcomUtil.i18nizeGedcomDate(ed.dateValue), (new MultiLangText("place", ed.place)).getLangMsg())
-      case _ =>
-        ("", "")
-    }
-  }
-
-  def getFaEvent(fa: Family, evenTag: String): Tuple2 [String/*date*/, String/*place*/] = {
-    log.debug("getFaEvent []... ");
-    val aList: List[FamilyEvent] = fa.familyevents.toArray.toList.asInstanceOf[List[FamilyEvent]]
-    aList.find(fe => fe.tag == evenTag) match {
-      case Some(x) =>
-        val ed: EventDetail = x.familydetails.iterator.next
-        //(ed.dateValue, (new MultiLangText("place", ed.place)).getLangMsg())
-        (GedcomUtil.i18nizeGedcomDate(ed.dateValue), (new MultiLangText("place", ed.place)).getLangMsg())
-      case _ =>
-        ("", "")
     }
   }
 
@@ -478,8 +463,8 @@ js_canvas_center=Your mouse click position in canvas will be moved here
         case (true, true) => {
           log.debug("getFamilyJS case true true " + family.toString(Model.getUnderlying));
           var childrenIds: StringBuffer = new StringBuffer("")
-          if (family.husbandId > 0)this.getPersonJS((area._1, area._2, area._3), family.husbandId, generation, jsText, sbIdGen)
-          if (family.wifeId > 0)this.getPersonJS((area._1, area._2, area._3), family.wifeId, generation, jsText, sbIdGen)
+          if (family.husbandId > 0) this.getPersonJS((area._1, area._2, area._3), family.husbandId, generation, jsText, sbIdGen)
+          if (family.wifeId > 0) this.getPersonJS((area._1, area._2, area._3), family.wifeId, generation, jsText, sbIdGen)
           if (area._3/* || generation >= 0*/) {
             // show siblings
             (generation >= 0) match {
@@ -520,6 +505,33 @@ js_canvas_center=Your mouse click position in canvas will be moved here
         */
       }
     }
+
+  def getPeEvent(pe: Person, evenTag: String): Tuple2 [String/*date*/, String/*place*/] = {
+    log.debug("getPeEvent []... ");
+    val aList: List[PersonEvent] = pe.personevents.toArray.toList.asInstanceOf[List[PersonEvent]]
+    aList.find(pe => pe.tag == evenTag) match {
+      case Some(x) =>
+        val ed: EventDetail = x.eventdetails.iterator.next
+        //(ed.dateValue, (new MultiLangText("place", ed.place)).getLangMsg())
+        //log.debug("getPeEvent ###########################|" + ed.place + "|");
+        (GedcomUtil.i18nizeGedcomDate(ed.dateValue), (new MultiLangText("place", ed.place)).getLangMsg())
+      case _ =>
+        ("", "")
+    }
+  }
+
+  def getFaEvent(fa: Family, evenTag: String): Tuple2 [String/*date*/, String/*place*/] = {
+    log.debug("getFaEvent []... ");
+    val aList: List[FamilyEvent] = fa.familyevents.toArray.toList.asInstanceOf[List[FamilyEvent]]
+    aList.find(fe => fe.tag == evenTag) match {
+      case Some(x) =>
+        val ed: EventDetail = x.familydetails.iterator.next
+        //(ed.dateValue, (new MultiLangText("place", ed.place)).getLangMsg())
+        (GedcomUtil.i18nizeGedcomDate(ed.dateValue), (new MultiLangText("place", ed.place)).getLangMsg())
+      case _ =>
+        ("", "")
+    }
+  }
 
   def getLocaleStrings() = {
     val result: StringBuffer = new StringBuffer("\nL={}; ")

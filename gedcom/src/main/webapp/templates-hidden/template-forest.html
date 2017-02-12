@@ -48,10 +48,14 @@
             var elemAncest = document.getElementById("ancest");
             var elemDescendLbl = document.getElementById("descend_lbl");
             var elemDescend = document.getElementById("descend");
+            var elemSpdaLbl = document.getElementById("spda_lbl");
+            var elemSpda = document.getElementById("spda");
             elemAncestLbl.style.display='';
             elemAncest.style.display='';
             elemDescendLbl.style.display='';
             elemDescend.style.display='';
+            elemSpdaLbl.style.display='';
+            elemSpda.style.display='';
         }
         function onMouseOver() {  /*alert('onMouseOver !!! !!! !!!');*/ }
     </script>
@@ -92,12 +96,15 @@
                           document.getElementById('ancest_lbl').style.display='';
                           document.getElementById('ancest').style.display='';
                           document.getElementById('descend_lbl').style.display='';
-                          document.getElementById('descend').style.display='';"></span>
+                          document.getElementById('descend').style.display='';
+                          document.getElementById('spda_lbl').style.display='';
+                          document.getElementById('spda').style.display='';"></span>
                     <span id="ancest_lbl" style="display:none"></span>
-                    <span id="ancest" style="display:none" onclick="showWhenAncesDesceClick();"
-                          onmouseover="onMouseOver(someElem)();"></span>
+                    <span id="ancest" style="display:none" onclick="showWhenAncesDesceClick();"  onmouseover="onMouseOver(someElem)();"></span>
                     <span id="descend_lbl" style="display:none"></span>
                     <span id="descend" style="display:none" onclick="showWhenAncesDesceClick();"></span>
+                    <span id="spda_lbl" style="display:none"></span>
+                    <span id="spda" style="display:none" onclick="showWhenAncesDesceClick();"></span>
                     <span id="submit2" style="display:none">submit</span>
                 </span>
             </form>

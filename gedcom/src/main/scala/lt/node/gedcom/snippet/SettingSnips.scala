@@ -64,6 +64,13 @@ class SettingSnips {
       S.redirectTo(uri)
     }
 
+    def checkBoxInnerFunc(boolean: Boolean): Boolean = {
+      val x: String = if (boolean) "1" else "0"
+      S.set("showPersonDescendAncest", x)
+      S.setSessionAttribute("showPersonDescendAncest", x)
+      boolean
+    }
+
     //    "#lang_lbl" #> S.?("set.locale") &
     //      "#lang" #> SHtml.select(Locales.LocalesVar.is.toSeq, Full(/*selectedLocale*/S.locale.toString), {
     //        x: String => selectedLocale = x
@@ -72,31 +79,40 @@ class SettingSnips {
     //      //  {x: String => selectedLocale = Locales.LocalesVar.is.apply(x)},
     //      //  "onclick" -> ).toForm  &
     val title = S.loc("set.forest.params")
+    log.debug(<_>SettingSnips S.getSessionAttribute("showPersonDescendAncest")={S.getSessionAttribute("showPersonDescendAncest").toString}</_>.text);
+    log.debug(<_>SettingSnips S.get("showPersonDescendAncest")={S.get("showPersonDescendAncest").toString}</_>.text);
+    // var showPersonDescendAncest = if (S.get("showPersonDescendAncest").openOr("1")=="1") true else false
+    var showPersonDescendAncest = if (S.getSessionAttribute("showPersonDescendAncest").openOr("0")=="1") true else false
     S.session match {
       case Full(sess) =>
         val options = S.locale.getLanguage match {
-          case "lt" => <_>Protėvių: {S.get("ancestNum").getOrElse("1")} karta(os), palikuonių: {S.get("descendNum").getOrElse("1")} karta(os)</_>.text
-          case "en" => <_>Ancestors: {S.get("ancestNum").getOrElse("1")} generation(s), descendants: {S.get("descendNum").getOrElse("1")}  generation(s)</_>.text
+          case "lt" => <_>Protėvių: {S.get("ancestNum").getOrElse("1")} karta(os), palikuonių: {S.get("descendNum").getOrElse("1")} karta(os); </_>.text +
+            <_>{if (S.get("showPersonDescendAncest").getOrElse("0")=="1") S.?("set.spda") else ""+S.?("set.spdano") }</_>.text
+            //(if (S.get("showPersonDescendAncest").openOr("1")=="1") S.?("set.spda") else <_>nerodyti</_>.text)
+          case "en" => <_>Ancestors: {S.get("ancestNum").getOrElse("1")} generation(s), descendants: {S.get("descendNum").getOrElse("1")} generation(s); </_>.text +
+            <_>{if (S.get("showPersonDescendAncest").getOrElse("0")=="1") S.?("set.spda") else ""+S.?("set.spdano") }</_>.text
           case _ => ""
         }
         "#forestSettingsShow" #> <span style="display:yes" title={S.loc("set.forest.params")}>{options}</span> &
           "#ancest_lbl" #> <span style="display:none">{S.?("set.ancestor.num")}</span>  &
-          "#ancest" #> SHtml.select((1 to 4).toList.map{x => (<_>{x}</_>.text, <_>{x}</_>.text)}.toMap.toSeq,
+          "#ancest" #> SHtml.select((1 to 6).toList.map{x => (<_>{x}</_>.text, <_>{x}</_>.text)}.toMap.toSeq,
             Full(S.get("ancestNum").getOrElse("1")), S.set("ancestNum", _),
-            "size" -> (1 to 4/4).size.toString, "onmouseover" -> "onMouseOver()",
-            "onchange" -> "selectWhenChangedAncesDesce(this)" ) &
+            "size" -> "6", "onchange" -> "selectWhenChangedAncesDesce(this)", "onmouseover" -> "onMouseOver()" ) &
           "#descend_lbl" #> <span style="display:none">{S.?("set.descendant.num")}</span>  &
-          "#descend" #> SHtml.select((1 to 4).toList.map{x => (<_>{x}</_>.text, <_>{x}</_>.text)}.toMap.toSeq,
+          "#descend" #> SHtml.select((1 to 6).toList.map{x => (<_>{x}</_>.text, <_>{x}</_>.text)}.toMap.toSeq,
             Full(S.get("descendNum").getOrElse("1")), S.set("descendNum", _),
-            "size" -> (1 to 4/4).size.toString, "onchange" -> "selectWhenChangedAncesDesce(this)") &
+            "size" -> "6", "onchange" -> "selectWhenChangedAncesDesce(this)") &
+          "#spda_lbl" #> <span style="display:none">{S.?("set.spda_lbl")}</span> &
+          "#spda" #> SHtml.checkbox(showPersonDescendAncest, /*showPersonDescendAncest =*/ checkBoxInnerFunc(_),
+            "onchange" -> "selectWhenChangedAncesDesce(this)" ) &
           //"#sibl_lbl" #> S.?("set.show.siblings") &
           //"#sibl" #> SHtml.checkbox(/*true*/(S.get("showSiblings").openOr("1")=="1"), {
           //   x: Boolean => S.set("showSiblings", (if (x) "1" else "0") )
           //}) &
           "#submit2" #> SHtml.submit("Save", setAncesDesce)
-
+/*, ("id", "spda")*/
       case Empty =>
-        val msg = "forestShowOptions: Lift session is over go to \"Settings\""
+        val msg = "forestShowOptions: Lift session is over go to Settings"
         log.warn(msg)
         S.redirectTo("/errorPage", () => {
           ErrorXmlMsg.set(Some(Map(
@@ -126,7 +142,9 @@ class SettingSnips {
     S.session match {
       case Full(sess) =>
         val options = S.locale.getLanguage match {
-          case "lt" => <_>Rodoma protėvių: {S.get("ancestNum").getOrElse("1")} karta(os), palikuonių: {S.get("descendNum").getOrElse("1")} karta(os) {if (S.get("showSiblings").getOrElse("1")=="1") "su broliais/seserimis" else "be brolių/seserų" }</_>.text
+          case "lt" => <_>Rodoma protėvių: {S.get("ancestNum").getOrElse("1")} karta(os), palikuonių: {S.get("descendNum").getOrElse("1")} karta(os)</_>.text +
+            <_>{if (S.get("showPersonDescendAncest").getOrElse("1")=="1") S.?("set.spda") else "ne"+S.?("set.spda") } "mmmm"</_>.text
+            //{if (S.get("showSiblings").getOrElse("1")=="1") "su broliais/seserimis" else "be brolių/seserų" }</_>.text
           case "en" => <_>Display ancestors: {S.get("ancestNum").getOrElse("1")} generation(s), descendant: {S.get("descendNum").getOrElse("1")}  generation(s) {if (S.get("showSiblings").getOrElse("1")=="1") "with" else "without"} siblings</_>.text
           case _ => ""
         }
@@ -212,14 +230,6 @@ class SettingSnips {
       //"#domain" #> SHtml.radio(Locales.LocalesVar.is.keys.toList, Full(selectedLocale),
       //  {x: String => selectedLocale = Locales.LocalesVar.is.apply(x)},
       //  "onclick" -> ).toForm  &
-
-
-
-
-
-
-
-
 
 
 /*

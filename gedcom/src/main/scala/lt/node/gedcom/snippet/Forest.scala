@@ -1,15 +1,13 @@
 package lt.node.gedcom.snippet
 
 
-import _root_.net.liftweb._
-import net.liftweb.common.{Full, Loggable, Logger}
-import http._
-import net.liftweb.util._
-import Helpers._
-import http.js.JE.JsRaw
-
-import lt.node.gedcom.rest._
 import bootstrap.liftweb.AccessControl
+import lt.node.gedcom.rest._
+import net.liftweb.common.{Full, Loggable, Logger}
+import net.liftweb.http._
+import net.liftweb.http.js.JE.JsRaw
+import net.liftweb.util.Helpers._
+import net.liftweb.util._
 
 class Forest extends Loggable {
 
@@ -26,6 +24,23 @@ class Forest extends Loggable {
       case Full(personId) => personId.trim.toLong
       case _ => /* 16825-4  0.toLong;*/ S.redirectTo("/loginFSB")
     }
+
+    /*Model.find(classOf[Person], rootId) match {
+      case Some(z) /*if this.pIsNotYetInJS(z.id)*/ =>
+        val fams = z.families(Model.getUnderlying)
+        val famIds = fams match {
+          case x :: xs =>
+            fams.map(x => x.id).mkString(",")
+          case Nil =>  ""
+          case _ => ""
+        }
+        S.setSessionAttribute("rootIdDescFamIds", famIds)
+        log.debug("Forest rootIdDescFamIds =" + famIds);
+      case None =>  S.redirectTo("/loginFSB")
+    }*/
+
+    // 17205-7/vsh: dev time code:  S.setSessionAttribute("showRootDescendAncest", "1")
+
     GedcomRest.getPersonJS(
       (S.get("ancestNum").getOrElse("1").toInt,
         S.get("descendNum").getOrElse("1").toInt,

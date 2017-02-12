@@ -1,3 +1,56 @@
+9A15-4/vsh ==============================================================================
+http://www.utf8-chartable.de/unicode-utf8-table.pl
+UTF-8 encoding table and Unicode characters
+\u0104	Ą	c4 84	LATIN CAPITAL LETTER A WITH OGONEK
+\u0105	ą	c4 85	LATIN SMALL LETTER A WITH OGONEK
+\u010C	Č	c4 8c	LATIN CAPITAL LETTER C WITH CARON
+\u010D	č	c4 8d	LATIN SMALL LETTER C WITH CARON
+\u0118	Ę	c4 98	LATIN CAPITAL LETTER E WITH OGONEK
+\u0119	ę	c4 99	LATIN SMALL LETTER E WITH OGONEK
+\u0116	Ė	c4 96	LATIN CAPITAL LETTER E WITH DOT ABOVE
+\u0117	ė	c4 97	LATIN SMALL LETTER E WITH DOT ABOVE
+\u012E	Į	c4 ae	LATIN CAPITAL LETTER I WITH OGONEK
+\u012F	į	c4 af	LATIN SMALL LETTER I WITH OGONEK
+\u0160	Š	c5 a0	LATIN CAPITAL LETTER S WITH CARON
+\u0161	š	c5 a1	LATIN SMALL LETTER S WITH CARON
+\u0172	Ų	c5 b2	LATIN CAPITAL LETTER U WITH OGONEK
+\u0173	ų	c5 b3	LATIN SMALL LETTER U WITH OGONEK
+\u016A	Ū	c5 aa	LATIN CAPITAL LETTER U WITH MACRON
+\u016B	ū	c5 ab	LATIN SMALL LETTER U WITH MACRON
+\u017D	Ž	c5 bd	LATIN CAPITAL LETTER Z WITH CARON
+\u017E	ž	c5 be	LATIN SMALL LETTER Z WITH CARON
+
+\u25B2  ▲
+\u25BA  ►
+\u25BC  ▼
+\u25C4  ◄
+
+\u2640  ♀ Venus             http://en.wikipedia.org/wiki/Gender_symbol
+\u2642  ♂ Mars
+\u26AD    Marriage symbol   http://www.decodeunicode.org/en/u+26ad/properties
+
+Lithuanian HTML Entity Codes
+ 	Lithuanian Vowels
+Ą	&#260; capital A ogonek ("cedille")
+ą	&#261; lower A ogonek ("cedille")
+Ę	&#280; capital E ogonek ("cedille")
+ę	&#281; lower E ogonek ("cedille")
+Ė	&#278; capital E dot
+ė	&#279; lower E dot
+Į	&#302; capital I ogonek ("cedille")
+į	&#303; lower I ogonek ("cedille")
+Ų	&#370; capital U ogonek ("cedille")
+ų	&#371; lower U ogonek ("cedille")
+Ū	&#362; capital U macron
+ū	&#363; lower U macron
+ 	Lithuanian Consonants
+Č	&#268; capital C hacheck
+č	&#269; lower C hacheck
+Š	&#352; capital S hacheck
+š	&#353; lower S hacheck
+Ž	&#381; capital Z hacheck
+ž	&#382; capital Z hachek
+
 Ec01-1/vsh ==============================================================================
     Pradedama kraustytis į Nexus Linux Mint!
 
@@ -530,7 +583,7 @@ select count(*) as `multimedia` from `multimedia`;
 select count(*) as `audit-kiekis` from `audit`;
 select count(*) as `users-kiekis` from `users`;
 
-16MDD-d/vsh ==============================================================================
+16425-1/vsh ==============================================================================
             OpenShift
 MySQL 5.5 database added.  Please make note of these credentials:
 
@@ -624,7 +677,7 @@ You can add more servers later using 'rhc server'.
 
 Login to openshift.redhat.com:
 Login to openshift.redhat.com: vytasab@gmail.com
-Password: *******
+Password: see [17128-6/vsh]
 
 OpenShift can create and store a token on disk which allows to you to access the server without using your password. The key is stored in your home directory and should be kept
 secret.  You can delete the key at any time by running 'rhc logout'.
@@ -1011,7 +1064,9 @@ jdbc:mysql://localhost:3306/datasource-gedcom?characterEncoding=utf8
         PAVYKO ! Pagaliau rašo visas LT raides
 
 
+            ==============================================================================
 16822-1/vsh ==============================================================================
+            ==============================================================================
 
     Web app update using .war file
     ====> http://blog.anthavio.net/2014/01/deploy-to-openshift-from-github.html
@@ -1032,21 +1087,25 @@ cp app-root/repo/webapps/disquo.war jbossews/webapps
 ctl_app start jbossews
 
 # Check Tomcat log file
-tail -f jbossews/logs/catalina.out
+txsltail -f jbossews/logs/catalina.out
 #------------------------------------------------
 
 
 #--------------------------------------------------------------------
-#------------------------------------------------------- gedcom case:
-# ----- BUILD .war LOCALLY ------------------------------------------
+#------ BUILD prod in rhc .war LOCALLY-------------- !!! gedcom case:
+# -------------------------------------------------------------------
+
 # for gedcom-spa
 mvn -Pspa_prod-rhc -Dmaven.test.skip=true clean install
+
 # for gedcom
 mvn -Pprod-rhc -Dmaven.test.skip=true clean install
 # rename:  gedcom-1.0.war ==> gecdom.war
 
-# upload assembled war
-scp /home/vsh/Projects/gedcom-master/gedcom/target/gedcom.war 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com:~/app-root/repo/webapps/gedcom.war
+# -------------------------------- upload assembled war to the cloud:
+
+# upload assembled war:
+scp /home/vsh/Projects/gedcom-master/gedcom/target/gedcom-1.0.war 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com:~/app-root/repo/webapps/gedcom.war
 
 # connect to my part in OpenShift
 ssh 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com
@@ -1055,8 +1114,10 @@ ssh 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com
     gear stop jbossews
     cp app-root/repo/webapps/gedcom.war jbossews/webapps
     gear start jbossews
+
 # Check Tomcat log file
-    tail -f jbossews/logs/catalina.out
+tail -f jbossews/logs/catalina.out
+
 
 # -----DEVELOPMENT PHASE WEB APP BUILD ------------------------------
 # for gedcom-spa
@@ -1065,8 +1126,17 @@ mvn -Pspa_dev -Dmaven.test.skip=true clean install
 mvn -Pdev -Dmaven.test.skip=true clean install
 
 
-16MDD-d/vsh ==============================================================================
-16MDD-d/vsh ==============================================================================
-16MDD-d/vsh ==============================================================================
-16MDD-d/vsh ==============================================================================
+17128-6/vsh ==============================================================================
+
+    https://openshift.redhat.com
+    new password is ___ teRCxwa3AW ___  pakeista --> ___ pig[JAV]lus ___
+Freda vsh # ssh 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com
+Enter passphrase for key '/root/.ssh/id_rsa':   k..gr...a
+... ... ...
+exit   <-- closes connection
+
+
+17MDD-d/vsh ==============================================================================
+17MDD-d/vsh ==============================================================================
+17MDD-d/vsh ==============================================================================
 
