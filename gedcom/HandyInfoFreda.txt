@@ -1129,14 +1129,872 @@ mvn -Pdev -Dmaven.test.skip=true clean install
 17128-6/vsh ==============================================================================
 
     https://openshift.redhat.com
-    new password is ___ teRCxwa3AW ___  pakeista --> ___ pig[JAV]lus ___
+    new password is ___ teRCxwa3AW ___  pakeista --> ___ pig[JAV]alus ___
 Freda vsh # ssh 572ce2c47628e13029000074@gedcom-vytasab.rhcloud.com
 Enter passphrase for key '/root/.ssh/id_rsa':   k..gr...a
 ... ... ...
 exit   <-- closes connection
 
 
+17926-2/vsh ==============================================================================
+
+Gavau tokį grėsmingą email'ą: --------------------
+
+Valued OpenShift Online user,
+
+This is a reminder that the sunset of the previous generation OpenShift
+Online 2 platform was announced on August 25, 2017.
+After September 30th, 2017, applications created in Free and Bronze accounts
+in Red Hat OpenShift Online 2 will be removed.
+
+We invite you to join those who have already migrated their applications
+to our new OpenShift 3 based offerings, Red Hat OpenShift Online Starter and Pro.
+You can find step-by-step instructions in our Migration Center to help you easily migrate
+your OpenShift Online 2 platform applications to OpenShift 3.
+
+Migrate by September 30, 2017
+If you are unable to migrate, please backup your applications now, before they are removed.
+You can sign-in here to access your account. If you have any questions about migrating
+to the new OpenShift Online 3 platform, please reach out to us via our Help Center.
+-------------------
+
+
+Freda vsh #
+Freda vsh # rhc snapshot save gedcom
+Pulling down a snapshot of application 'gedcom' to gedcom.tar.gz ... Enter passphrase for key '/root/.ssh/id_rsa':
+done
+Freda vsh #
+Snapshot failas yra padėtas /home/vsh/ folderyje.
+
+
+17927-/vsh ==============================================================================
+Freda vsh # rhc snapshot save gedcomgate
+Pulling down a snapshot of application 'gedcomgate' to gedcomgate.tar.gz ... Enter passphrase for key '/root/.ssh/id_rsa':
+done
+Freda vsh #
+
 17MDD-d/vsh ==============================================================================
-17MDD-d/vsh ==============================================================================
-17MDD-d/vsh ==============================================================================
+
+Pagal 16425-1/vsh pavyko atidaryti "phpMyAdmin 4.0" mysql web consolę ir ten exportuoti visą db į
+NEXUS vsh /home/vsh/Downloads
+
+Sukuriau lokaliame MySQL serveryje gedcomrhc db, Nepavylo įkrauti 'multimedia' table'o
+
+Freda vsh # mysql --user=root --password
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 84
+Server version: 5.5.57-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| authent            |
+| datasource-gedcom  |
+| ds-gedcom-dev      |
+| mysql              |
+| performance_schema |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE gedcomrhc;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| authent            |
+| datasource-gedcom  |
+| ds-gedcom-dev      |
+| gedcomrhc          |
+| mysql              |
+| performance_schema |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use gedcomrhc;
+Database changed
+mysql> source /home/vsh/Downloads/gedcomrhc.sql
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.17 sec)
+
+Query OK, 210 rows affected (0.05 sec)
+Records: 210  Duplicates: 0  Warnings: 0
+
+Query OK, 221 rows affected (0.04 sec)
+Records: 221  Duplicates: 0  Warnings: 0
+
+Query OK, 215 rows affected (0.04 sec)
+Records: 215  Duplicates: 0  Warnings: 0
+
+Query OK, 220 rows affected (0.04 sec)
+Records: 220  Duplicates: 0  Warnings: 0
+
+Query OK, 215 rows affected (0.04 sec)
+Records: 215  Duplicates: 0  Warnings: 0
+
+Query OK, 214 rows affected (0.16 sec)
+Records: 214  Duplicates: 0  Warnings: 0
+
+Query OK, 213 rows affected (0.04 sec)
+Records: 213  Duplicates: 0  Warnings: 0
+
+Query OK, 222 rows affected (0.03 sec)
+Records: 222  Duplicates: 0  Warnings: 0
+
+Query OK, 153 rows affected (0.03 sec)
+Records: 153  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 295 rows affected (0.04 sec)
+Records: 295  Duplicates: 0  Warnings: 0
+
+Query OK, 165 rows affected (0.06 sec)
+Records: 165  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 155 rows affected (0.04 sec)
+Records: 155  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 30 rows affected (0.03 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.05 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'f4522e1c815cca855b9073b5bde77178c1cc110bc3192e7b4b679a25b079e9226fe453067acf627b' at line 4
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1e275c9f87a4d7c4376500e65eb03d379d2be6cca5cf3d71b9e9b63f2db351c7ce6bb7e97f67b59d' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28a2800a28' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '8df770c7271bf825c2c9220217fbd7709b92e860156d6bab8ee16e4c4201f71694e47401c8126e2b' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'f2d9789bc6be1ff000fde30045b6a7a9c36f2107a1daec0e0fae2ba9b1beb6d4ece0bbb3b88aeed2' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '67b9d42d2cffb2e368af116f0ca18491c8110c782158ae4e481c6070a38ea4d7429c5e8c857d933e' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ca3e60739c7279fe5ff00d69773818f2d013c6379ff000a6432c8f1a8731a4a406f94975233d8e06' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b047b637bc27c217c817ce17d417da17e017e627ec27f237f847fe5804780a8810a816b81cd82308' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b047b637bc27c217c817ce17d417da17e017e627ec27f237f847fe5804780a8810a816b81cd82308' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '6950b2b1660720cbc6c84372597dafa86c3b05f8731f55353bae32db8e27f2b7d256483bf51a09db' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3c592bcb4da54a4d9166bc90329a10dba63507dbaf53d963e8c355e0783fc8f75f73dc5f22d9bd3c' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'd59106788af5a7c3a6989a3dc3f0af9f86de5a0478a8f1f1f0d319b11e3e234820f70e449a52bbe9' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c30fda2fc43aa4b6d869c68be31b3bbfb3ab13b7708d49507040c9e706a2d53fe0d1ffd9cae60797' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1eb9a3ad19a4fa52003da83d38a6f4a5cd01613d734b49498f7a601fca807068279a0fa50007a537' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cae79ebcd11b0248638f702a9732d910a2a49b5fd6c35015dbb76e73c8cd29c838c73db8ce452a1d' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '31081b82e187a7ad372eaa300f23920524e4aed2d4a4bdfb200564903190f5e98ed4e089b49dc001' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '75af11f82871e30bbff00af07ff00d191d7b3ea7ce9b738ebe4bffe82689fc411d855be3ded6e3f0' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '75af11f82871e30bbff00af07ff00d191d7b3ea7ce9b738ebe4bffe82689fc411d855be3ded6e3f0' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '75af11f82871e30bbff00af07ff00d191d7b3ea7ce9b738ebe4bffe82689fc411d855be3ded6e3f0' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c9e60df1063b71cf19f7f51f4a9f4bd51341bb5b2bb97ca8646dab14926f789bb73dc1ff1fad3f41' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '8f871f137f687f147eceff163e0ade691a87857c3965ac5b5fe81f1b7c4f7f0dc477323a043f689a' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '8e5e2fbb0d67e02be9d30fa8b81b99108560080549c8ee2be994fdb43c1520554f84df13d80008ff' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '9c31cfae3f3a8d72e0e7e53d302803cdbfe1497860927fd2f8ffa6bd298bf04bc32d9c0bb3838ff0' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dcffd31349ff08a788738fec5becffd706afabc423d01e3d2956050791c7d2803e4e6f0b6bebf7b4' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'da8e96cddbfd1587fecd401d01e011c9ae7fc3ec5b5cf101c9205da0c7fdb25a7f97e285eb75a513' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3b1da8a339c227403f33ef563498b5685aec6a97104ca6726d8c485488fb06f71401a63af1d283cd' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '8c7d2828b924f7e6a6c6723ad3704b2852383f98a0089a207a6dcf1da868c15e9f801d2a61bb6920' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b1732dddae892e9d1bccba4696d29f2a1883229323aa46f34d2b3b3480e0630074fe38d1be0ce81a' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '9927382e7029f27c2ad018e3eceea7d9c8af4558940e07269c615e7819c50079bafc2ff000fac8b9' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '73e196b9475d0ecd40392027045006cc1e24d288c3ea7621bbfefd6a193c59a1ac88bfdad65c9c13' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0e357e1c78557e5fec8b72075383fe34e7f873e16d9ff00204b52d9ebb48e3f3aeb7e4dc096407b7' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2d8921892467a1e38149e5ed8c0da063048c1a002150b2191b3b506e000c807a9fe552fef5dc6de1' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '64ff82b17ed5514f70f2245a3f81c2472b96f2ffe259236c19e00e49c0f53401e7f37fc10ef50b3d' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '4a383fc23819a00c48bc6361756eeea9282b8de8506e539e879f4ab47c4d6255ff7336f4fe0c0c91' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '16190a70173d8d0066fc438a38bc1fae6a56562659ed34ab996de36618775859c0fd3be45785f8e3' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '22fdb42dfcc92d3fe0aa3e3612b4d98d6efc19a648a809e98c0fe75520fd8a7f6df9b5b8e79bfe0a' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '9b36a905bc424bab7bab7880c9925818229ff007b18a00c087e1c786172468f6c4b0e72b9a7c7f0f' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'e3e50401fcab5ed3e13e876f283f6724e3a96cd7a6ac4a49e3047b50d191c85fc6803819be1ae886' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'e228031747bed675d96d7589a76b3b16773159228632a60852e7a827ae38c74ab30f8b249353d4c9' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0440cc4f5cb30193f6939e397daceeeaa5cd82dd582c888ee8c4f1a481091b495ddd074c0f98e250' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '43a24ccca8000008738617b20e2e3be131e2a65e44976471c8ebd869705d16a4593c7c96a7812445' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b42081f29c8c1f6aaff00f08ad998c462eef04410c6104a36852a17d3d055c6d1e37dbbaeae09445' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '48087bd9903bb658927e627900e06738c02430c83a97914d3594f15b4ff00679de3658e7da1bcb62' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '48087bd9903bb658927e627900e06738c02430c83a97914d3594f15b4ff00679de3658e7da1bcb62' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '48087bd9903bb658927e627900e06738c02430c83a97914d3594f15b4ff00679de3658e7da1bcb62' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b047b637bc27c217c817ce17d417da17e017e627ec27f237f847fe5804780a8810a816b81cd82308' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '70f72f90fc18000663cfceb0ae93dc3df0bb51d4df9e9a15ca6f9fa71bcf0bdfe645fa23ba4e74ce' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7a5431ee3104cf08dd339fc69cf21862c31c48fc93ed5836ee34935764f2ca806f1c37f1679aa570' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b5431ee316c07846e80e7f1a73c8618b0c7123e0e7dab077b8d24d5d93cb2a6378ebfc59e6a95c12' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'af3fba6a0fc19d433c6b16b8ffae4d5eb783473473303c97fe14bdeb0f9b59b7fc226ff001a53f05' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7436b7b6d7b02cf6b3a4d137dd746c8352ca2535e1ff1cbfe473b2ffb06a7fe8c92bdbd9be61d2bc' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '81e8324f038afa3b40f0b47a2f872d34a4c1645dd33aff1c87ef1ce067d067b003b57cc7bc89539f' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3baff00cb490fde6ce067d067b003b57cc61cacd19071d40fd2bec550319c5360731e39d22def7c0' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '70f72f90fc18000663cfceb0ae93dc3df0bb51d4df9e9a15ca6f9fa71bcf0bdfe645fa23ba4e74ce' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '62ffc1303e2fc638bbf0d96033ff1fedf9731d7eaf0c7a014d61d7a67d69fb79764177dcfca6b8ff' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '90251beeb6c617a813121730f9eaf0687a2999e63d382f39ad7408b3f4653832b61304c000e3be7a' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fc68c7ed72db5c46ed0b01f73b77a8a2d3b4ebbb9613c89e6b2ee8d3f8820e3fa8a00fc08b1ff008' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c00030001000000000000007d00030001000000000000007e00030001000000000000007f0001000' at line 3
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 444 rows affected (0.04 sec)
+Records: 444  Duplicates: 0  Warnings: 0
+
+Query OK, 43 rows affected (0.03 sec)
+Records: 43  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 410 rows affected (0.03 sec)
+Records: 410  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 0 rows affected (0.10 sec)
+
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+Query OK, 460 rows affected (0.28 sec)
+Records: 460  Duplicates: 0  Warnings: 0
+
+Query OK, 30 rows affected (0.20 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 487 rows affected (0.18 sec)
+Records: 487  Duplicates: 0  Warnings: 0
+
+Query OK, 20 rows affected (0.20 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+Query OK, 410 rows affected (0.22 sec)
+Records: 410  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+------------------
+
+Klaida aptariama:   https://bugs.mysql.com/bug.php?id=29638
+
+Freda vsh # mysql --user=root --password
+Enter password:    <--- shaknis
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 112
+Server version: 5.5.57-0ubuntu0.14.04.1 (Ubuntu)
+...
+mysql> DROP DATABASE gedcomrhc;
+Query OK, 11 rows affected (0.36 sec)
+...
+mysql> CREATE DATABASE gedcomrhc;
+Query OK, 1 row affected (0.00 sec)
+...
+mysql> USE gedcomrhc;
+Database changed
+mysql> source /home/vsh/Downloads/gedcomrhc.sql
+...
+nepadada
+
+Klaida dar aptariama:   https://bugs.mysql.com/bug.php?id=29638:
+...
+You can also get strange problems with large packets if you are using large BLOB values
+but have not given mysqld access to enough memory to handle the query.
+If you suspect this is the case, try adding ulimit -d 256000 to the beginning of the mysqld_safe script
+and restarting mysqld.
+...
+
+17928-4/vsh ==============================================================================
+
+Suradau klaidos
+    ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
+priežastį ir sprendimą: mysqldump metu duomenis reikia išsaugoti archyvo formate, e.g. zip.
+Prieš rašant į db dump failą išzipuoti.
+--------------------
+Freda vsh # mysql --user=root --password
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 63
+Server version: 5.5.57-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DROP DATABASE gedcomrhc;
+Query OK, 11 rows affected (0.46 sec)
+
+mysql> CREATE DATABASE gedcomrhc;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE gedcomrhc;
+Database changed
+mysql> source /home/vsh/temp/127_12_182_130.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.09 sec)
+
+Query OK, 210 rows affected (0.05 sec)
+Records: 210  Duplicates: 0  Warnings: 0
+
+Query OK, 221 rows affected (0.03 sec)
+Records: 221  Duplicates: 0  Warnings: 0
+
+Query OK, 215 rows affected (0.03 sec)
+Records: 215  Duplicates: 0  Warnings: 0
+
+Query OK, 220 rows affected (0.03 sec)
+Records: 220  Duplicates: 0  Warnings: 0
+
+Query OK, 215 rows affected (0.04 sec)
+Records: 215  Duplicates: 0  Warnings: 0
+
+Query OK, 214 rows affected (0.03 sec)
+Records: 214  Duplicates: 0  Warnings: 0
+
+Query OK, 213 rows affected (0.04 sec)
+Records: 213  Duplicates: 0  Warnings: 0
+
+Query OK, 222 rows affected (0.06 sec)
+Records: 222  Duplicates: 0  Warnings: 0
+
+Query OK, 153 rows affected (0.04 sec)
+Records: 153  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 295 rows affected (0.04 sec)
+Records: 295  Duplicates: 0  Warnings: 0
+
+Query OK, 165 rows affected (0.04 sec)
+Records: 165  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.07 sec)
+
+Query OK, 155 rows affected (0.03 sec)
+Records: 155  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 30 rows affected (0.03 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.13 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.19 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.16 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.25 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.15 sec)
+
+Query OK, 1 row affected (0.36 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.11 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.34 sec)
+
+Query OK, 1 row affected (0.15 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.16 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.26 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.24 sec)
+
+Query OK, 0 rows affected (0.26 sec)
+
+Query OK, 444 rows affected (0.06 sec)
+Records: 444  Duplicates: 0  Warnings: 0
+
+Query OK, 43 rows affected (0.12 sec)
+Records: 43  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 20 rows affected (0.03 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.19 sec)
+
+Query OK, 410 rows affected (0.04 sec)
+Records: 410  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+Query OK, 460 rows affected (0.32 sec)
+Records: 460  Duplicates: 0  Warnings: 0
+
+Query OK, 30 rows affected (0.20 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+Query OK, 66 rows affected (2.88 sec)
+Records: 66  Duplicates: 0  Warnings: 0
+
+Query OK, 487 rows affected (0.17 sec)
+Records: 487  Duplicates: 0  Warnings: 0
+
+Query OK, 20 rows affected (0.17 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+Query OK, 410 rows affected (0.20 sec)
+Records: 410  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+--------------------
+
+
+Sulyginau  DB table'ų dydžius  Open Shift RHC  ir  atkeltoje į NEXUS dydžius naudojant
+            DB: gedcom db table size:
+
+select count(*) as `person-kiekis` from `person`;
+select count(*) as `personevent-kiekis` from `personevent`;
+select count(*) as `personattrib-kiekis` from `personattrib`;
+select count(*) as `family-kiekis` from `family`;
+select count(*) as `familyevent-kiekis` from `familyevent`;
+select count(*) as `eventdetail-kiekis` from `eventdetail`;
+select count(*) as `multimedia` from `multimedia`;
+select count(*) as `audit-kiekis` from `audit`;
+select count(*) as `users-kiekis` from `users`;
+
+Table           rhc v2   gedcomrhc
+-----------     ------   ---------
+person          487      487
+personevent     410      410
+personattrib    20       20
+family          155      155
+familyevent     30       30
+eventdetail     460      460
+multimedia      66       66
+users           6        6
+audit           1883     1883
+
+
+17929-5/vsh ==============================================================================
+
+Google: [ mysql rename database command ]
+https://www.a2hosting.com/kb/developer-corner/mysql/renaming-a-mysql-database
+https://stackoverflow.com/questions/67093/how-do-i-quickly-rename-a-mysql-database-change-schema-name
+http://www.rndblog.com/how-to-rename-a-database-in-mysql/
+
+
+17930-6/vsh ==============================================================================
+
+RHC Openshift v2 --> v3
+
+    JBoss WS (Tomcat)
+$ git remote add <remote-name> https://github.com/<github-id>/<repo-name>
+$ git remote add <remote-name> https://github.com/vytasab/gedcom-rhcv2
+
+
+$ rhc ssh <v2_application_name>
+$ rhc ssh gedcom-vytasab
+$ mysqldump --skip-lock-tables -h $OPENSHIFT_MYSQL_DB_HOST -P ${OPENSHIFT_MYSQL_DB_PORT:-3306} -u ${OPENSHIFT_MYSQL_DB_USERNAME:-'admin'} \
+ --password="$OPENSHIFT_MYSQL_DB_PASSWORD" --all-databases > ~/app-root/data/all.sql
+$ mysqldump --skip-lock-tables -h 127.12.182.130 -P 3306 -u adminl8hhbmy --password=sGGbni1RAMII --all-databases > ~/Projects/gedcom-master/temp/gedcom-rhcv2-db/all.sql
+$ exit
+
+       <!--  mvn -Pprod-rhc -Dmaven.test.skip=true clean install  -->
+        <profile>
+            <id>prod-rhc</id>
+            <activation><property><name>prod-rhc-on</name></property></activation>
+            <properties>
+                <db_driver>com.mysql.jdbc.Driver</db_driver>
+                <!--<db_url>jdbc:mysql://127.12.182.130:3306/gedcom</db_url>-->
+                <db_url>jdbc:mysql://127.12.182.130:3306/gedcom?characterEncoding=utf8</db_url>
+                <db_user>adminl8hhbmy</db_user>
+                <db_password>sGGbni1RAMII</db_password>
+                <__app>/gedcom/</__app>
+                <!--16511-3/vsh deprecated <loc_texts_4XSL>./webapps/gedcom/WEB-INF/classes/xsl/locTexts4XSL.xml</loc_texts_4XSL>-->
+            </properties>
+
+
+17A07-6/vsh ==============================================================================
+
+*****  Save current ds-gedcom-dev and then update the database useing RHC database  *****
+
+Freda vsh # mysqldump -u shaknisgedcom -p  ds-gedcom-dev > /home/vsh/temp/ds-gedcom-dev_till_17A01-7.sql
+Enter password:
+Freda vsh # mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 69
+Server version: 5.5.57-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DROP DATABASE `ds-gedcom-dev`;
+Query OK, 11 rows affected (0.43 sec)
+
+mysql> CREATE DATABASE `ds-gedcom-dev`;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE `ds-gedcom-dev`;
+Database changed
+
+mysql> SOURCE /home/vsh/dumps/127_12_182_130.sql;
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.10 sec)
+Query OK, 210 rows affected (0.06 sec)
+Records: 210  Duplicates: 0  Warnings: 0
+Query OK, 221 rows affected (0.03 sec)
+Records: 221  Duplicates: 0  Warnings: 0
+Query OK, 215 rows affected (0.03 sec)
+Records: 215  Duplicates: 0  Warnings: 0
+Query OK, 220 rows affected (0.05 sec)
+Records: 220  Duplicates: 0  Warnings: 0
+Query OK, 215 rows affected (0.03 sec)
+Records: 215  Duplicates: 0  Warnings: 0
+Query OK, 214 rows affected (0.04 sec)
+Records: 214  Duplicates: 0  Warnings: 0
+Query OK, 213 rows affected (0.04 sec)
+Records: 213  Duplicates: 0  Warnings: 0
+Query OK, 222 rows affected (0.04 sec)
+Records: 222  Duplicates: 0  Warnings: 0
+Query OK, 153 rows affected (0.03 sec)
+Records: 153  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.07 sec)
+Query OK, 295 rows affected (0.04 sec)
+Records: 295  Duplicates: 0  Warnings: 0
+Query OK, 165 rows affected (0.04 sec)
+Records: 165  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 155 rows affected (0.06 sec)
+Records: 155  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.07 sec)
+Query OK, 30 rows affected (0.04 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.05 sec)
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+Query OK, 1 row affected (0.04 sec)
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.07 sec)
+Query OK, 1 row affected (0.06 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.06 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.07 sec)
+Query OK, 1 row affected (0.07 sec)
+Query OK, 1 row affected (0.07 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.11 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.36 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 1 row affected (0.06 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.07 sec)
+Query OK, 1 row affected (0.09 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 1 row affected (0.27 sec)
+Query OK, 1 row affected (0.10 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.08 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 1 row affected (0.30 sec)
+Query OK, 1 row affected (0.10 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.02 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.34 sec)
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.06 sec)
+Query OK, 1 row affected (0.07 sec)
+Query OK, 1 row affected (0.10 sec)
+Query OK, 1 row affected (0.05 sec)
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 444 rows affected (0.03 sec)
+Records: 444  Duplicates: 0  Warnings: 0
+Query OK, 43 rows affected (0.03 sec)
+Records: 43  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.05 sec)
+Query OK, 20 rows affected (0.03 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 410 rows affected (0.03 sec)
+Records: 410  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 0 rows affected (0.06 sec)
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+Query OK, 460 rows affected (0.35 sec)
+Records: 460  Duplicates: 0  Warnings: 0
+Query OK, 30 rows affected (0.19 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+Query OK, 66 rows affected (2.69 sec)
+Records: 66  Duplicates: 0  Warnings: 0
+Query OK, 487 rows affected (0.24 sec)
+Records: 487  Duplicates: 0  Warnings: 0
+Query OK, 20 rows affected (0.16 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+Query OK, 410 rows affected (0.16 sec)
+Records: 410  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT User, Host, Password FROM mysql.user;
++------------------+-----------+-------------------------------------------+
+| User             | Host      | Password                                  |
++------------------+-----------+-------------------------------------------+
+| root             | localhost | *4ACF3AD88882657152AC4C85AD0759AA043AC746 |
+| root             | freda     | *4ACF3AD88882657152AC4C85AD0759AA043AC746 |
+| root             | 127.0.0.1 | *4ACF3AD88882657152AC4C85AD0759AA043AC746 |
+| shaknisgedcom    | localhost | *3CF2A395B274B34590347656989D5765F6796BDE |
+| debian-sys-maint | localhost | *B8A1D5B16D91783B64A825F9D47536F42EB88607 |
+| vsh              | localhost | *C5A3DD5FFA37731886DCBFCBA7E46563AE0E12DD |
++------------------+-----------+-------------------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> GRANT ALL PRIVILEGES ON `ds-gedcom-dev`.* TO 'shaknisgedcom'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+
+
+
+17C030-7/vsh ==============================================================================
+
+Lift Cookbook
+-------------
+    [Link to Download Data]
+http://chimera.labs.oreilly.com/books/1234000000030/ch02.html#_see_also_20
+
+
+
+18201-4/vsh ==============================================================================
+
+http://ged-inline.elasticbeanstalk.com/validate
+
+Validation report for gedcom.ged
+
+Generated by                   gedcom-web
+Submitted by                   padargas
+Encoding                       UTF-8
+GEDCOM version in file         5.5.1
+GEDCOM version assumed         5.5.1
+
+Analysis time                  0 seconds to analyse the file (excluding upload time)
+Speed                          1201 records per second
+
+Lines                    4135  Number of lines in the GEDCOM file
+Records                   644  Number of records
+Warnings                   11  Total number of warning messages
+User-defined                0  Number of lines with user-defined tags
+
+Individuals               487  Number of individuals in the GEDCOM file
+Males                     247  Number of males
+Females                   240  Number of females
+Unknown                     0
+
+Families                  154  Number of families
+Marriages                  28  Number of marriages
+Places                    239  Number of places mentioned (not necessarily unique)
+Source records              0  Number of source records
+
+*** Line 119:     Tag AGE is not allowed under MARR
+*** Line 820:     Invalid content for EDUC tag: '' missing value for <SCHOLASTIC_ACHIEVEMENT>
+*** Line 1919:    Invalid content for NCHI tag: '2 dukros ir 1 sūnus' is more than 3 characters, the maximum length for <COUNT_OF_CHILDREN>
+*** Line 2251:    Invalid content for NCHI tag: 'Linda ROKAS' is more than 3 characters, the maximum length for <COUNT_OF_CHILDREN>
+*** Line 2252:    Invalid content for DATE tag: 'Err:' is not a valid <DATE_VALUE>
+*** Line 3053:    Invalid content for NCHI tag: 'Neturėjo vaikų (0)' is more than 3 characters, the maximum length for <COUNT_OF_CHILDREN>
+*** Line 3568:    Tag AGE is not allowed under MARR
+*** Line 4032:    Tag AGE is not allowed under MARR
+*** Line 4056:    Invalid GEDCOM record 'Google: runkauskas raudėnai'
+*** Line 4056:    Tag xxxx is not allowed under EVEN
+*** Line 4056:    Tags must consist of alphanumerics: 'oogle:'
+
+
+
+
+18MDD-d/vsh ==============================================================================
+18MDD-d/vsh ==============================================================================
 
