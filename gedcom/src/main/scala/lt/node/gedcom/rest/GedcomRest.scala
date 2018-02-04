@@ -22,11 +22,11 @@ object GedcomRest extends XMLApiHelper with Loggable {
     "js_add_father", "js_add_mother",
     "js_add_spouse", "js_add_husband", "js_add_wife",
     "js_add_brother", "js_add_sister",
-    "js_add_son",     "js_add_daughter",
-    "js_full_info",   "js_cancel",   /*"js_go_home",*/
-    "js_go2PeData",   "js_go2ChgPe",   "js_go2FaAct",
+    "js_add_son", "js_add_daughter",
+    "js_full_info", "js_cancel", /*"js_go_home",*/
+    "js_go2PeData", "js_go2ChgPe", "js_go2FaAct",
     "js_goUp", "js_goRight", "js_goLeft", "js_goDown", "js_goInit", "js_canvas_center",
-    "js_svg2png", "js_png2svg", "js_goLeft", "js_goDown", "js_goInit", "js_canvas_center" )
+    "js_svg2png", "js_png2svg", "js_goLeft", "js_goDown", "js_goInit", "js_canvas_center")
   /*
   js_goInit=restore init view
 js_canvas_center=Your mouse click position in canvas will be moved here
@@ -37,10 +37,10 @@ js_canvas_center=Your mouse click position in canvas will be moved here
   def emptyFids = FamilyIds.set(List()) /*fIds = List()*/
 
 
-  def xIsNotYetInJS(xIds: SessionVar [List[Long]], xId: Long): Boolean = {
+  def xIsNotYetInJS(xIds: SessionVar[List[Long]], xId: Long): Boolean = {
     //val result = xIds.get.exists(id => id == xId)
     val result = xIds.get.contains(xId)
-    log.debug(<_>xIsNotYetInJS={xIds.get.toString()} xId={xId} result={result}</_>.text)
+    log.debug(<_>xIsNotYetInJS={xIds.get.toString()}xId={xId}result={result}</_>.text)
     if (!result) xIds.set(xId :: xIds.get)
     log.debug(<_>xIsNotYetInJS={xIds.get.toString()}</_>.text)
     !result
@@ -98,26 +98,29 @@ js_canvas_center=Your mouse click position in canvas will be moved here
       S.unsetSessionAttribute("role")
       S.redirectTo("/gedcom/deletePa")
     case Req(List("rest", "editFe", feId), _, GetRequest) =>
-      log.debug("('rest', 'editFe', "+feId.toString+")")
+      log.debug("('rest', 'editFe', " + feId.toString + ")")
       S.setSessionAttribute("familyEventId", feId)
-      S.unsetSessionAttribute("role")  // ?
+      S.unsetSessionAttribute("role") // ?
       S.redirectTo("/gedcom/editFe")
     case Req(List("rest", "deleteFe", feId), _, GetRequest) =>
       log.debug("('rest', 'deleteFe', feId)")
       S.setSessionAttribute("familyEventId", feId)
-      S.unsetSessionAttribute("role")  // ?
+      S.unsetSessionAttribute("role") // ?
       S.redirectTo("/gedcom/deleteFe")
 
     case Req(List("export", "exportAll", id), _, GetRequest) =>
       S.setSessionAttribute("personId", id)
       S.unsetSessionAttribute("role")
       S.redirectTo("/gedcom/personView")
-      //S.redirectTo("/gedcom/forest")
+    //S.redirectTo("/gedcom/forest")
     case Req(List("export", "exportPart", id), _, GetRequest) =>
       S.setSessionAttribute("personId", id)
       S.unsetSessionAttribute("role")
       S.redirectTo("/addendum/doExportPart")
-
+    case Req(List("export", "exportPartd", id), _, GetRequest) =>
+      S.setSessionAttribute("personId", id)
+      S.unsetSessionAttribute("role")
+      S.redirectTo("/addendum/doExportPartd")
 
 
     case Req(List("rest", "personUpdate", epId), _, GetRequest) =>
@@ -173,7 +176,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
           S.unsetSessionAttribute("attribId")
       }
       S.redirectTo("/gedcom/addeditPA")
-/*
+    /*
     def addPe(): Unit = {
       log.debug(<_>selectedPeTag={selectedPeTag}</_>.text);
       S.redirectTo(<_>/rest/person/{personVar.is.open_!.id}/event/{selectedPeTag}</_>.text)
@@ -271,32 +274,36 @@ js_canvas_center=Your mouse click position in canvas will be moved here
         case "Pe" =>
           S.setSessionAttribute("personId", idXx) // parent (Person) id of future MultiMedia record
         //case "Fa" =>
-        case xx  if (List("PE", "PA", "FE").exists(m => m == xx)) =>
+        case xx if (List("PE", "PA", "FE").exists(m => m == xx)) =>
           S.setSessionAttribute("idParentED", idXx) // parent id of future MultiMedia record
         case _ =>
           val place = "GedComRest addMultiMedia"
-          val msg = "A role is unexpected |"+ role + "|"
-          log.error(place+": "+msg)
+          val msg = "A role is unexpected |" + role + "|"
+          log.error(place + ": " + msg)
           S.redirectTo("/errorPage", () => {
-            ErrorXmlMsg.set(Some(Map("location" -> <p>{place}</p>, "message" -> <p>{msg}</p>)))
+            ErrorXmlMsg.set(Some(Map("location" -> <p>
+              {place}
+            </p>, "message" -> <p>
+              {msg}
+            </p>)))
           })
       }
       S.setSessionAttribute("mmActionCUD", "C")
       S.redirectTo("/gedcom/addMultiMedia")
     case Req(List("rest", "editMultiMedia", idMm), _, GetRequest) =>
-      log.debug("('rest', 'editMultiMedia', "+idMm)
-      S.setSessionAttribute("idMm", idMm)  // tobe updated MultiMedia record id
+      log.debug("('rest', 'editMultiMedia', " + idMm)
+      S.setSessionAttribute("idMm", idMm) // tobe updated MultiMedia record id
       S.setSessionAttribute("mmActionCUD", "U")
       S.redirectTo("/gedcom/editMultiMedia")
     case Req(List("rest", "deleteMultiMedia", idMm), _, GetRequest) =>
-      log.debug("('rest', 'deleteMultiMedia', "+idMm)
-      S.setSessionAttribute("mmId", idMm)  // tobe deleted MultiMedia record id
+      log.debug("('rest', 'deleteMultiMedia', " + idMm)
+      S.setSessionAttribute("mmId", idMm) // tobe deleted MultiMedia record id
       S.setSessionAttribute("mmActionCUD", "D")
       S.redirectTo("/gedcom/deleteMultiMedia")
     case Req(List("rest", _), "", _) => failure _
   }
 
-/*
+  /*
     case Req(List("rest", "deletePa", paId), _, GetRequest) => {
       log.debug("('rest', 'deletePa', paId)")
       S.setSessionAttribute("personAttribId", paId)
@@ -309,7 +316,9 @@ js_canvas_center=Your mouse click position in canvas will be moved here
   def createTag(in: NodeSeq) = {
     // final wrap of responses
     println("[CreateTag] " + in)
-    <gedcom>{in}</gedcom>
+    <gedcom>
+      {in}
+    </gedcom>
   }
 
 
@@ -318,15 +327,27 @@ js_canvas_center=Your mouse click position in canvas will be moved here
     val result: Box[NodeSeq] = aPerson match {
       case Some(p) =>
         Full(<person>
-          <id>{p.id}</id>
-          <nameGivn>{p.nameGivn}</nameGivn>
-          <nameSurn>{p.nameSurn}</nameSurn>
-          <gender>{p.gender}</gender>
+          <id>
+            {p.id}
+          </id>
+          <nameGivn>
+            {p.nameGivn}
+          </nameGivn>
+          <nameSurn>
+            {p.nameSurn}
+          </nameSurn>
+          <gender>
+            {p.gender}
+          </gender>
         </person>)
       case None =>
         Full(<person>
-          <id>{id}</id>
-          <errmsg>{S.?("no.person.for.this.id")}</errmsg>
+          <id>
+            {id}
+          </id>
+          <errmsg>
+            {S.?("no.person.for.this.id")}
+          </errmsg>
         </person>)
     }
     result.toResponse
@@ -355,8 +376,12 @@ js_canvas_center=Your mouse click position in canvas will be moved here
    */
   def getPersonJS(area: Tuple3[Int, Int, Boolean], id: Long, generation: Int, jsText: StringBuffer, sbIdGen: StringBuffer): Unit = {
     log.debug("getPersonJS []... id=" + id.toString)
-    log.debug(<_>GedcomRest S.getSessionAttribute("showPersonDescendAncest")={S.getSessionAttribute("showPersonDescendAncest").toString}</_>.text);
-    log.debug(<_>GedcomRest S.get("showPersonDescendAncest")={S.get("showPersonDescendAncest").toString}</_>.text);
+    log.debug(<_>GedcomRest S.getSessionAttribute("showPersonDescendAncest")=
+      {S.getSessionAttribute("showPersonDescendAncest").toString}
+    </_>.text);
+    log.debug(<_>GedcomRest S.get("showPersonDescendAncest")=
+      {S.get("showPersonDescendAncest").toString}
+    </_>.text);
     Model.find(classOf[Person], id) match {
       case Some(z) if this.pIsNotYetInJS(z.id) =>
         (-area._1 <= generation, area._2 >= generation) match {
@@ -366,7 +391,9 @@ js_canvas_center=Your mouse click position in canvas will be moved here
             // show
             val familyIdPart = z.family match {
               case null => ""
-              case _ => <_>p.familyId={z.family.id};</_>.text
+              case _ => <_>p.familyId=
+                {z.family.id}
+                ;</_>.text
             }
             val familyPart = z.family match {
               case null => ""
@@ -382,10 +409,10 @@ js_canvas_center=Your mouse click position in canvas will be moved here
                 val sbf: StringBuffer = new StringBuffer("")
                 getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
                 sbf.toString
-//              case _ if generation > 0 /*&& S.getSessionAttribute("rootIdDescFamIds").toString.contains(z.family.id)*/ =>
-//                val sbf: StringBuffer = new StringBuffer("")
-//                getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
-//                sbf.toString
+              //              case _ if generation > 0 /*&& S.getSessionAttribute("rootIdDescFamIds").toString.contains(z.family.id)*/ =>
+              //                val sbf: StringBuffer = new StringBuffer("")
+              //                getFamilyJS((area._1, area._2, area._3, id), z.family, generation - 1, sbf, sbIdGen)
+              //                sbf.toString
               case _ => ""
             }
             val fams = z.families(Model.getUnderlying)
@@ -406,22 +433,22 @@ js_canvas_center=Your mouse click position in canvas will be moved here
                 fdIds.append("';")
               case Nil =>
             }
-            val birtDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "BIRT")
-            val deatDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "DEAT")
+            val birtDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/ , "BIRT")
+            val deatDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/ , "DEAT")
             sbIdGen.append(z.id + "," + generation + " ");
             jsText.append("\nvar p={};var r=[];p.r=r;" +
               <_>p.id={z.id};g['p'+p.id]=p;p.generation={generation};p.nameGivn='{z.nameGivn}';p.nameSurn='{z.nameSurn}';p.gender='{z.gender}';</_>.text +
               /* E118-6/vsh */
               /*  <_>p.bd='{birtDatePlace._1}';p.bp='{birtDatePlace._2.replaceAll("'", "")}';</_>.text +
               <_>p.dd='{deatDatePlace._1}';p.dp='{deatDatePlace._2.replaceAll("'", "")}';</_>.text +*/
-              (if (birtDatePlace._1.replaceAll("'", "").size>0) <_>p.bd='{birtDatePlace._1.replaceAll("'", "")}';</_>.text else "" ) +
-              (if (birtDatePlace._2.replaceAll("'", "").size>0) <_>p.bp='{birtDatePlace._2.replaceAll("'", "")}';</_>.text else "" ) +
-              (if (deatDatePlace._1.replaceAll("'", "").size>0) <_>p.dd='{deatDatePlace._1.replaceAll("'", "")}';</_>.text else "" ) +
-              (if (deatDatePlace._2.replaceAll("'", "").size>0) <_>p.dp='{deatDatePlace._2.replaceAll("'", "")}';</_>.text else "" ) +
+              (if (birtDatePlace._1.replaceAll("'", "").size > 0) <_>p.bd='{birtDatePlace._1.replaceAll("'", "")}';</_>.text else "") +
+              (if (birtDatePlace._2.replaceAll("'", "").size > 0) <_>p.bp='{birtDatePlace._2.replaceAll("'", "")}';</_>.text else "") +
+              (if (deatDatePlace._1.replaceAll("'", "").size > 0) <_>p.dd='{deatDatePlace._1.replaceAll("'", "")}';</_>.text else "") +
+              (if (deatDatePlace._2.replaceAll("'", "").size > 0) <_>p.dp='{deatDatePlace._2.replaceAll("'", "")}';</_>.text else "") +
               familyIdPart + fdIds + sbFams + familyPart);
-            //}
+          //}
           case _ =>
-            log.debug("getPersonJS case "+ (-area._1 <= generation).toString+" "+(area._2 >= generation).toString+" "+z.toString(Model.getUnderlying));
+            log.debug("getPersonJS case " + (-area._1 <= generation).toString + " " + (area._2 >= generation).toString + " " + z.toString(Model.getUnderlying));
           /*
                     case (false, false) =>
                       log.debug("getPersonJS case false false " + z.toString(Model.getUnderlying));
@@ -465,7 +492,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
           var childrenIds: StringBuffer = new StringBuffer("")
           if (family.husbandId > 0) this.getPersonJS((area._1, area._2, area._3), family.husbandId, generation, jsText, sbIdGen)
           if (family.wifeId > 0) this.getPersonJS((area._1, area._2, area._3), family.wifeId, generation, jsText, sbIdGen)
-          if (area._3/* || generation >= 0*/) {
+          if (area._3 /* || generation >= 0*/ ) {
             // show siblings
             (generation >= 0) match {
               case true =>
@@ -492,7 +519,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
           )
         }
         case _ =>
-          log.debug("getFamilyJS case "+ (-area._1 <= generation).toString+" "+(area._2 >= generation).toString+" "+family.toString(Model.getUnderlying));
+          log.debug("getFamilyJS case " + (-area._1 <= generation).toString + " " + (area._2 >= generation).toString + " " + family.toString(Model.getUnderlying));
         /*
                 case (false, false) =>
                   log.debug("getFamilyJS case false false " + family.toString(Model.getUnderlying));
@@ -506,7 +533,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
       }
     }
 
-  def getPeEvent(pe: Person, evenTag: String): Tuple2 [String/*date*/, String/*place*/] = {
+  def getPeEvent(pe: Person, evenTag: String): Tuple2[String /*date*/ , String /*place*/ ] = {
     log.debug("getPeEvent []... ");
     val aList: List[PersonEvent] = pe.personevents.toArray.toList.asInstanceOf[List[PersonEvent]]
     aList.find(pe => pe.tag == evenTag) match {
@@ -520,7 +547,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
     }
   }
 
-  def getFaEvent(fa: Family, evenTag: String): Tuple2 [String/*date*/, String/*place*/] = {
+  def getFaEvent(fa: Family, evenTag: String): Tuple2[String /*date*/ , String /*place*/ ] = {
     log.debug("getFaEvent []... ");
     val aList: List[FamilyEvent] = fa.familyevents.toArray.toList.asInstanceOf[List[FamilyEvent]]
     aList.find(fe => fe.tag == evenTag) match {
@@ -540,6 +567,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
   }
 
 
+  // -------------------------------------------------------------------------------------------------------------------
   /**
    * area: _1: the number of generations of ancestors;
    * _2: the number of generations of descendants;
@@ -554,7 +582,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
             log.debug("exportPerson case true true " + z.toString(Model.getUnderlying));
             gedText.append(z.toGedcom(Model.getUnderlying, 0, S.locale.getLanguage))
             val fams = z.families(Model.getUnderlying);
-              fams match {
+            fams match {
               case x :: xs => {
                 log.debug("exportPerson families =" + x.toString(Model.getUnderlying));
                 fams.foreach(fam => {
@@ -565,7 +593,7 @@ js_canvas_center=Your mouse click position in canvas will be moved here
             }
           }
           case _ =>
-            log.debug("exportPerson case "+ (-area._1 <= generation).toString+" "+(area._2 >= generation).toString+" "+z.toString(Model.getUnderlying));
+            log.debug("exportPerson case " + (-area._1 <= generation).toString + " " + (area._2 >= generation).toString + " " + z.toString(Model.getUnderlying));
         }
       }
       case None => {
@@ -576,6 +604,102 @@ js_canvas_center=Your mouse click position in canvas will be moved here
       }
     }
   }
+
+  // http://stackoverflow.com/questions/2183503/substitute-values-in-a-string-with-placeholders-in-scala
+
+
+  //            val birtDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "BIRT")
+  //            val deatDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "DEAT")
+  //            sbIdGen.append(z.id + "," + generation + " ");
+  //            jsText.append("\nvar p={};var r=[];p.r=r;" +
+  //              <_>p.id={z.id};g['p'+p.id]=p;p.generation={generation};p.nameGivn='{z.nameGivn}';p.nameSurn='{z.nameSurn}';p.gender='{z.gender}';</_>.text +
+  //              <_>p.bd='{birtDatePlace._1}';p.bp='{birtDatePlace._2}';</_>.text +
+  //              <_>p.dd='{deatDatePlace._1}';p.dp='{deatDatePlace._2}';</_>.text +
+  //              familyIdPart + fdIds + sbFams + familyPart);
+
+
+  /**
+   * id: Long, -- person id
+   * skipFamily: Boolean, -- do not process Family of the person
+   * generation: Int, --  ...,-2,-1 - parents, 0 - current person, 1,2,... - childrens
+   * jsText: StringBuffer, -- JS assoc array
+   * sbIdGen: StringBuffer) -- personId,generation [...]
+   * return Unit
+   */
+  // TODO test generarion>1 case
+
+  /**
+   * area: _1: the number of generations of ancestors;
+   *       _2: the number of generations of descendants;
+   *       _3: true -> show siblings, false - no
+   * id: Long, -- person id
+   * gedText: StringBuffer
+   * generation: Int, --  ...,-2,-1 - parents, 0 - current person, 1,2,... - childrens
+   */
+  //  def exportPerson(area: Tuple3[Int, Int, Boolean], id: Long, generation: Int, gedText: StringBuffer): Unit = {
+  def getPersonGED(area: Tuple3[Int, Int, Boolean], id: Long, generation: Int, /*js*/gedText: StringBuffer/*, sbIdGen: StringBuffer*/): Unit = {
+    S.setSessionAttribute("showPersonDescendAncest","1")
+    S.set("ancestNum", "10")
+    S.set("descendNum", "10")
+    S.set("showSiblings", "1")
+    log.debug("getPersonGED []... id=" + id.toString)
+    log.debug(<_>GedcomRest S.getSessionAttribute("showPersonDescendAncest")=
+      {S.getSessionAttribute("showPersonDescendAncest").toString}</_>.text);
+    log.debug(<_>GedcomRest S.get("showPersonDescendAncest")=
+      {S.get("showPersonDescendAncest").toString}</_>.text);
+    Model.find(classOf[Person], id) match {
+      case Some(z) if this.pIsNotYetInJS(z.id) =>
+        (-area._1 <= generation, area._2 >= generation) match {
+          case (true, true) =>
+            log.debug("getPersonGED case true true " + z.toString(Model.getUnderlying))
+            gedText.append(z.toGedcom(Model.getUnderlying, 0, S.locale.getLanguage))
+            val familyPart = z.family match {
+              case null => //""
+                log.debug("getPersonGED []... case null")
+                ""
+              case _ if S.getSessionAttribute("showPersonDescendAncest").openOr("1").toInt.equals(0) && generation <= 0 =>
+                log.debug("getPersonGED []... case 2")
+                getFamilyGED((area._1, area._2, area._3, id), z.family, generation - 1, gedText)
+              case _ if S.getSessionAttribute("showPersonDescendAncest").openOr("1").toInt.equals(1) =>
+                log.debug("getPersonGED []... case 3")
+                getFamilyGED((area._1, area._2, area._3, id), z.family, generation - 1, gedText)
+              case _ => //""
+                log.debug("getPersonGED []... case _")
+                ""
+            }
+            val fams = z.families(Model.getUnderlying)
+            fams match {
+              case x :: xs =>
+                log.debug("getPersonGED families =" + x.toString(Model.getUnderlying));
+                fams.foreach(fam => {getFamilyGED((area._1, area._2, area._3, 0L), fam, generation, gedText)})
+              case Nil =>
+            }
+          case _ =>
+            log.debug("getPersonGED case " + (-area._1 <= generation).toString + " " + (area._2 >= generation).toString + " " + z.toString(Model.getUnderlying));
+          /*
+          case (false, false) =>
+            log.debug("getPersonJS case false false " + z.toString(Model.getUnderlying));
+          case (false, true) =>
+            log.debug("getPersonJS case false true " + z.toString(Model.getUnderlying));
+          case (true, false) =>
+            log.debug("getPersonJS case true false " + z.toString(Model.getUnderlying));
+          */
+        }
+//--------------------------------------------------------------------------
+      case None => {
+        log.warn("getPersonGED Model.find(classOf[Person], id) match case None");
+        /*jsText.append("\nvar p={};var r=[];p.r=r;" + <_>p.id=
+          {id}
+          ;g['p'+p.id]=p;p.errmsg='
+          {S.?("no.person.for.this.id")}
+          ';</_>.text)*/
+      }
+      case _ => {
+        log.warn("getPersonGED Model.find(classOf[Person], id) match case _");
+      }
+    }
+  }
+
 
   /**
    * area: _1: the number of generations of ancestors;
@@ -597,25 +721,50 @@ js_canvas_center=Your mouse click position in canvas will be moved here
       (-area._1 <= generation, area._2 >= generation) match {
         case (true, true) => {
           log.debug("getFamilyJS case true true " + family.toString(Model.getUnderlying));
-          if (family.husbandId > 0)this.exportPerson((area._1, area._2, area._3), family.husbandId, generation, gedText)
-          if (family.wifeId > 0)this.exportPerson((area._1, area._2, area._3), family.wifeId, generation, gedText)
+          if (family.husbandId > 0) this.exportPerson((area._1, area._2, area._3), family.husbandId, generation, gedText)
+          if (family.wifeId > 0) this.exportPerson((area._1, area._2, area._3), family.wifeId, generation, gedText)
           gedText.append(family.toGedcom(Model.getUnderlying, 0, S.locale.getLanguage))
         }
         case _ =>
-          log.debug("getFamilyJS case "+ (-area._1 <= generation).toString+" "+(area._2 >= generation).toString+" "+family.toString(Model.getUnderlying));
+          log.debug("getFamilyJS case " + (-area._1 <= generation).toString + " " + (area._2 >= generation).toString + " " + family.toString(Model.getUnderlying));
       }
     }
 
+  /**
+   * area: _1: the number of generations of ancestors;
+   * _2: the number of generations of descendants;
+   * _3: true -> show siblings, false - no
+   * _4: the calling Person id or 0L
+   */
+  //def exportFamily(area: Tuple4[Int, Int, Boolean, Long], family: Family, generation: Int, gedText: StringBuffer): Unit =
+  def getFamilyGED(area: Tuple4[Int, Int, Boolean, Long], family: Family, generation: Int, /*js*/gedText: StringBuffer/*, sbIdGen: StringBuffer*/): Unit =
+    if (this.fIsNotYetInJS(family.id)) {
+      //bc02-4 if (family.children.size > 0) {
+      (generation >= 0) match {
+        case true =>
+          val iter = family.children.iterator
+          while (iter.hasNext) {
+            val c: Person = iter.next()
+            this.getPersonGED((area._1, area._2, area._3), c.id, generation + 1, gedText)
+          }
+        case false =>
+      }
+      ///bc02-4 }
+      (-area._1 <= generation, area._2 >= generation) match {
+        case (true, true) => {
+          log.debug("getFamilyGED case true true " + family.toString(Model.getUnderlying));
+          //var childrenIds: StringBuffer = new StringBuffer("")
+          if (family.husbandId > 0) this.getPersonGED((area._1, area._2, area._3), family.husbandId, generation, gedText)
+          if (family.wifeId > 0) this.getPersonGED((area._1, area._2, area._3), family.wifeId, generation, gedText)
+          gedText.append(family.toGedcom(Model.getUnderlying, 0, S.locale.getLanguage))
+          //if (childrenIds.length > 0) childrenIds = new StringBuffer("f.children='" + childrenIds.toString + "';");
+          //val marrDatePlace: Tuple2[String, String] = this.getFaEvent(family, "MARR")
+          //val divDatePlace: Tuple2[String, String] = this.getFaEvent(family, "DIV")
+        }
+        case _ =>
+          log.debug("getFamilyGED case " + (-area._1 <= generation).toString + " " + (area._2 >= generation).toString + " " + family.toString(Model.getUnderlying));
+      }
+    }
+
+
 }
-
-// http://stackoverflow.com/questions/2183503/substitute-values-in-a-string-with-placeholders-in-scala
-
-
-//            val birtDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "BIRT")
-//            val deatDatePlace: Tuple2[String, String] = this.getPeEvent(z /*Person*/, "DEAT")
-//            sbIdGen.append(z.id + "," + generation + " ");
-//            jsText.append("\nvar p={};var r=[];p.r=r;" +
-//              <_>p.id={z.id};g['p'+p.id]=p;p.generation={generation};p.nameGivn='{z.nameGivn}';p.nameSurn='{z.nameSurn}';p.gender='{z.gender}';</_>.text +
-//              <_>p.bd='{birtDatePlace._1}';p.bp='{birtDatePlace._2}';</_>.text +
-//              <_>p.dd='{deatDatePlace._1}';p.dp='{deatDatePlace._2}';</_>.text +
-//              familyIdPart + fdIds + sbFams + familyPart);

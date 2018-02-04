@@ -263,6 +263,7 @@ class Person  {
     val txt: StringBuffer = new StringBuffer(<_>{levelNumber} @I{id.toString}@ INDI</_>.text+"\n")
     txt.append(<_>1 NAME {nameGivn} /{nameSurn}/</_>.text+"\n")
     txt.append(<_>1 SEX {gender}</_>.text+"\n")
+    if (family!=null) txt.append(<_>1 FAMC @F{family.id}@</_>.text+"\n")  // 18126-5/vsh
     for (e <- this.personevents.toList)
       txt.append(e.toGedcom(em, levelNumber+1, lang))  // <INDIVIDUAL_EVENT_STRUCTURE>
     for (a <- this.personattribs.toList)

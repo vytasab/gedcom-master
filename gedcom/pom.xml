@@ -338,13 +338,16 @@
                 </executions>
             </plugin>-->
 
+<!-- 18118-4/vsh -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
+                <version>2.0.0</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>native2ascii</goal>
+                            <!--<goal>native2ascii</goal>-->
+                            <goal>resources</goal>
                         </goals>
                         <!-- specific configurations -->
                         <configuration>
@@ -354,6 +357,7 @@
                     </execution>
                 </executions>
             </plugin>
+
 
             <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -580,7 +584,8 @@
                         <executions>
                             <execution>
                                 <goals>
-                                    <goal>native2ascii</goal>
+                                    <!--<goal>native2ascii</goal>-->
+                                    <goal>resources</goal>
                                 </goals>
                                 <configuration>
                                     <encoding>UTF8</encoding>
@@ -712,7 +717,8 @@
                         <executions>
                             <execution>
                                 <goals>
-                                    <goal>native2ascii</goal>
+                                    <!--<goal>native2ascii</goal>-->
+                                    <goal>resources</goal>
                                 </goals>
                                 <configuration>
                                     <encoding>UTF8</encoding>
@@ -802,7 +808,8 @@
                         <executions>
                             <execution>
                                 <goals>
-                                    <goal>native2ascii</goal>
+                                    <!--<goal>native2ascii</goal>-->
+                                    <goal>resources</goal>
                                 </goals>
                                 <configuration>
                                     <encoding>UTF8</encoding>
@@ -832,6 +839,5 @@
             </plugin>
         </plugins>
     </reporting>
-
 
 </project>

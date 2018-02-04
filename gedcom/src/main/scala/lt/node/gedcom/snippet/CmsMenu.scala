@@ -1,7 +1,7 @@
 package lt.node.gedcom.snippet
 
 import _root_.scala.xml.NodeSeq
-import _root_.net.liftweb.widgets.menu._
+import _root_.net.liftweb.widgets.menu.{MenuWidget,MenuStyle}
 
 class CmsMenu {
 

@@ -26,19 +26,14 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <!--<version>${scala.version}</version>-->
-            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
-            <!--<scope>test</scope>-->
         </dependency>
 
         <dependency>
             <groupId>org.scala-libs</groupId>
-            <!--<artifactId>scalajpa_2.9.2</artifactId>-->
-            <!-- d613-4/vsh <artifactId>scalajpa_${scala.version}</artifactId>-->
             <artifactId>scalajpa_${scalajpa.scala.version}</artifactId>
             <version>1.4</version>
         </dependency>
@@ -51,7 +46,6 @@
         <dependency>
             <groupId>net.liftweb</groupId>
             <artifactId>lift-jpa_${lift.jar.scala.version}</artifactId>
-            <!--<artifactId>lift-jpa_2.9.1</artifactId>-->
         </dependency>
         <!--  D_B  d_r_i_v_e_r_s  -->
         <dependency>
@@ -139,7 +133,7 @@
             <properties>
                 <hibernate.dialect>org.hibernate.dialect.MySQLDialect</hibernate.dialect>
                 <hibernate.connection.driver_class>com.mysql.jdbc.Driver</hibernate.connection.driver_class>
-                <hibernate.connection.url>jdbc:mysql://localhost:3306/ds-gedcom-dev</hibernate.connection.url>
+                <hibernate.connection.url>jdbc:mysql://localhost:3306/ds-gedcom-dev?characterEncoding=utf8</hibernate.connection.url>
                 <hibernate.connection.username>shaknisgedcom</hibernate.connection.username>
                 <hibernate.connection.password>271314log</hibernate.connection.password>
                 <hibernate.max_fetch_depth>3</hibernate.max_fetch_depth>

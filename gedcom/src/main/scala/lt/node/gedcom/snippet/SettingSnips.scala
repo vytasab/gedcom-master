@@ -36,7 +36,7 @@ class SettingSnips {
 
     //"#lang_lbl" #> S.?("set.locale") &
     "#lang" #> SHtml.select(Locales.LocalesVar.is.toSeq, Full(S.locale.toString),
-    {x:String => selectedLocale=x }/*, "size" ->"1"*//*(Locales.langs.size.toString)*/,
+    {x:String => selectedLocale=x }, "size" ->(Locales.langs.size.toString),
     "onblur" -> "selectWhenChanged(this)", "onchange" -> "selectWhenChanged(this)")  &
     /*"#lang" #> SHtml.radio(Locales.langs/*.toSeq*/, Full(S.locale.toString),{x:String => selectedLocale = x },
     "onblur" -> "selectWhenChanged(this)", "onchange" -> "selectWhenChanged(this)").toForm  &*/

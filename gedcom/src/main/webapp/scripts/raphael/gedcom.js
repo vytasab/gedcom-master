@@ -1580,7 +1580,7 @@ Raphael.fn.hideForest = function() {
     }
     G.topRect.hide()
     go2TopLeft.hide(); goUp.hide(); goRight.hide(); goLeft.hide(); goDown.hide();
-    centras.hide(); go2BottomRight.hide();
+    centras.hide(); /*go2BottomRight*/go2TopRight.hide();
     var elemHtmlCanvas = document.getElementById("html_canvas");
     elemHtmlCanvas.style.display="";
     elemHtmlCanvas.setAttribute('title', L.js_png2svg);
@@ -2327,17 +2327,16 @@ Raphael.fn.bindPersons = function() { //========================================
         goDown.attr("title", localeString("js_goDown"));
     };
 
-    var go2BottomRight = paper.drawImage( G.app+'images/goRefresh.png',
-        vInitx+scale*G.globWidth-goXxxW-hGap, vInity+scale*G.globHeight-1*goXxxH-1*hGap, 'w', 30);
-    go2BottomRight.node.onclick = function() {
+    //var go2BottomRight = paper.drawImage( G.app+'images/goRefresh.png',
+    //    vInitx+scale*G.globWidth-goXxxW-hGap, vInity+scale*G.globHeight-1*goXxxH-1*hGap, 'w', 30);
+    var go2TopRight = paper.drawImage( G.app+'images/goRefresh.png',
+        vInitx+scale*G.globWidth-goXxxW-hGap*2, vInity, 'w', 30);
+    go2TopRight.node.onclick = function() {
         //location.assign(G.app+"/gedcom/forest")
         // 16321-1/vsh  -- svg ==> png experiments
 
         go2TopLeft.hide(); goUp.hide(); goRight.hide(); goLeft.hide(); goDown.hide();
-        centras.hide(); go2BottomRight.hide();
-
-
-
+        centras.hide(); go2TopRight.hide(); /*go2BottomRight.hide();*/
 /*
         //-------------------------------------------
         G.diwe_=G.diwe;
@@ -2351,9 +2350,6 @@ Raphael.fn.bindPersons = function() { //========================================
         G.diwe=G.diwe_;
         //-------------------------------------------
 */
-
-
-
         var wh = getGlobWH();
         G.wMin = wh.wMin;
         G.wMax = wh.wMax;
@@ -2367,7 +2363,7 @@ Raphael.fn.bindPersons = function() { //========================================
         //alert("canvas_svg=|||"+canvas_svg+"|||");
         canvg('html_canvas',canvas_svg);
         go2TopLeft.show(); goUp.show(); goRight.show(); goLeft.show(); goDown.show();
-        centras.show(); go2BottomRight.show();
+        centras.show(); /*go2BottomRight*/go2TopRight.show();
         G.topRect.attr(G.topRectCssAttrs);
 
         //var canvas_html = document.getElementById("html_canvas");
@@ -2450,8 +2446,8 @@ Raphael.fn.bindPersons = function() { //========================================
 
 
     };
-    go2BottomRight.node.onmouseover = function() {
-         go2BottomRight.attr("title", localeString("js_svg2png"));
+    /*go2BottomRight*/go2TopRight.node.onmouseover = function() {
+         /*go2BottomRight*/go2TopRight.attr("title", localeString("js_svg2png"));
     };
 
     //logger('Logger Logger Logger Logger Logger  ')

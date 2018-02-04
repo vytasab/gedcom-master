@@ -1,13 +1,12 @@
 package bootstrap.liftweb
-import org.slf4j.{LoggerFactory, Logger}
-
-import net.liftweb.http._
 import net.liftweb.common.Loggable
+import net.liftweb.http._
 import net.liftweb.sitemap.Loc.If
+import org.slf4j.LoggerFactory
 
 //import http.S.?
+import net.liftweb.sitemap.Loc._
 import net.liftweb.sitemap._
-import Loc._
 /**
  * Created by IntelliJ IDEA.
  * User: padargas
@@ -80,10 +79,11 @@ object MenuInfo  extends Loggable {
     //Menu(Loc("addendum", List("addendum", "export"), S.?("Addendum")),
     //Menu(Loc("addendum", List("topMenu"), S.?("Addendum")),
       Menu(Loc("aExportAll", List("addendum", "doExportAll"), S.?("export.all"),
-        If(() => AccessControl.isDeveloper_?(), () => RedirectResponse(/*"/"*/AccessControl.toGo("/"))))),
+        If(() => AccessControl.isDeveloper_?(), () => RedirectResponse(/*"/"*/AccessControl.toGo("/")))))/*, 2018204-7
       Menu(Loc("aExportPart", List("addendum", "exportPart"), S.?("export.part"))),
-      //Menu(Loc("bExportAll", List("addendum", "doExportAll"), "", Hidden)),
-      Menu(Loc("bExportPart", List("addendum", "doExportPart"), "", Hidden))
+      Menu(Loc("aExportPartd", List("addendum", "exportPartd"), S.?("export.partd"))),
+      Menu(Loc("bExportPart", List("addendum", "doExportPart"), "", Hidden)),
+      Menu(Loc("bExportPartd", List("addendum", "doExportPartd"), "", Hidden))*/
     ),
 /*
     // Build SiteMap

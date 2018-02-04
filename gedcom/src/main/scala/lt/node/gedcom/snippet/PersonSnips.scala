@@ -149,7 +149,7 @@ class PersonSnips {
             <span style="font-size:medium; font-style:normal" >{if (p.gender == "M" ) <img src="../images/gender_M.gif"/> else <img src="../images/gender_F.gif"/>}
               {p.nameGivn + " "}{p.nameSurn}{peEventDate(p, "BIRT")}{peEventDate(p, "DEAT")}</span>
         //  case _ => <span></span>
-        //}
+        //}nweAutoComplete
       }
 
       def peInfoParents(id: Long): NodeSeq = {
@@ -255,6 +255,10 @@ class PersonSnips {
 
   def exportPart = {
     sublistInternal("export/exportPart")
+  }
+
+  def exportPartd = {
+    sublistInternal("export/exportPartd")
   }
 
   def richPersonList = {
